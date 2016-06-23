@@ -87,7 +87,6 @@
         tmp_ctx.beginPath();
         tmp_ctx.moveTo(last_mouse.x, last_mouse.y);
 
-        console.log('----',tmp_ctx.strokeStyle)
         Ref.child(last_mouse.x+":"+last_mouse.y).set({
             lx: last_mouse.x,
             ly: last_mouse.y,
@@ -108,8 +107,7 @@
         //console.log("cur",newdot.nx,newdot.ny);
         tmp_ctx.fillStyle = newdot.color;
         tmp_ctx.strokeStyle = newdot.color;
-
-        console.log('Firebase',tmp_ctx.strokeStyle)
+        tmp_ctx.globalCompositeOperation = 'source-over';
         tmp_ctx.beginPath();
         tmp_ctx.moveTo(parseInt(coords[0]), parseInt(coords[1]));
         tmp_ctx.lineTo(parseInt(newdot.nx), parseInt(newdot.ny));
