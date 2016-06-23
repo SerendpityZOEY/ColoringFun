@@ -25,11 +25,17 @@
         tmp_canvas.style.display = 'none';
     };
 
+
     $('#colors button').on('click', function(){
         tmp_ctx.strokeStyle = $(this).attr('id');
         tmp_ctx.fillStyle = tmp_ctx.strokeStyle;
         console.log(tmp_ctx.strokeStyle);
     })
+
+    $('#reset').on('click', function(){
+        Ref.remove();
+        ctx.clearRect(0,0,tmp_canvas.width,tmp_canvas.height);
+    });
 
     var tmp_canvas = document.createElement('canvas');
     var tmp_ctx = tmp_canvas.getContext('2d');
@@ -94,7 +100,6 @@
             ny: mouse.y,
             color: tmp_ctx.strokeStyle
         });
-
         tmp_ctx.lineTo(mouse.x, mouse.y);
         tmp_ctx.closePath();
         tmp_ctx.stroke();
