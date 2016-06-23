@@ -107,7 +107,7 @@
         //console.log("cur",newdot.nx,newdot.ny);
         tmp_ctx.fillStyle = newdot.color;
         tmp_ctx.strokeStyle = newdot.color;
-
+        tmp_ctx.globalCompositeOperation = 'source-over';
         tmp_ctx.beginPath();
         tmp_ctx.moveTo(parseInt(coords[0]), parseInt(coords[1]));
         tmp_ctx.lineTo(parseInt(newdot.nx), parseInt(newdot.ny));
