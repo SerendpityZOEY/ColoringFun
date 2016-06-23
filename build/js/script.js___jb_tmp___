@@ -79,12 +79,12 @@
     }, false);
 
 
-    /* Drawing on Paint App
+    /* Drawing on Paint App*/
     tmp_ctx.lineWidth = 5;
     tmp_ctx.lineJoin = 'round';
     tmp_ctx.lineCap = 'round';
     tmp_ctx.strokeStyle = 'blue';
-     */
+
     tmp_canvas.addEventListener('mousedown', function(e) {
         tmp_canvas.addEventListener('mousemove', onPaint, false);
     }, false);
@@ -102,13 +102,15 @@
         //tmp_ctx.beginPath();
         //tmp_ctx.moveTo(last_mouse.x, last_mouse.y);
 
+        console.log('test',tmp_ctx.lineWidth)
         Ref.child(last_mouse.x+":"+last_mouse.y).set({
             lx: last_mouse.x,
             ly: last_mouse.y,
             nx: mouse.x,
             ny: mouse.y,
             color: tmp_ctx.strokeStyle,
-            tool: tool
+            tool: tool,
+            size: tmp_ctx.lineWidth
         });
         /*
         tmp_ctx.lineTo(mouse.x, mouse.y);
@@ -129,6 +131,9 @@
         ctx.strokeStyle = newdot.color;
         if(newdot.tool=='pencil'){
             ctx.lineWidth = 1;
+        }else if(newdot.tool=='brush'){
+            console.log('hit')
+            ctx.lineWidth = newdot.size;
         }
         ctx.beginPath();
         ctx.moveTo(parseInt(coords[0]), parseInt(coords[1]));
@@ -171,4 +176,8 @@
     }
 
 
+    document.getElementById("size").addEventListener("change", function(){
+        tmp_ctx.lineWidth = document.getElementById("size").value;
+        console.log('brush tool',tmp_ctx.lineWidth)
+    });
 }());
