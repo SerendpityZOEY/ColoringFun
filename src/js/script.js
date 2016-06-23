@@ -7,13 +7,13 @@
     canvas.width = parseInt(sketch_style.getPropertyValue('width'));
     canvas.height = parseInt(sketch_style.getPropertyValue('height'));
 
-    var tool = 'pencil';
+    var tool = 'brush';
 
     /*Functions handle UI interaction*/
-    document.querySelector('#pencil').onchange = function(){
+    document.querySelector('#brush').onchange = function(){
         if(this.checked) {
-            tool = 'pencil';
-            console.log('pencil is selected.')
+            tool = 'brush';
+            console.log('brush is selected.')
         }
         tmp_canvas.style.display = 'block';
     };
@@ -24,6 +24,12 @@
             console.log('eraser is selected.')
         }
         tmp_canvas.style.display = 'none';
+    };
+
+    document.querySelector('#pencil').onchange = function(){
+        if(this.checked){
+            tool = 'pencil';
+        }
     };
 
 
@@ -73,12 +79,12 @@
     }, false);
 
 
-    /* Drawing on Paint App */
+    /* Drawing on Paint App
     tmp_ctx.lineWidth = 5;
     tmp_ctx.lineJoin = 'round';
     tmp_ctx.lineCap = 'round';
     tmp_ctx.strokeStyle = 'blue';
-
+     */
     tmp_canvas.addEventListener('mousedown', function(e) {
         tmp_canvas.addEventListener('mousemove', onPaint, false);
     }, false);
@@ -101,7 +107,8 @@
             ly: last_mouse.y,
             nx: mouse.x,
             ny: mouse.y,
-            color: tmp_ctx.strokeStyle
+            color: tmp_ctx.strokeStyle,
+            tool: tool
         });
         /*
         tmp_ctx.lineTo(mouse.x, mouse.y);
@@ -120,6 +127,9 @@
         ctx.lineWidth = 5;
         ctx.fillStyle = newdot.color;
         ctx.strokeStyle = newdot.color;
+        if(newdot.tool=='pencil'){
+            ctx.lineWidth = 1;
+        }
         ctx.beginPath();
         ctx.moveTo(parseInt(coords[0]), parseInt(coords[1]));
         ctx.lineTo(parseInt(newdot.nx), parseInt(newdot.ny));
