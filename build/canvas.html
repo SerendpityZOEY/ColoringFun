@@ -29,14 +29,32 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
 
+
+
 <div id="sketch">
     <canvas id="paint"></canvas>
 </div>
+
+<form action="#">
+    <p>
+        <input id="pencil" type="radio" name="tool" value="pencil">
+        <label for="pencil">Pencil</label>
+    </p>
+
+    <p>
+        <input id="eraser" type="radio" name="tool" value="eraser">
+        <label for="eraser">Eraser</label>
+    </p>
+</form>
 
 <style>
     html, body {
         width: 100%;
         height: 100%;
+    }
+
+    body {
+        background: url(http://cssdeck.com/uploads/media/items/1/1SEcq61.png);
     }
 
     #sketch {
@@ -50,6 +68,11 @@
         left: 0px; right: 0;
         bottom: 0; top: 0;
         cursor: crosshair;
+    }
+
+    form {
+        padding: 10px; margin: 10px;
+        background: whiteSmoke;
     }
 </style>
 <script src="js/script.js"></script>
