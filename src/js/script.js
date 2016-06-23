@@ -79,7 +79,7 @@
     }, false);
 
 
-    /* Drawing on Paint App*/
+    /* Initialize parameters*/
     tmp_ctx.lineWidth = 5;
     tmp_ctx.lineJoin = 'round';
     tmp_ctx.lineCap = 'round';
@@ -110,7 +110,8 @@
             ny: mouse.y,
             color: tmp_ctx.strokeStyle,
             tool: tool,
-            size: tmp_ctx.lineWidth
+            size: tmp_ctx.lineWidth,
+            opacity: tmp_ctx.globalAlpha
         });
         /*
         tmp_ctx.lineTo(mouse.x, mouse.y);
@@ -135,6 +136,7 @@
             console.log('hit')
             ctx.lineWidth = newdot.size;
         }
+        ctx.globalAlpha = newdot.opacity;
         ctx.beginPath();
         ctx.moveTo(parseInt(coords[0]), parseInt(coords[1]));
         ctx.lineTo(parseInt(newdot.nx), parseInt(newdot.ny));
@@ -175,9 +177,14 @@
         ctx.stroke();
     }
 
-
+    /*Size Tool*/
     document.getElementById("size").addEventListener("change", function(){
         tmp_ctx.lineWidth = document.getElementById("size").value;
         console.log('brush tool',tmp_ctx.lineWidth)
+    });
+
+    /*Change Opacity*/
+    document.getElementById("opacity").addEventListener("change", function(){
+        tmp_ctx.globalAlpha = document.getElementById("opacity").value/100;
     });
 }());
