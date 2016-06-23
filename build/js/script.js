@@ -9,6 +9,7 @@
 
     var tool = 'pencil';
 
+    /*Functions handle UI interaction*/
     document.querySelector('#pencil').onchange = function(){
         if(this.checked) {
             tool = 'pencil';
@@ -34,9 +35,10 @@
 
     $('#reset').on('click', function(){
         Ref.remove();
-        ctx.clearRect(0,0,tmp_canvas.width,tmp_canvas.height);
+        //ctx.clearRect(0,0,tmp_canvas.width,tmp_canvas.height);
     });
 
+    /*Canvas Attribute*/
     var tmp_canvas = document.createElement('canvas');
     var tmp_ctx = tmp_canvas.getContext('2d');
     tmp_canvas.id='tmp_canvas';
@@ -89,9 +91,10 @@
         tmp_ctx.clearRect(0,0,tmp_canvas.width,tmp_canvas.height);
     }, false);
 
+    /*Push to firebase, not drawing process*/
     var onPaint = function() {
-        tmp_ctx.beginPath();
-        tmp_ctx.moveTo(last_mouse.x, last_mouse.y);
+        //tmp_ctx.beginPath();
+        //tmp_ctx.moveTo(last_mouse.x, last_mouse.y);
 
         Ref.child(last_mouse.x+":"+last_mouse.y).set({
             lx: last_mouse.x,
@@ -100,28 +103,38 @@
             ny: mouse.y,
             color: tmp_ctx.strokeStyle
         });
+        /*
         tmp_ctx.lineTo(mouse.x, mouse.y);
         tmp_ctx.closePath();
         tmp_ctx.stroke();
+        */
     };
 
+    /*Read from firebase then draw*/
     var drawPixel = function(snapshot) {
         var coords = snapshot.key().split(":");
         //console.log("last",coords[0],coords[1]);
         var newdot = snapshot.val();
         //console.log("cur",newdot.nx,newdot.ny);
-        tmp_ctx.fillStyle = newdot.color;
-        tmp_ctx.strokeStyle = newdot.color;
-        tmp_ctx.globalCompositeOperation = 'source-over';
-        tmp_ctx.beginPath();
-        tmp_ctx.moveTo(parseInt(coords[0]), parseInt(coords[1]));
-        tmp_ctx.lineTo(parseInt(newdot.nx), parseInt(newdot.ny));
-        tmp_ctx.closePath();
-        tmp_ctx.stroke();
+        ctx.globalCompositeOperation = 'source-over';
+        ctx.lineWidth = 5;
+        ctx.fillStyle = newdot.color;
+        ctx.strokeStyle = newdot.color;
+        ctx.beginPath();
+        ctx.moveTo(parseInt(coords[0]), parseInt(coords[1]));
+        ctx.lineTo(parseInt(newdot.nx), parseInt(newdot.ny));
+        ctx.closePath();
+        ctx.stroke();
+    };
+
+    /*Functions handle reset and erase with firebase*/
+    var clearPixel = function(snapshot) {
+        ctx.clearRect(0,0,canvas.width,canvas.height);
     };
 
     Ref.on('child_added', drawPixel);
     Ref.on('child_changed', drawPixel);
+    Ref.on('child_removed', clearPixel);
 
     canvas.addEventListener('mousedown', function(e) {
         canvas.addEventListener('mousemove', onErase, false);
@@ -147,6 +160,5 @@
         ctx.stroke();
     }
 
-    Ref.on('child_removed', onErase);
 
 }());

@@ -3,10 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="0c92b944-e30f-4c48-a62f-e2cd1aadc0e2" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/canvas.html" afterPath="$PROJECT_DIR$/build/canvas.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/js/script.js" afterPath="$PROJECT_DIR$/build/js/script.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/firebase-debug.log" afterPath="$PROJECT_DIR$/firebase-debug.log" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/canvas.html" afterPath="$PROJECT_DIR$/src/canvas.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/script.js" afterPath="$PROJECT_DIR$/src/js/script.js" />
     </list>
     <ignored path="Test2.iws" />
@@ -60,8 +57,8 @@
       <file leaf-file-name="script.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/js/script.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="522">
-              <caret line="29" column="44" selection-start-line="29" selection-start-column="44" selection-end-line="29" selection-end-column="44" />
+            <state relative-caret-position="-504">
+              <caret line="44" column="36" selection-start-line="44" selection-start-column="36" selection-end-line="44" selection-end-column="36" />
               <folding />
             </state>
           </provider>
@@ -70,7 +67,7 @@
       <file leaf-file-name="tmp.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/js/tmp.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2982">
+            <state relative-caret-position="4224">
               <caret line="521" column="5" selection-start-line="521" selection-start-column="5" selection-end-line="521" selection-end-column="5" />
               <folding />
             </state>
@@ -80,8 +77,8 @@
       <file leaf-file-name="canvas.jsx" pinned="false" current-in-tab="false">
         <entry file="file://$USER_HOME$/book/src/apps/together/components/canvas.jsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="231">
-              <caret line="123" column="0" selection-start-line="123" selection-start-column="0" selection-end-line="133" selection-end-column="13" />
+            <state relative-caret-position="236">
+              <caret line="185" column="0" selection-start-line="185" selection-start-column="0" selection-end-line="190" selection-end-column="14" />
               <folding />
             </state>
           </provider>
@@ -340,15 +337,15 @@
       <workItem from="1466434904965" duration="6165000" />
       <workItem from="1466489341928" duration="3739000" />
       <workItem from="1466659475345" duration="5964000" />
-      <workItem from="1466698514442" duration="3267000" />
+      <workItem from="1466698514442" duration="4510000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="75049000" />
+    <option name="totallyTimeSpent" value="76292000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="53" y="24" width="1313" height="744" extended-state="7" />
+    <frame x="53" y="24" width="1313" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1926885" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -597,22 +594,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/book/src/apps/together/components/canvas.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="123" column="0" selection-start-line="123" selection-start-column="0" selection-end-line="133" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/js/tmp.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2982">
-          <caret line="521" column="5" selection-start-line="521" selection-start-column="5" selection-end-line="521" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/canvas.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="470">
@@ -640,10 +621,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/js/tmp.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4224">
+          <caret line="521" column="5" selection-start-line="521" selection-start-column="5" selection-end-line="521" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/book/src/apps/together/components/canvas.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="236">
+          <caret line="185" column="0" selection-start-line="185" selection-start-column="0" selection-end-line="190" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/js/script.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="522">
-          <caret line="29" column="44" selection-start-line="29" selection-start-column="44" selection-end-line="29" selection-end-column="44" />
+        <state relative-caret-position="-504">
+          <caret line="44" column="36" selection-start-line="44" selection-start-column="36" selection-end-line="44" selection-end-column="36" />
           <folding />
         </state>
       </provider>
