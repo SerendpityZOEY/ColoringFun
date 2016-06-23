@@ -29,6 +29,31 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
 
+<span id="colors" >
+    <button  class="black" id="#000000"> </button>
+    <button  class="white" id = '#FFFFFF'> </button>
+    <button  class="blue" id = '#0000FF'> </button>
+    <button  class="red" id = '#FF0000'> </button>
+    <button  class="yellow" id = '#FFFF00'> </button>
+    <button  class="green" id = '#008000'> </button>
+    <button  class="purple" id = '#800080'> </button>
+
+    <input type="hidden" id="color_value_form">
+</span>
+
+
+<form action="#">
+    <p>
+        <input id="pencil" type="radio" name="tool" value="pencil">
+        <label for="pencil">Pencil</label>
+    </p>
+
+    <p>
+        <input id="eraser" type="radio" name="tool" value="eraser">
+        <label for="eraser">Eraser</label>
+    </p>
+</form>
+
 <div id="sketch">
     <canvas id="paint"></canvas>
 </div>
@@ -43,6 +68,7 @@
         border: 10px solid gray;
         height: 100%;
         position: relative;
+        cursor: crosshair;
     }
 
     #tmp_canvas {
@@ -51,6 +77,20 @@
         bottom: 0; top: 0;
         cursor: crosshair;
     }
+
+    .black, .white, .blue, .green, .yellow, .red, .purple {
+
+        width:20px;
+        height:20px;
+    }
+
+    .black { background-color:#000000;  }
+    .white { background-color:#FFFFFF; }
+    .blue { background-color:#0000FF;  }
+    .green { background-color:#008000;  }
+    .yellow { background-color:#FFFF00;  }
+    .red { background-color:#FF0000;  }
+    .purple { background-color:#800080; }
 </style>
 <script src="js/script.js"></script>
 
