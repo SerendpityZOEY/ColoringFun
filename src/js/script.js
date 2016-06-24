@@ -8,6 +8,8 @@
     canvas.height = parseInt(sketch_style.getPropertyValue('height'));
 
     var tool = 'brush';
+    var sprayIntervalID;
+
 
     /*Functions handle UI interaction*/
     document.querySelector('#brush').onchange = function(){
@@ -29,6 +31,12 @@
     document.querySelector('#pencil').onchange = function(){
         if(this.checked){
             tool = 'pencil';
+        }
+    };
+
+    document.querySelector('#spray').onchange = function(){
+        if(this.checked){
+            tool = 'spray';
         }
     };
 
@@ -87,6 +95,9 @@
 
     tmp_canvas.addEventListener('mousedown', function(e) {
         tmp_canvas.addEventListener('mousemove', onPaint, false);
+        if(tool=='spray'){
+            sprayIntervalID = setInterval(onPaint, 50);
+        }
     }, false);
 
     tmp_canvas.addEventListener('mouseup', function() {
@@ -95,6 +106,8 @@
         ctx.globalCompositeOperation = 'source-over';
         ctx.drawImage(tmp_canvas,0,0);
         tmp_ctx.clearRect(0,0,tmp_canvas.width,tmp_canvas.height);
+
+        clearInterval(sprayIntervalID);
     }, false);
 
     /*Push to firebase, not drawing process*/
@@ -102,7 +115,6 @@
         //tmp_ctx.beginPath();
         //tmp_ctx.moveTo(last_mouse.x, last_mouse.y);
 
-        console.log('test',tmp_ctx.lineWidth)
         Ref.child(last_mouse.x+":"+last_mouse.y).set({
             lx: last_mouse.x,
             ly: last_mouse.y,
@@ -113,6 +125,9 @@
             size: tmp_ctx.lineWidth,
             opacity: tmp_ctx.globalAlpha
         });
+        if(tool=='spray'){
+            generateSprayParticles(mouse.x,mouse.y),tmp_ctx.lineWidth;
+        }
         /*
         tmp_ctx.lineTo(mouse.x, mouse.y);
         tmp_ctx.closePath();
@@ -132,16 +147,20 @@
         ctx.strokeStyle = newdot.color;
         if(newdot.tool=='pencil'){
             ctx.lineWidth = 1;
-        }else if(newdot.tool=='brush'){
-            console.log('hit')
+        }else if(newdot.tool=='brush' || newdot.tool=='spray'){
             ctx.lineWidth = newdot.size;
         }
         ctx.globalAlpha = newdot.opacity;
-        ctx.beginPath();
-        ctx.moveTo(parseInt(coords[0]), parseInt(coords[1]));
-        ctx.lineTo(parseInt(newdot.nx), parseInt(newdot.ny));
-        ctx.closePath();
-        ctx.stroke();
+        if(newdot.tool!='spray'){
+            ctx.beginPath();
+            ctx.moveTo(parseInt(coords[0]), parseInt(coords[1]));
+            ctx.lineTo(parseInt(newdot.nx), parseInt(newdot.ny));
+            ctx.closePath();
+            ctx.stroke();
+        }else{
+            console.log('reading as spray')
+            generateSprayParticles(parseInt(coords[0]), parseInt(coords[1]),newdot.size);
+        }
     };
 
     /*Functions handle reset and erase with firebase*/
@@ -187,4 +206,77 @@
     document.getElementById("opacity").addEventListener("change", function(){
         tmp_ctx.globalAlpha = document.getElementById("opacity").value/100;
     });
+
+    /*Caalculation for spray tool*/
+    var getRandomOffset = function(radius) {
+        var random_angle = Math.random() * (2*Math.PI);
+        var random_radius = Math.random() * radius;
+
+        // console.log(random_angle, random_radius, Math.cos(random_angle), Math.sin(random_angle));
+
+        return {
+            x: Math.cos(random_angle) * random_radius,
+            y: Math.sin(random_angle) * random_radius
+        };
+    };
+
+    var generateSprayParticles = function(dotx,doty, radius) {
+        // Particle count, or, density
+        var density = 50;
+
+        for (var i = 0; i < density; i++) {
+            var offset = getRandomOffset(radius);
+
+            var x = dotx + offset.x;
+            var y = doty + offset.y;
+
+            ctx.fillRect(x, y, 1, 1);
+        }
+    };
+
+    /*Save canvas as file*/
+    var callDownload = function() {
+        download(paint,'myPicture.png');
+        console.log('save file!')
+    };
+
+    //document.getElementById("save").addEventListener("click", callDownload);
+
+    $('#save').on('click', function(){
+        callDownload();
+    });
+
+    function download(canvas, filename) {
+
+
+        //create a dummy CANVAS
+
+
+        // create an "off-screen" anchor tag
+        var lnk = document.createElement('a'),
+            e;
+
+        // the key here is to set the download attribute of the a tag
+        lnk.download = filename;
+
+        // convert canvas content to data-uri for link. When download
+        // attribute is set the content pointed to by link will be
+        // pushed as "download" in HTML5 capable browsers
+        lnk.href = canvas.toDataURL();
+
+        // create a "fake" click-event to trigger the download
+        if (document.createEvent) {
+
+            e = document.createEvent("MouseEvents");
+            e.initMouseEvent("click", true, true, window,
+                0, 0, 0, 0, 0, false, false, false,
+                false, 0, null);
+
+            lnk.dispatchEvent(e);
+
+        } else if (lnk.fireEvent) {
+
+            lnk.fireEvent("onclick");
+        }
+    };
 }());

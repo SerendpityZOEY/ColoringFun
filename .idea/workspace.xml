@@ -2,8 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0c92b944-e30f-4c48-a62f-e2cd1aadc0e2" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/js/tmp.js" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/js/script.js___jb_tmp___" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/canvas.html" afterPath="$PROJECT_DIR$/build/canvas.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/js/script.js" afterPath="$PROJECT_DIR$/build/js/script.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/firebase-debug.log" afterPath="$PROJECT_DIR$/firebase-debug.log" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/canvas.html" afterPath="$PROJECT_DIR$/src/canvas.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/script.js" afterPath="$PROJECT_DIR$/src/js/script.js" />
     </list>
@@ -26,11 +30,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="canvas.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="canvas.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/canvas.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="182">
-              <caret line="79" column="65" selection-start-line="79" selection-start-column="65" selection-end-line="79" selection-end-column="65" />
+            <state relative-caret-position="117">
+              <caret line="54" column="45" selection-start-line="54" selection-start-column="45" selection-end-line="54" selection-end-column="45" />
               <folding>
                 <element signature="n#style#0;n#button#0;n#span#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#button#1;n#span#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -55,11 +59,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="script.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="script.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/js/script.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="448">
-              <caret line="187" column="74" selection-start-line="187" selection-start-column="74" selection-end-line="187" selection-end-column="74" />
+            <state relative-caret-position="511">
+              <caret line="247" column="0" selection-start-line="247" selection-start-column="0" selection-end-line="247" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="tmp.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/js/tmp.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="36">
+              <caret line="2" column="47" selection-start-line="2" selection-start-column="42" selection-end-line="2" selection-end-column="47" />
               <folding />
             </state>
           </provider>
@@ -68,7 +82,7 @@
       <file leaf-file-name="canvas.jsx" pinned="false" current-in-tab="false">
         <entry file="file://$USER_HOME$/book/src/apps/together/components/canvas.jsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="74">
+            <state relative-caret-position="3330">
               <caret line="185" column="0" selection-start-line="185" selection-start-column="0" selection-end-line="190" selection-end-column="14" />
               <folding />
             </state>
@@ -78,7 +92,7 @@
       <file leaf-file-name="travel.html" pinned="false" current-in-tab="false">
         <entry file="file://$USER_HOME$/book/src/apps/together/travel.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-732">
+            <state relative-caret-position="936">
               <caret line="52" column="0" selection-start-line="52" selection-start-column="0" selection-end-line="61" selection-end-column="8" />
               <folding />
             </state>
@@ -125,8 +139,8 @@
         <option value="$PROJECT_DIR$/src/js/navbar.jsx" />
         <option value="$PROJECT_DIR$/src/css/styles.css" />
         <option value="$PROJECT_DIR$/src/js/tmp.js" />
-        <option value="$PROJECT_DIR$/src/canvas.html" />
         <option value="$PROJECT_DIR$/src/js/script.js" />
+        <option value="$PROJECT_DIR$/src/canvas.html" />
       </list>
     </option>
   </component>
@@ -328,16 +342,17 @@
       <workItem from="1466434904965" duration="6165000" />
       <workItem from="1466489341928" duration="3739000" />
       <workItem from="1466659475345" duration="5964000" />
-      <workItem from="1466698514442" duration="8134000" />
+      <workItem from="1466698514442" duration="8250000" />
+      <workItem from="1466716286734" duration="4453000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="79916000" />
+    <option name="totallyTimeSpent" value="84485000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="53" y="24" width="1313" height="744" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1926885" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -577,9 +592,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/book/src/apps/together/components/canvas.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3330">
+          <caret line="185" column="0" selection-start-line="185" selection-start-column="0" selection-end-line="190" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$USER_HOME$/book/src/apps/together/travel.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-732">
+        <state relative-caret-position="936">
           <caret line="52" column="0" selection-start-line="52" selection-start-column="0" selection-end-line="61" selection-end-column="8" />
           <folding />
         </state>
@@ -587,24 +610,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/js/tmp.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4224">
-          <caret line="521" column="5" selection-start-line="521" selection-start-column="5" selection-end-line="521" selection-end-column="5" />
+        <state relative-caret-position="36">
+          <caret line="2" column="47" selection-start-line="2" selection-start-column="42" selection-end-line="2" selection-end-column="47" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/book/src/apps/together/components/canvas.jsx">
+    <entry file="file://$PROJECT_DIR$/src/js/script.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="74">
-          <caret line="185" column="0" selection-start-line="185" selection-start-column="0" selection-end-line="190" selection-end-column="14" />
+        <state relative-caret-position="511">
+          <caret line="247" column="0" selection-start-line="247" selection-start-column="0" selection-end-line="247" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/canvas.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="79" column="65" selection-start-line="79" selection-start-column="65" selection-end-line="79" selection-end-column="65" />
+        <state relative-caret-position="117">
+          <caret line="54" column="45" selection-start-line="54" selection-start-column="45" selection-end-line="54" selection-end-column="45" />
           <folding>
             <element signature="n#style#0;n#button#0;n#span#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#button#1;n#span#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -625,14 +648,6 @@
             <element signature="n#style#0;n#button#16;n#span#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#button#17;n#span#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/js/script.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="448">
-          <caret line="187" column="74" selection-start-line="187" selection-start-column="74" selection-end-line="187" selection-end-column="74" />
-          <folding />
         </state>
       </provider>
     </entry>
