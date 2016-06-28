@@ -6,3 +6,11 @@
 [debug] ----------------------------------------------------------------------
 [debug] 
 [info] Listening at http://localhost:5000
+[debug] ----------------------------------------------------------------------
+[debug] Command:      /usr/local/bin/node /usr/local/bin/firebase serve
+[debug] Platform:     linux
+[debug] Node Version: v5.4.1
+[debug] Time:         Mon Jun 27 2016 22:45:05 GMT-0600 (MDT)
+[debug] ----------------------------------------------------------------------
+[debug] 
+[info] Listening at http://localhost:5000
