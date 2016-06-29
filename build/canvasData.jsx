@@ -20,3 +20,16 @@ draw.on('value', function(snapshot){
     render_canvas()
     //console.log(data.drawing)
 })
+
+actions.drawingAction = function(last_mouseX,last_mouseY,mouseX,mouseY,color,tool,lineSize,opacity) {
+    draw.child(last_mouseX+":"+last_mouseY).set({
+        lx: last_mouseX,
+        ly: last_mouseY,
+        nx: mouseX,
+        ny: mouseY,
+        color: color,
+        tool: tool,
+        size: lineSize,
+        opacity: opacity
+    });
+}

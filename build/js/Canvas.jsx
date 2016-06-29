@@ -104,20 +104,12 @@ class Canvas extends React.Component {
         }, false);
 
         /*Push to firebase, not drawing process*/
-        var onPaint = function() {
+        var onPaint = function(){
             //tmp_ctx.beginPath();
             //tmp_ctx.moveTo(last_mouse.x, last_mouse.y);
 
-            Ref.child(last_mouse.x+":"+last_mouse.y).set({
-                lx: last_mouse.x,
-                ly: last_mouse.y,
-                nx: mouse.x,
-                ny: mouse.y,
-                color: tmp_ctx.strokeStyle,
-                tool: tool,
-                size: tmp_ctx.lineWidth,
-                opacity: tmp_ctx.globalAlpha
-            });
+            this.props.actions.drawingAction(last_mouse.x,last_mouse.y,mouse.x,mouse.y,tmp_ctx.strokeStyle,tool,tmp_ctx.lineWidth,tmp_ctx.globalAlpha);
+            
             if(tool=='spray'){
                 generateSprayParticles(mouse.x,mouse.y),tmp_ctx.lineWidth;
             }
@@ -126,8 +118,8 @@ class Canvas extends React.Component {
              tmp_ctx.closePath();
              tmp_ctx.stroke();
              */
-        };
-        
+        }.bind(this);
+
         /*Caalculation for spray tool*/
         var getRandomOffset = function(radius) {
             var random_angle = Math.random() * (2*Math.PI);
