@@ -1,4 +1,5 @@
 class Canvas extends React.Component {
+
     render() {
         return (
             <div>
@@ -14,6 +15,8 @@ class Canvas extends React.Component {
                         <a className="waves-effect waves-light btn orange darken-1 col s3 push-s4" id="pencil">Pencil</a>
                         <br></br><br></br>
                         <a className="waves-effect waves-light btn orange darken-1 col s3 push-s4" id="spray">Spray</a>
+                        <br></br><br></br>
+                        <a className="waves-effect waves-light btn orange darken-1 col s3 push-s4" onClick={this.props.actions.resetCanvas}>Reset</a>
                     </div>
                 </div>
             </div>
@@ -109,7 +112,7 @@ class Canvas extends React.Component {
             //tmp_ctx.moveTo(last_mouse.x, last_mouse.y);
 
             this.props.actions.drawingAction(last_mouse.x,last_mouse.y,mouse.x,mouse.y,tmp_ctx.strokeStyle,tool,tmp_ctx.lineWidth,tmp_ctx.globalAlpha);
-            
+
             if(tool=='spray'){
                 generateSprayParticles(mouse.x,mouse.y),tmp_ctx.lineWidth;
             }

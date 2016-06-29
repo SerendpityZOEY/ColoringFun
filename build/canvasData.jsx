@@ -33,3 +33,7 @@ actions.drawingAction = function(last_mouseX,last_mouseY,mouseX,mouseY,color,too
         opacity: opacity
     });
 }
+
+actions.resetCanvas = function(){
+    draw.remove();
+}

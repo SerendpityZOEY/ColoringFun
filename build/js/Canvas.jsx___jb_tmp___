@@ -1,5 +1,8 @@
 class Canvas extends React.Component {
+    resetCanvas(){
 
+    }
+    
     render() {
         return (
             <div>
@@ -16,7 +19,7 @@ class Canvas extends React.Component {
                         <br></br><br></br>
                         <a className="waves-effect waves-light btn orange darken-1 col s3 push-s4" id="spray">Spray</a>
                         <br></br><br></br>
-                        <a className="waves-effect waves-light btn orange darken-1 col s3 push-s4" onClick={this.props.actions.resetCanvas}>Reset</a>
+                        <a className="waves-effect waves-light btn orange darken-1 col s3 push-s4" onClick={this.resetCanvas.bind(this)}>Reset</a>
                     </div>
                 </div>
             </div>
