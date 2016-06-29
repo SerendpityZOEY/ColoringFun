@@ -59,6 +59,75 @@ class Canvas extends React.Component {
 
         var Ref = new Firebase('https://reactresume.firebaseio.com/drawing');
 
+        /* Mouse Capturing Work */
+        canvas.addEventListener('mousemove', function(e) {
+            last_mouse.x = mouse.x;
+            last_mouse.y = mouse.y;
+
+            mouse.x = typeof e.offsetX !== 'undefined' ? e.offsetX : e.layerX;
+            mouse.y = typeof e.offsetY !== 'undefined' ? e.offsetY : e.layerY;
+            //mouse.x = e.pageX - this.offsetLeft;
+            //mouse.y = e.pageY - this.offsetTop;
+        }, false);
+
+        tmp_canvas.addEventListener('mousemove', function(e) {
+            last_mouse.x = mouse.x;
+            last_mouse.y = mouse.y;
+
+            mouse.x = typeof e.offsetX !== 'undefined' ? e.offsetX : e.layerX;
+            mouse.y = typeof e.offsetY !== 'undefined' ? e.offsetY : e.layerY;
+
+        }, false);
+
+
+        /* Initialize parameters*/
+        tmp_ctx.lineWidth = 5;
+        tmp_ctx.lineJoin = 'round';
+        tmp_ctx.lineCap = 'round';
+        tmp_ctx.strokeStyle = 'blue';
+
+        tmp_canvas.addEventListener('mousedown', function(e) {
+            tmp_canvas.addEventListener('mousemove', onPaint, false);
+            if(tool=='spray'){
+                sprayIntervalID = setInterval(onPaint, 50);
+            }
+        }, false);
+
+        tmp_canvas.addEventListener('mouseup', function() {
+            tmp_canvas.removeEventListener('mousemove', onPaint, false);
+
+            ctx.globalCompositeOperation = 'source-over';
+            ctx.drawImage(tmp_canvas,0,0);
+            tmp_ctx.clearRect(0,0,tmp_canvas.width,tmp_canvas.height);
+
+            clearInterval(sprayIntervalID);
+        }, false);
+
+        /*Push to firebase, not drawing process*/
+        var onPaint = function() {
+            //tmp_ctx.beginPath();
+            //tmp_ctx.moveTo(last_mouse.x, last_mouse.y);
+
+            Ref.child(last_mouse.x+":"+last_mouse.y).set({
+                lx: last_mouse.x,
+                ly: last_mouse.y,
+                nx: mouse.x,
+                ny: mouse.y,
+                color: tmp_ctx.strokeStyle,
+                tool: tool,
+                size: tmp_ctx.lineWidth,
+                opacity: tmp_ctx.globalAlpha
+            });
+            if(tool=='spray'){
+                generateSprayParticles(mouse.x,mouse.y),tmp_ctx.lineWidth;
+            }
+            /*
+             tmp_ctx.lineTo(mouse.x, mouse.y);
+             tmp_ctx.closePath();
+             tmp_ctx.stroke();
+             */
+        };
+        
         /*Caalculation for spray tool*/
         var getRandomOffset = function(radius) {
             var random_angle = Math.random() * (2*Math.PI);
