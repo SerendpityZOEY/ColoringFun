@@ -31,6 +31,16 @@ class Canvas extends React.Component {
         console.log(canvas.width,canvas.height)
 
         var tool = 'brush';
+
+        brush.onclick = function(){
+            tool = 'brush';
+        }
+        pencil.onclick = function(){
+            tool = 'pencil';
+        }
+        spray.onclick = function(){
+            tool = 'spray';
+        }
         var sprayIntervalID;
 
         /*Canvas Attribute*/
@@ -48,6 +58,34 @@ class Canvas extends React.Component {
         var last_mouse = {x: 0, y: 0};
 
         var Ref = new Firebase('https://reactresume.firebaseio.com/drawing');
+
+        /*Caalculation for spray tool*/
+        var getRandomOffset = function(radius) {
+            var random_angle = Math.random() * (2*Math.PI);
+            var random_radius = Math.random() * radius;
+
+            //console.log(random_angle, random_radius, Math.cos(random_angle), Math.sin(random_angle));
+
+            return {
+                x: Math.cos(random_angle) * random_radius,
+                y: Math.sin(random_angle) * random_radius
+            };
+        };
+
+        var generateSprayParticles = function(dotx,doty, radius) {
+            // Particle count, or, density
+            var density = 50;
+
+            for (var i = 0; i < density; i++) {
+                var offset = getRandomOffset(radius);
+
+                var x = dotx + offset.x;
+                var y = doty + offset.y;
+
+                ctx.fillRect(x, y, 1, 1);
+            }
+        };
+        /*End of calculation for spray tool*/
 
         /*Read from firebase then draw*/
         var drawPixel = function(snapshot) {
@@ -85,33 +123,6 @@ class Canvas extends React.Component {
         Ref.on('child_added', drawPixel);
         Ref.on('child_changed', drawPixel);
         Ref.on('child_removed', clearPixel);
-
-        /*Caalculation for spray tool*/
-        var getRandomOffset = function(radius) {
-            var random_angle = Math.random() * (2*Math.PI);
-            var random_radius = Math.random() * radius;
-
-            console.log(random_angle, random_radius, Math.cos(random_angle), Math.sin(random_angle));
-
-            return {
-                x: Math.cos(random_angle) * random_radius,
-                y: Math.sin(random_angle) * random_radius
-            };
-        };
-
-        var generateSprayParticles = function(dotx,doty, radius) {
-            // Particle count, or, density
-            var density = 50;
-
-            for (var i = 0; i < density; i++) {
-                var offset = getRandomOffset(radius);
-
-                var x = dotx + offset.x;
-                var y = doty + offset.y;
-
-                ctx.fillRect(x, y, 1, 1);
-            }
-        };
     }
 }
 MyComponents.Canvas = Canvas
