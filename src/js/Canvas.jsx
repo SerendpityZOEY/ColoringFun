@@ -1,8 +1,21 @@
 class Canvas extends React.Component {
     render() {
         return (
-            <div id="sketch">
-                <canvas id="paint"></canvas>
+            <div>
+                <div className="row">
+                    <div className="col s8 push-s2">
+                        <div id="sketch">
+                            <canvas id="paint"></canvas>
+                        </div>
+                    </div>
+                    <div className="col s4">
+                        <a className="waves-effect waves-light btn orange darken-1 col s3 push-s4" id="brush">Brush</a>
+                        <br></br><br></br>
+                        <a className="waves-effect waves-light btn orange darken-1 col s3 push-s4" id="pencil">Pencil</a>
+                        <br></br><br></br>
+                        <a className="waves-effect waves-light btn orange darken-1 col s3 push-s4" id="spray">Spray</a>
+                    </div>
+                </div>
             </div>
             //console.log(this.props.data.drawing)
         );
@@ -72,6 +85,33 @@ class Canvas extends React.Component {
         Ref.on('child_added', drawPixel);
         Ref.on('child_changed', drawPixel);
         Ref.on('child_removed', clearPixel);
+
+        /*Caalculation for spray tool*/
+        var getRandomOffset = function(radius) {
+            var random_angle = Math.random() * (2*Math.PI);
+            var random_radius = Math.random() * radius;
+
+            console.log(random_angle, random_radius, Math.cos(random_angle), Math.sin(random_angle));
+
+            return {
+                x: Math.cos(random_angle) * random_radius,
+                y: Math.sin(random_angle) * random_radius
+            };
+        };
+
+        var generateSprayParticles = function(dotx,doty, radius) {
+            // Particle count, or, density
+            var density = 50;
+
+            for (var i = 0; i < density; i++) {
+                var offset = getRandomOffset(radius);
+
+                var x = dotx + offset.x;
+                var y = doty + offset.y;
+
+                ctx.fillRect(x, y, 1, 1);
+            }
+        };
     }
 }
 MyComponents.Canvas = Canvas
