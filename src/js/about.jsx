@@ -18,6 +18,7 @@ class About extends React.Component {
             return <MyComponents.School school={s} key={i}/>
         });
 
+        console.log(this.props.schools)
         return (
             <div>
                 <h1>{this.props.title}</h1>

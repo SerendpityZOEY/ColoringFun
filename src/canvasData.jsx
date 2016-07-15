@@ -13,6 +13,7 @@ function render_canvas(){
     )
 }
 
+
 var draw = new Firebase('https://reactresume.firebaseio.com/drawing');
 
 draw.on('value', function(snapshot){

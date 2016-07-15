@@ -4,12 +4,12 @@ class Canvas extends React.Component {
         return (
             <div>
                 <div className="row">
-                    <div className="col s8 push-s2">
+                    <div className="col s7 l7">
                         <div id="sketch">
                             <canvas id="paint"></canvas>
                         </div>
                     </div>
-                    <div className="col s4">
+                    <div className="col s5 l5 push-s1">
                         <a className="waves-effect waves-light btn orange darken-1 col s3 push-s4" id="brush">Brush</a>
                         <br></br><br></br>
                         <a className="waves-effect waves-light btn orange darken-1 col s3 push-s4" id="pencil">Pencil</a>
@@ -17,6 +17,28 @@ class Canvas extends React.Component {
                         <a className="waves-effect waves-light btn orange darken-1 col s3 push-s4" id="spray">Spray</a>
                         <br></br><br></br>
                         <a className="waves-effect waves-light btn orange darken-1 col s3 push-s4" onClick={this.props.actions.resetCanvas}>Reset</a>
+                    </div>
+
+                    <div className="col m2 l2 push-l1 push-m2" id="color-picker" style={{margin:'3em'}}>
+                        <button id="#fff" style={{background:"#fff"}}> </button>
+                        <button id = '#000' style={{background:"#000"}}> </button>
+                        <button id = '#f00' style={{background:"#f00"}}> </button>
+                        <button id = '#0f0' style={{background:"#0f0"}}> </button>
+                        <button id = '#00f' style={{background:"#00f"}}> </button>
+                        <button id = '#88f' style={{background:"#88f"}}> </button>
+                        <button id = '#f8d' style={{background:"#f8d"}}> </button>
+                        <button id=  "#f88" style={{background:"#f88"}}> </button>
+                        <button id = '#f05' style={{background:"#f05"}}> </button>
+                        
+                        <button id = '#f80' style={{background:"#f80"}}> </button>
+                        <button id = '#0f8' style={{background:"#0f8"}}> </button>
+                        <button id = '#cf0' style={{background:"#cf0"}}> </button>
+                        <button id = '#08f' style={{background:"#08f"}}> </button>
+                        <button id = '#408' style={{background:"#408"}}> </button>
+                        <button id="#ff8" style={{background:"#ff8"}}> </button>
+                        <button id = '#8ff' style={{background:"#8ff"}}> </button>
+                        <button id = '#aed081' style={{background: "#aed081"}}> </button>
+                        <button id = '#eee' style={{background:"#eee"}}> </button>
                     </div>
                 </div>
             </div>
@@ -54,6 +76,13 @@ class Canvas extends React.Component {
         tmp_canvas.width = canvas.width-20;
         tmp_canvas.height = canvas.height-20;
         console.log(tmp_canvas.width,tmp_canvas.height)
+
+        $('#color-picker button').on('click', function(){
+            console.log('hit')
+            tmp_ctx.strokeStyle = $(this).attr('id');
+            tmp_ctx.fillStyle = tmp_ctx.strokeStyle;
+            console.log(tmp_ctx.strokeStyle);
+        })
 
         sketch.appendChild(tmp_canvas);
 
