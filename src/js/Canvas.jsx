@@ -17,16 +17,17 @@ class Canvas extends React.Component {
                         <a className="waves-effect waves-light btn orange darken-1 col s3 push-s4" id="spray">Spray</a>
                         <br></br><br></br>
                         <a className="waves-effect waves-light btn orange darken-1 col s3 push-s4" onClick={this.props.actions.resetCanvas}>Reset</a>
+                        <br></br><br></br>
                     </div>
 
-                    <div className="col l2">
+                    <div className="col m1 l3 push-m2 push-l1">
                         <form action="#">Brush Size:
                             <p className="range-field">
                                 <input type="range" id="size" min="2" max="20"/>
                             </p>
                         </form>
                     </div>
-                    <div className="col l2">
+                    <div className="col m1 l3 push-m2 push-l1">
                         <form action="#">Opacity:
                             <p className="range-field">
                                 <input type="range" id="opacity" min="1" max="100"/>
@@ -231,6 +232,17 @@ class Canvas extends React.Component {
         Ref.on('child_added', drawPixel);
         Ref.on('child_changed', drawPixel);
         Ref.on('child_removed', clearPixel);
+
+        /*Size Tool*/
+        document.getElementById("size").addEventListener("change", function(){
+            tmp_ctx.lineWidth = document.getElementById("size").value;
+            console.log('brush tool',tmp_ctx.lineWidth)
+        });
+
+        /*Change Opacity*/
+        document.getElementById("opacity").addEventListener("change", function(){
+            tmp_ctx.globalAlpha = document.getElementById("opacity").value/100;
+        });
     }
 }
 MyComponents.Canvas = Canvas
