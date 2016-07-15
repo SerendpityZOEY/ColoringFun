@@ -2,27 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0c92b944-e30f-4c48-a62f-e2cd1aadc0e2" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/js/Canvas.jsx___jb_tmp___" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/js/color.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/js/color.jsx" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/build/js/script.js___jb_tmp___" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/build/js/tmp.js" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/build/reactCanvas.html___jb_tmp___" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/src/js/tmp.js" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/canvasData.jsx" afterPath="$PROJECT_DIR$/build/canvasData.jsx" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/css/style.css" afterPath="$PROJECT_DIR$/build/css/style.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/js/Canvas.jsx" afterPath="$PROJECT_DIR$/build/js/Canvas.jsx" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/js/Canvas.jsx___jb_tmp___" afterPath="$PROJECT_DIR$/build/js/Canvas.jsx___jb_tmp___" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/js/about.jsx" afterPath="$PROJECT_DIR$/build/js/about.jsx" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reactCanvas.html" afterPath="$PROJECT_DIR$/build/reactCanvas.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/firebase-debug.log" afterPath="$PROJECT_DIR$/firebase-debug.log" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/canvasData.jsx" afterPath="$PROJECT_DIR$/src/canvasData.jsx" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/css/style.css" afterPath="$PROJECT_DIR$/src/css/style.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/Canvas.jsx" afterPath="$PROJECT_DIR$/src/js/Canvas.jsx" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/about.jsx" afterPath="$PROJECT_DIR$/src/js/about.jsx" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/reactCanvas.html" afterPath="$PROJECT_DIR$/src/reactCanvas.html" />
     </list>
     <ignored path="Test2.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -54,6 +45,16 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="canvas.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/canvas.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="144">
+              <caret line="71" column="0" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="canvasData.jsx" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/canvasData.jsx">
           <provider selected="true" editor-type-id="text-editor">
@@ -64,31 +65,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="data.jsx" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/book/src/apps/together/data.jsx">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3132">
-              <caret line="174" column="10" selection-start-line="174" selection-start-column="10" selection-end-line="174" selection-end-column="10" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="chatroom.jsx" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/book/src/apps/together/components/chatroom.jsx">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="203">
-              <caret line="21" column="9" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="9" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Canvas.jsx" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/js/Canvas.jsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-414">
-              <caret line="31" column="24" selection-start-line="31" selection-start-column="24" selection-end-line="31" selection-end-column="24" />
+            <state relative-caret-position="108">
+              <caret line="24" column="78" selection-start-line="24" selection-start-column="78" selection-end-line="24" selection-end-column="78" />
               <folding />
             </state>
           </provider>
@@ -97,8 +78,8 @@
       <file leaf-file-name="script.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/js/script.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="630">
-              <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
+            <state relative-caret-position="203">
+              <caret line="204" column="20" selection-start-line="204" selection-start-column="13" selection-end-line="204" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -153,11 +134,11 @@
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/src/test.html" />
         <option value="$PROJECT_DIR$/src/js/color.js" />
-        <option value="$PROJECT_DIR$/src/css/style.css" />
         <option value="$PROJECT_DIR$/src/js/color.jsx" />
         <option value="$PROJECT_DIR$/src/reactCanvas.html" />
         <option value="$PROJECT_DIR$/src/canvasData.jsx" />
         <option value="$PROJECT_DIR$/src/js/Canvas.jsx" />
+        <option value="$PROJECT_DIR$/src/css/style.css" />
       </list>
     </option>
   </component>
@@ -413,12 +394,12 @@
       <workItem from="1468279906991" duration="609000" />
       <workItem from="1468337167818" duration="871000" />
       <workItem from="1468345196588" duration="341000" />
-      <workItem from="1468599813294" duration="9705000" />
+      <workItem from="1468599813294" duration="12587000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="113140000" />
+    <option name="totallyTimeSpent" value="116022000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="53" y="-4" width="1313" height="772" extended-state="6" />
@@ -704,50 +685,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/canvas.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1620">
-          <caret line="114" column="0" selection-start-line="114" selection-start-column="0" selection-end-line="119" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/css/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="25" column="1" selection-start-line="25" selection-start-column="1" selection-end-line="25" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/js/script.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="630">
-          <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/js/color.jsx">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
           <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/book/src/apps/together/data.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3132">
-          <caret line="174" column="10" selection-start-line="174" selection-start-column="10" selection-end-line="174" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/canvasData.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="371">
-          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -760,18 +701,58 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/canvas.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="71" column="0" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$USER_HOME$/book/src/apps/together/components/chatroom.jsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
+        <state relative-caret-position="378">
           <caret line="21" column="9" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/book/src/apps/together/data.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3132">
+          <caret line="174" column="10" selection-start-line="174" selection-start-column="10" selection-end-line="174" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/css/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="470">
+          <caret line="32" column="41" selection-start-line="32" selection-start-column="41" selection-end-line="32" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/js/script.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="203">
+          <caret line="204" column="20" selection-start-line="204" selection-start-column="13" selection-end-line="204" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/canvasData.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="371">
+          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/js/Canvas.jsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-414">
-          <caret line="31" column="24" selection-start-line="31" selection-start-column="24" selection-end-line="31" selection-end-column="24" />
+        <state relative-caret-position="108">
+          <caret line="24" column="78" selection-start-line="24" selection-start-column="78" selection-end-line="24" selection-end-column="78" />
           <folding />
         </state>
       </provider>

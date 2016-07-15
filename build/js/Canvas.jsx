@@ -4,7 +4,7 @@ class Canvas extends React.Component {
         return (
             <div>
                 <div className="row">
-                    <div className="col s7 l7">
+                    <div className="col s7 l7 m7">
                         <div id="sketch">
                             <canvas id="paint"></canvas>
                         </div>
@@ -19,6 +19,21 @@ class Canvas extends React.Component {
                         <a className="waves-effect waves-light btn orange darken-1 col s3 push-s4" onClick={this.props.actions.resetCanvas}>Reset</a>
                     </div>
 
+                    <div className="col l2">
+                        <form action="#">Brush Size:
+                            <p className="range-field">
+                                <input type="range" id="size" min="2" max="20"/>
+                            </p>
+                        </form>
+                    </div>
+                    <div className="col l2">
+                        <form action="#">Opacity:
+                            <p className="range-field">
+                                <input type="range" id="opacity" min="1" max="100"/>
+                            </p>
+                        </form>
+                    </div>
+
                     <div className="col m2 l2 push-l1 push-m2" id="color-picker" style={{margin:'3em'}}>
                         <button id="#fff" style={{background:"#fff"}}> </button>
                         <button id = '#000' style={{background:"#000"}}> </button>
@@ -29,7 +44,7 @@ class Canvas extends React.Component {
                         <button id = '#f8d' style={{background:"#f8d"}}> </button>
                         <button id=  "#f88" style={{background:"#f88"}}> </button>
                         <button id = '#f05' style={{background:"#f05"}}> </button>
-                        
+
                         <button id = '#f80' style={{background:"#f80"}}> </button>
                         <button id = '#0f8' style={{background:"#0f8"}}> </button>
                         <button id = '#cf0' style={{background:"#cf0"}}> </button>
