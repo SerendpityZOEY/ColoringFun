@@ -2,7 +2,7 @@
 [debug] Command:      /usr/local/bin/node /usr/local/bin/firebase serve
 [debug] Platform:     linux
 [debug] Node Version: v5.4.1
-[debug] Time:         Tue Jul 12 2016 09:30:19 GMT-0600 (MDT)
+[debug] Time:         Tue Jul 19 2016 18:43:12 GMT-0600 (MDT)
 [debug] ----------------------------------------------------------------------
 [debug] 
 [info] Listening at http://localhost:5000
@@ -10,7 +10,7 @@
 [debug] Command:      /usr/local/bin/node /usr/local/bin/firebase serve
 [debug] Platform:     linux
 [debug] Node Version: v5.4.1
-[debug] Time:         Fri Jul 15 2016 10:24:03 GMT-0600 (MDT)
+[debug] Time:         Sat Jul 23 2016 14:23:40 GMT-0600 (MDT)
 [debug] ----------------------------------------------------------------------
 [debug] 
 [info] Listening at http://localhost:5000

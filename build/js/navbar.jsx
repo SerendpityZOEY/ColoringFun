@@ -8,6 +8,7 @@ class NavBar extends React.Component {
                     <ul id="nav-mobile" className="right hide-on-med-and-down">
                         <li><a href="#skills-heading">Skills</a></li>
                         <li><a href="canvas.html">Canvas</a></li>
+                        <li><a href="reactCanvas.html">ReactCanvas</a></li>
                     </ul>
                     <ul className="side-nav" id="mobile-demo">
                         <li><a href="#skills-heading">Skills</a></li>

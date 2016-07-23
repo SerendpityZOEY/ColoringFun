@@ -4,12 +4,12 @@ class Canvas extends React.Component {
         return (
             <div>
                 <div className="row">
-                    <div className="col s7 l7 m7">
+                    <div className="col l7 s7 m7">
                         <div id="sketch">
                             <canvas id="paint"></canvas>
                         </div>
                     </div>
-                    <div className="col s5 l5 push-s1">
+                    <div className="col s5 m5 l5 push-s1">
                         <a className="waves-effect waves-light btn orange darken-1 col s3 push-s4" id="brush">Brush</a>
                         <br></br><br></br>
                         <a className="waves-effect waves-light btn orange darken-1 col s3 push-s4" id="pencil">Pencil</a>
@@ -69,7 +69,7 @@ class Canvas extends React.Component {
         var sketch_style = getComputedStyle(sketch);
         canvas.width = parseInt(sketch_style.getPropertyValue('width'));
         canvas.height = parseInt(sketch_style.getPropertyValue('height'));
-        console.log(canvas.width,canvas.height)
+        console.log('canvas',canvas.width,canvas.height)
 
         var tool = 'brush';
 
@@ -89,9 +89,9 @@ class Canvas extends React.Component {
         var tmp_ctx = tmp_canvas.getContext('2d');
         tmp_canvas.id='tmp_canvas';
         /*Customize for specific size*/
-        tmp_canvas.width = canvas.width-20;
-        tmp_canvas.height = canvas.height-20;
-        console.log(tmp_canvas.width,tmp_canvas.height)
+        tmp_canvas.width = canvas.width;
+        tmp_canvas.height = canvas.height;
+        console.log('tmp_canvas',tmp_canvas.width,tmp_canvas.height)
 
         $('#color-picker button').on('click', function(){
             console.log('hit')

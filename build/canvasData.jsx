@@ -4,6 +4,14 @@ var data = {
 
 var actions=[]
 
+function render_nav(){
+    ReactDOM.render(
+        <MyComponents.NavBar
+            actions={actions}/>,
+        $('#navbar').get(0)
+    )
+}
+
 function render_canvas(){
     ReactDOM.render(
         <MyComponents.Canvas
@@ -18,6 +26,7 @@ var draw = new Firebase('https://reactresume.firebaseio.com/drawing');
 
 draw.on('value', function(snapshot){
     data.drawing = snapshot.val()
+    render_nav()
     render_canvas()
     //console.log(data.drawing)
 })
