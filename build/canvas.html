@@ -28,7 +28,7 @@
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
-
+<script type="text/javascript" src="lib/require.min.js"></script>
 <span id="colors" >
     <button id="#fff" style="background-color: #fff;"> </button>
     <button id = '#000' style="background-color: #000;"> </button>
@@ -123,52 +123,39 @@
 <script src="js/script.js"></script>
 
 <script>
-    function upload(){
-        // File or Blob named mountains.jpg
-        var file = 'img/myPicture.png';
+    function upload() {
 
-        // Create the file metadata
-        var metadata = {
-            contentType: 'image/jpeg'
-        };
+        require(['firebase'], function (firebase) {
 
-        var storageRef = new Firebase('https://reactresume.firebaseio.com/');
+            firebase.intializeApp({
+                apiKey: '<your-api-key>',
+                authDomain: '<your-auth-domain>',
+                databaseURL: 'https://reactresume.firebaseio.com/',
+                storageBucket: 'gs://firebase-reactresume.appspot.com'
+            });
 
-        // Upload file and metadata to the object 'images/mountains.jpg'
-        var uploadTask = storageRef.child('images/' + file.name).put(file, metadata);
+            // Points to the root reference
+            var storageRef = firebase.storage().ref();
 
-        // Listen for state changes, errors, and completion of the upload.
-        uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
-                function(snapshot) {
-                    // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-                    var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                    console.log('Upload is ' + progress + '% done');
-                    switch (snapshot.state) {
-                        case firebase.storage.TaskState.PAUSED: // or 'paused'
-                            console.log('Upload is paused');
-                            break;
-                        case firebase.storage.TaskState.RUNNING: // or 'running'
-                            console.log('Upload is running');
-                            break;
-                    }
-                }, function(error) {
-                    switch (error.code) {
-                        case 'storage/unauthorized':
-                            // User doesn't have permission to access the object
-                            break;
+            // Points to 'images'
+            var imagesRef = storageRef.child('images');
 
-                        case 'storage/canceled':
-                            // User canceled the upload
-                            break;
+            // Points to 'images/space.jpg'
+            // Note that you can use variables to create child values
+            var fileName = 'space.jpg';
+            var spaceRef = imagesRef.child(fileName);
 
-                        case 'storage/unknown':
-                            // Unknown error occurred, inspect error.serverResponse
-                            break;
-                    }
-                }, function() {
-                    // Upload completed successfully, now we can get the download URL
-                    var downloadURL = uploadTask.snapshot.downloadURL;
-                });
+            // File path is 'images/space.jpg'
+            var path = spaceRef.fullPath
+
+            // File name is 'space.jpg'
+            var name = spaceRef.name
+
+            // Points to 'images'
+            var imagesRef = spaceRef.parent;
+
+        });
+
     }
 </script>
 

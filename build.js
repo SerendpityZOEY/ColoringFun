@@ -7,6 +7,7 @@ var branch = require('metalsmith-branch')
 var rename = require('metalsmith-rename')
 var inplace = require('metalsmith-in-place')
 var _ = require('lodash')
+var firebase = require('firebase');
 
 metalsmith(__dirname)
     .use(branch('**/*.md')
@@ -33,3 +34,5 @@ metalsmith(__dirname)
         if (err) throw err;
         console.log(err)
     });
+
+
