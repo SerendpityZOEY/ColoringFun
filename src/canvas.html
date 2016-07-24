@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css" />
 
     <script src="https://cdn.firebase.com/js/client/2.3.2/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.0.0/lodash.min.js"></script>
 
     <script src="lib/react.js"></script>
@@ -123,17 +124,33 @@
 <script src="js/script.js"></script>
 
 <script>
+    function upload(){
+        var config = {
+            apiKey: "AIzaSyC5nzjXBcS3cUPXwma8oGtPYAmujDVPKpA",
+            authDomain: "firebase-reactresume.firebaseapp.com",
+            databaseURL: "https://reactresume.firebaseio.com",
+            storageBucket: "firebase-reactresume.appspot.com"
+        };
+        firebase.initializeApp(config);
+        
+    }
+</script>
+<!--
+<script>
     function upload() {
 
         require(['firebase'], function (firebase) {
 
+            var firebase = new Firebase( 'gs://firebase-reactresume.appspot.com/' )
+            console.log(firebase);
+
+            /*
             var config = {
-                apiKey: '<your-api-key>',
-                authDomain: '<your-auth-domain>',
                 databaseURL: 'https://reactresume.firebaseio.com/',
                 storageBucket: 'gs://firebase-reactresume.appspot.com'
             };
             firebase.initializeApp(config);
+*/
 
 
             // Points to the root reference
@@ -154,12 +171,12 @@
             var name = spaceRef.name
 
             // Points to 'images'
-            var imagesRef = spaceRef.parent;
+            imagesRef = spaceRef.parent;
 
         });
 
     }
 </script>
-
+-->
 </body>
 </html>
