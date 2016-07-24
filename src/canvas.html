@@ -127,12 +127,14 @@
 
         require(['firebase'], function (firebase) {
 
-            firebase.intializeApp({
+            var config = {
                 apiKey: '<your-api-key>',
                 authDomain: '<your-auth-domain>',
                 databaseURL: 'https://reactresume.firebaseio.com/',
                 storageBucket: 'gs://firebase-reactresume.appspot.com'
-            });
+            };
+            firebase.initializeApp(config);
+
 
             // Points to the root reference
             var storageRef = firebase.storage().ref();
