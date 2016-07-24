@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css" />
 
     <script src="https://cdn.firebase.com/js/client/2.3.2/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.0.0/lodash.min.js"></script>
 
     <script src="lib/react.js"></script>
@@ -28,7 +29,7 @@
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
-
+<script type="text/javascript" src="lib/require.min.js"></script>
 <span id="colors" >
     <button id="#fff" style="background-color: #fff;"> </button>
     <button id = '#000' style="background-color: #000;"> </button>
@@ -123,51 +124,82 @@
 <script src="js/script.js"></script>
 
 <script>
-    // File or Blob named mountains.jpg
-    var file = 'img/myPicture.png';
+    function upload(){
+        var config = {
+            apiKey: "AIzaSyC5nzjXBcS3cUPXwma8oGtPYAmujDVPKpA",
+            authDomain: "firebase-reactresume.firebaseapp.com",
+            databaseURL: "https://reactresume.firebaseio.com",
+            storageBucket: "firebase-reactresume.appspot.com"
+        };
+        firebase.initializeApp(config);
 
-    // Create the file metadata
-    var metadata = {
-        contentType: 'image/jpeg'
-    };
+        // Get a reference to the storage service, which is used to create references in your storage bucket
+        var storageRef = firebase.storage().ref();
 
-    var storageRef = new Firebase('https://reactresume.firebaseio.com/');
+        // Points to 'images'
+        var imagesRef = storageRef.child('images');
 
-    // Upload file and metadata to the object 'images/mountains.jpg'
-    var uploadTask = storageRef.child('images/' + file.name).put(file, metadata);
+        // Points to 'images/space.jpg'
+        // Note that you can use variables to create child values
+        var fileName = 'chart.jpeg';
+        var spaceRef = imagesRef.child(fileName);
 
-    // Listen for state changes, errors, and completion of the upload.
-    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
-            function(snapshot) {
-                // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-                var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                console.log('Upload is ' + progress + '% done');
-                switch (snapshot.state) {
-                    case firebase.storage.TaskState.PAUSED: // or 'paused'
-                        console.log('Upload is paused');
-                        break;
-                    case firebase.storage.TaskState.RUNNING: // or 'running'
-                        console.log('Upload is running');
-                        break;
-                }
-            }, function(error) {
-                switch (error.code) {
-                    case 'storage/unauthorized':
-                        // User doesn't have permission to access the object
-                        break;
+        // File path is 'images/space.jpg'
+        var path = spaceRef.fullPath
 
-                    case 'storage/canceled':
-                        // User canceled the upload
-                        break;
+        // File name is 'space.jpg'
+        var name = spaceRef.name
 
-                        case 'storage/unknown':
-                        // Unknown error occurred, inspect error.serverResponse
-                        break;
-                }
-            }, function() {
-                // Upload completed successfully, now we can get the download URL
-                var downloadURL = uploadTask.snapshot.downloadURL;
-            });
+        var bucket = spaceRef.bucket;
+
+        console.log('properties',path,name,bucket)
+
+        // Points to 'images'
+        var imagesRef = spaceRef.parent;
+    }
 </script>
+<!--
+<script>
+    function upload() {
+
+        require(['firebase'], function (firebase) {
+
+            var firebase = new Firebase( 'gs://firebase-reactresume.appspot.com/' )
+            console.log(firebase);
+
+            /*
+            var config = {
+                databaseURL: 'https://reactresume.firebaseio.com/',
+                storageBucket: 'gs://firebase-reactresume.appspot.com'
+            };
+            firebase.initializeApp(config);
+*/
+
+
+            // Points to the root reference
+            var storageRef = firebase.storage().ref();
+
+            // Points to 'images'
+            var imagesRef = storageRef.child('images');
+
+            // Points to 'images/space.jpg'
+            // Note that you can use variables to create child values
+            var fileName = 'space.jpg';
+            var spaceRef = imagesRef.child(fileName);
+
+            // File path is 'images/space.jpg'
+            var path = spaceRef.fullPath
+
+            // File name is 'space.jpg'
+            var name = spaceRef.name
+
+            // Points to 'images'
+            imagesRef = spaceRef.parent;
+
+        });
+
+    }
+</script>
+-->
 </body>
 </html>
