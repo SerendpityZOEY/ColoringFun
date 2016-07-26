@@ -59,6 +59,9 @@
 <a class="waves-effect waves-light btn" id="save">Save</a>
 <a class="waves-effect waves-light btn" onclick="upload()">Upload</a>
 
+<input type="file" id="files" name="files[]" multiple />
+<output id="list"></output>
+
 <form action="#">
     <p>
         <input id="brush" type="radio" name="tool" value="brush" checked>
@@ -105,16 +108,14 @@
     }
 </style>
 
-<input type="file" id="files" name="files[]" multiple />
-<output id="list"></output>
+
 
 <script>
     function handleFileSelect(evt) {
         var files = evt.target.files; // FileList object
 
-        console.log(files.File)
+        console.log(files[0])
 
-        upload(files)
         // Loop through the FileList and render image files as thumbnails.
         for (var i = 0, f; f = files[i]; i++) {
 
@@ -142,6 +143,8 @@
     }
 
     document.getElementById('files').addEventListener('change', handleFileSelect, false);
+
+    upload(files[0])
 </script>
 
 

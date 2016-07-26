@@ -116,7 +116,6 @@
 
         console.log(files[0])
 
-        upload(files[0])
         // Loop through the FileList and render image files as thumbnails.
         for (var i = 0, f; f = files[i]; i++) {
 
@@ -141,9 +140,13 @@
             // Read in the image file as a data URL.
             reader.readAsDataURL(f);
         }
+
+        upload(files[0])
     }
 
     document.getElementById('files').addEventListener('change', handleFileSelect, false);
+
+
 </script>
 
 
@@ -180,7 +183,7 @@
     function upload(file){
         var config = {
             apiKey: "AIzaSyC5nzjXBcS3cUPXwma8oGtPYAmujDVPKpA",
-            authDomain: "firebase-reactresume.firebaseapp.com",
+            authDomain: "reactresume.firebaseapp.com",
             databaseURL: "https://reactresume.firebaseio.com",
             storageBucket: "firebase-reactresume.appspot.com"
         };
