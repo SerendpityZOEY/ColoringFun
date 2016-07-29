@@ -24,6 +24,20 @@
     <!-- https://github.com/PaulLeCam/react-leaflet -->
     <script src="https://npmcdn.com/react-leaflet/dist/react-leaflet.min.js"></script>
 
+
+
+    <script src="https://www.gstatic.com/firebasejs/3.2.1/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyCsghv5-Y68E01CDM3AN2MyIfJW8Dc9o2s",
+            authDomain: "reactresume.firebaseapp.com",
+            databaseURL: "https://reactresume.firebaseio.com",
+            storageBucket: "firebase-reactresume.appspot.com",
+        };
+        firebase.initializeApp(config);
+    </script>
+
     <link rel="stylesheet" href="css/style.css"/>
 </head>
 <body>
@@ -38,10 +52,12 @@
 
 <script type="text/babel" src="js/Navbar.jsx"></script>
 <script type="text/babel" src="js/Canvas.jsx"></script>
+<script type="text/babel" src="js/user.jsx"></script>
 
 <script type="text/babel" src="canvasData.jsx"></script>
 
 <div id="navbar"></div>
+<div id="log"></div>
 <div id="canvas"></div>
 
 
