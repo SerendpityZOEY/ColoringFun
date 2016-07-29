@@ -62,7 +62,7 @@ actions.resetCanvas = function(){
 
 
 var firebaseRef = new Firebase('https://reactresume.firebaseio.com/')
-var provider = new firebase.auth.GithubAuthProvider();
+var provider = new firebase.auth.GoogleAuthProvider();
 
 actions.login = function(){
     firebase.auth().signInWithPopup(provider).then(function(result) {
@@ -70,7 +70,8 @@ actions.login = function(){
         var token = result.credential.accessToken;
         // The signed-in user info.
         var user = result.user;
-        console.log(user)
+        console.log(user.uid)
+        console.log(user.displayName)
         // ...
     }).catch(function(error) {
         // Handle Errors here.
