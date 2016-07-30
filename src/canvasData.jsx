@@ -23,7 +23,14 @@ function render_canvas(){
     )
 }
 
-
+function render_storage(){
+    ReactDOM.render(
+        <MyComponents.Storage
+        actions={actions}
+        data={data}/>,
+        $('#storage').get(0)
+    )
+}
 
 var draw = new Firebase('https://reactresume.firebaseio.com/drawing');
 
@@ -31,7 +38,7 @@ draw.on('value', function(snapshot){
     data.drawing = snapshot.val()
     render_nav()
     render_canvas()
-    //console.log(data.drawing)
+    render_storage()
 })
 
 
