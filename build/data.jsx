@@ -52,6 +52,7 @@ myinfo.child('skill').on('value', function(snapshot){
 })
 
 var firebaseRef = new Firebase('https://reactresume.firebaseio.com/')
+
 actions.login = function(){
 
   firebaseRef.authWithOAuthPopup("github", function(error, authData){
