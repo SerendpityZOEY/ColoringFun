@@ -37,10 +37,73 @@
     margin: 0 1px 0 1px;
 }
 
+/*Customize slider*/
 input[type=range]+.thumb {
     background-color: #fb8c00;
 }
 
 input[type=range]::-webkit-slider-thumb {
     background: #fb8c00;
+}
+
+/*For Storage btn*/
+/*File selector*/
+form {
+    max-width: 700px;
+    margin: 0 auto;
+}
+.btn1 {
+    display: inline-block;
+    vertical-align: top;
+    background-color: #32659C;
+    color: #fff;
+    text-decoration: none;
+    text-align: center;
+    font-size: 1.1em;
+    line-height: 1.1em;
+    padding: .58em .72em;
+    margin: 1.2em 0 0.6em 0;
+    border: none;
+    cursor: pointer;
+    border-radius: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+/* file input styles */
+.fileContainer,
+.selectedFile {
+    display: inline-block;
+    vertical-align: top;
+}
+.fileContainer {
+    margin: 1.3em 0 1em 0;
+}
+.selectedFile {
+    font-size: 1em;
+    line-height: 1em;
+    padding: .7em 1em;
+    margin: 0 1em;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: #eee;
+    color: #333;
+}
+.selectedFile .fileName {
+    font-size: 1.1em;
+}
+.selectedFile .fileSize {
+    color: #888;
+    font-style: italic;
+}
+.thumb {
+    height: 120px;
+    border: 1px solid #000;
+    margin: 10px 5px 0 0;
+}
+
+#fileDropBox {
+    text-align: center;
+    color: gray;
+    border-radius: 7px;
 }

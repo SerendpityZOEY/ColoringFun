@@ -57,10 +57,25 @@
 
 <a class="waves-effect waves-light btn" id="reset">Reset</a>
 <a class="waves-effect waves-light btn" id="save">Save</a>
-<a class="waves-effect waves-light btn"><input type="file" id="files" name="files[]" multiple /></a>
+<!--<input class="fileInput" type="file" id="files" name="files[]" multiple />-->
 
 
-<output id="list"></output>
+
+<form>
+    <div class="inputWrap">
+        <a class="btn1" id="confirm">Upload</a>
+        <label class="btn1" for="files">Choose a file to upload</label>
+        <input class="fileInput" type="file" id="files" name="files[]" multiple />
+
+        <!--<input class="fileInput" type="file" name="txtFile" id="txtFile" />-->
+    </div>
+</form>
+
+<div id="fileDropBox">
+    <output id="list"></output>
+</div>
+
+
 
 <form action="#">
     <p>
@@ -101,56 +116,6 @@
 </div>
 
 <style>
-    .thumb {
-        height: 75px;
-        border: 1px solid #000;
-        margin: 10px 5px 0 0;
-    }
-</style>
-
-
-
-<script>
-    function handleFileSelect(evt) {
-        var files = evt.target.files; // FileList object
-
-        console.log(files[0])
-
-        // Loop through the FileList and render image files as thumbnails.
-        for (var i = 0, f; f = files[i]; i++) {
-
-            // Only process image files.
-            if (!f.type.match('image.*')) {
-                continue;
-            }
-
-            var reader = new FileReader();
-
-            // Closure to capture the file information.
-            reader.onload = (function(theFile) {
-                return function(e) {
-                    // Render thumbnail.
-                    var span = document.createElement('span');
-                    span.innerHTML = ['<img class="thumb" src="', e.target.result,
-                        '" title="', escape(theFile.name), '"/>'].join('');
-                    document.getElementById('list').insertBefore(span, null);
-                };
-            })(f);
-
-            // Read in the image file as a data URL.
-            reader.readAsDataURL(f);
-        }
-
-        upload(files[0])
-    }
-
-    document.getElementById('files').addEventListener('change', handleFileSelect, false);
-
-
-</script>
-
-
-<style>
     html, body {
         width: 100%;
         height: 100%;
@@ -175,6 +140,68 @@
         width:20px;
         height:20px;
         border: 3px solid gray;
+    }
+
+
+    /*File selector*/
+    form {
+        max-width: 700px;
+        margin: 0 auto;
+    }
+    .btn1 {
+        display: inline-block;
+        vertical-align: top;
+        background-color: #32659C;
+        color: #fff;
+        text-decoration: none;
+        text-align: center;
+        font-size: 1.1em;
+        line-height: 1.1em;
+        padding: .58em .72em;
+        margin: 1.2em 0 0.6em 0;
+        border: none;
+        cursor: pointer;
+        border-radius: 0;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+    }
+    /* file input styles */
+    .fileContainer,
+    .selectedFile {
+        display: inline-block;
+        vertical-align: top;
+    }
+    .fileContainer {
+        margin: 1.3em 0 1em 0;
+    }
+    .selectedFile {
+        font-size: 1em;
+        line-height: 1em;
+        padding: .7em 1em;
+        margin: 0 1em;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background: #eee;
+        color: #333;
+    }
+    .selectedFile .fileName {
+        font-size: 1.1em;
+    }
+    .selectedFile .fileSize {
+        color: #888;
+        font-style: italic;
+    }
+    .thumb {
+        height: 120px;
+        border: 1px solid #000;
+        margin: 10px 5px 0 0;
+    }
+
+    #fileDropBox {
+        text-align: center;
+        color: gray;
+        border-radius: 7px;
     }
 </style>
 <script src="js/script.js"></script>
@@ -262,48 +289,68 @@
 
     }
 </script>
-<!--
+
 <script>
-    function upload() {
-
-        require(['firebase'], function (firebase) {
-
-            var firebase = new Firebase( 'gs://firebase-reactresume.appspot.com/' )
-            console.log(firebase);
-
-            /*
-            var config = {
-                databaseURL: 'https://reactresume.firebaseio.com/',
-                storageBucket: 'gs://firebase-reactresume.appspot.com'
-            };
-            firebase.initializeApp(config);
-*/
-
-
-            // Points to the root reference
-            var storageRef = firebase.storage().ref();
-
-            // Points to 'images'
-            var imagesRef = storageRef.child('images');
-
-            // Points to 'images/space.jpg'
-            // Note that you can use variables to create child values
-            var fileName = 'space.jpg';
-            var spaceRef = imagesRef.child(fileName);
-
-            // File path is 'images/space.jpg'
-            var path = spaceRef.fullPath
-
-            // File name is 'space.jpg'
-            var name = spaceRef.name
-
-            // Points to 'images'
-            imagesRef = spaceRef.parent;
-
+    (function($){
+        $(function(){
+            /* function on input[type="file"] elements - it grabs the sleected files */
+            $('.fileInput').after('<div class="fileContainer"></div>').hide().on('change', handleFiles);
         });
 
+    })(jQuery);
+
+    // function bind to input file elements
+    var handleFiles = function() {
+        var fOutput = '',
+                fSize = 0,
+                files = this.files;
+        for (var i = 0, numFiles = files.length; i < numFiles; i++) {
+            var file = files[i];
+
+            if (!file.type.match('image.*')) {
+                continue;
+            }
+
+            var reader = new FileReader();
+
+            // Closure to capture the file information.
+            reader.onload = (function(theFile) {
+                return function(e) {
+                    // Render thumbnail.
+                    console.log('render thumbnail')
+                    var span = document.createElement('span');
+                    span.innerHTML = ['<img class="thumb" src="', e.target.result,
+                        '" title="', escape(theFile.name), '"/>'].join('');
+                    document.getElementById('list').insertBefore(span, null);
+                };
+            })(file);
+
+            // Read in the image file as a data URL.
+            reader.readAsDataURL(file);
+
+
+            fSize += files[i].size;
+            fOutput += '<div class="selectedFile"><span class="fileTitle">'+file.name+'</span> - <span class="fileSize">' + updateSize(fSize) + "</span></div>";
+
+            $('#confirm').click(function(){
+                confirm(file);
+            })
+        }
+        $(this).parent().find('.fileContainer').html( fOutput );
+    };
+
+    // coverts byte size to the closest full size - ie kb's
+    var updateSize = function(fSize){
+        for (var aMultiples = ["KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"], nMultiple = 0, nApprox = fSize / 1024; nApprox > 1; nApprox /= 1024, nMultiple++) {
+            return nApprox.toFixed(2) + " " + aMultiples[nMultiple];
+        }
+    };
+
+    function confirm(file){
+        upload(file);
     }
+
 </script>
--->
+
 </body>
 </html>

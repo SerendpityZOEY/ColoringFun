@@ -24,6 +24,19 @@
     <!-- https://github.com/PaulLeCam/react-leaflet -->
     <script src="https://npmcdn.com/react-leaflet/dist/react-leaflet.min.js"></script>
     <link rel="stylesheet" href="css/styles.css"/>
+
+
+    <script src="https://www.gstatic.com/firebasejs/3.2.1/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyCsghv5-Y68E01CDM3AN2MyIfJW8Dc9o2s",
+            authDomain: "reactresume.firebaseapp.com",
+            databaseURL: "https://reactresume.firebaseio.com",
+            storageBucket: "firebase-reactresume.appspot.com",
+        };
+        firebase.initializeApp(config);
+    </script>
 </head>
 
 <body>
@@ -39,7 +52,7 @@
 
     <!-- import each component class in components/ -->
     <!-- The order is important. Dependencies must be loaded first -->
-    <script type="text/babel" src="js/navbar.jsx"></script>
+    <script type="text/babel" src="js/Navbar.jsx"></script>
     <script type="text/babel" src="js/about.jsx"></script>
     <script type="text/babel" src="js/skill.jsx"></script>
 
@@ -49,6 +62,10 @@
 
     <div id="navbar"></div>
     <div class="container">
+
+        <a class="waves-effect waves-light btn" href="canvas.html">Plain JS Canvas</a>
+        <a class="waves-effect waves-light btn" href="reactCanvas.html">ReactJS Canvas</a>
+
         <div id="aboutMe"></div>
         <div id="skill"></div>
     </div>
