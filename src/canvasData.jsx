@@ -8,7 +8,8 @@ var actions={}
 function render_nav(){
     ReactDOM.render(
         <MyComponents.NavBar
-            actions={actions}/>,
+            actions={actions}
+            user = {data.user}/>,
         $('#navbar').get(0)
     )
 }
@@ -22,15 +23,6 @@ function render_canvas(){
     )
 }
 
-function render_log(){
-    ReactDOM.render(
-        <MyComponents.User
-            user={data.user}
-            loginAction={actions.login}
-            logoutAction={actions.logout}/>,
-        $('#log').get(0)
-    )
-}
 
 
 var draw = new Firebase('https://reactresume.firebaseio.com/drawing');
@@ -39,9 +31,9 @@ draw.on('value', function(snapshot){
     data.drawing = snapshot.val()
     render_nav()
     render_canvas()
-    render_log()
     //console.log(data.drawing)
 })
+
 
 actions.drawingAction = function(last_mouseX,last_mouseY,mouseX,mouseY,color,tool,lineSize,opacity) {
     draw.child(last_mouseX+":"+last_mouseY).set({
@@ -70,8 +62,32 @@ actions.login = function(){
         var token = result.credential.accessToken;
         // The signed-in user info.
         var user = result.user;
-        console.log(user.uid)
-        console.log(user.displayName)
+        data.user = {}
+        data.user.displayName = user.displayName
+        data.user.uid = user.uid
+        console.log(data.user)
+        var userRef = firebaseRef.child('users')
+        // userRef.on('value', function(snapshot){
+        //     userRef.set(data.user)
+        // })
+        // userRef.on('value', function(snapshot){
+        //     data.user = snapshot.val()
+        //     console.log('new data.user')
+        //     console.log(data.user)
+        //     render()
+        // })
+        //         var userRef = firebaseRef.child('users').child(user.username)
+        //
+        //         // subscribe to the user data
+        var uRef = userRef.child(data.user.uid)
+        uRef.set(data.user)
+                uRef.on('value', function(snapshot){
+                    data.user = snapshot.val()
+                    render_nav()
+                })
+        //
+        //         // set the user data
+        //         // data.user =user
         // ...
     }).catch(function(error) {
         // Handle Errors here.
@@ -116,6 +132,7 @@ actions.login = function(){
     //
     //     }
     // })
+    render_nav()
 
 }
 actions.logout = function(){
@@ -134,7 +151,7 @@ actions.logout = function(){
         // set the user's status to offline
         userRef.child('status').set('offline')
 
-        data.user = null
+        data.user = {}
 
         render()
 
