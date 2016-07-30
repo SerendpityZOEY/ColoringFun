@@ -146,21 +146,23 @@ actions.logout = function(){
 
     if (data.user){
 
-        firebaseRef.unauth()
+        firebase.auth().signOut().then(function() {
+            // Sign-out successful.
+            var userRef = firebaseRef
+                .child('users')
+                .child(data.user.uid)
 
-        var userRef = firebaseRef
-            .child('users')
-            .child(data.user.username)
+            // unsubscribe to the user data
+            userRef.off()
 
-        // unsubscribe to the user data
-        userRef.off()
+            // set the user's status to offline
+            userRef.child('status').set('offline')
 
-        // set the user's status to offline
-        userRef.child('status').set('offline')
-
-        data.user = {}
-
-        render()
+            data.user = {}
+            render_nav()
+        }, function(error) {
+            // An error happened.
+        });
 
     }
 
