@@ -14,7 +14,6 @@
 
     function swatchClick(){
         chosenColor = $(this).data('color')
-        console.log(chosenColor)
         TweenMax.to(colorHolder, fillSpeed, { backgroundColor:chosenColor })
     }
     function swatchMove(e){
@@ -32,13 +31,14 @@
     }
 
     function svgRandom() {
-        $(svgColor).each(function(){
+        $drawing.find('path').each(function(){
             var randomNum = Math.floor((Math.random() * colors.length) + 1);
             TweenMax.to(this, fillSpeed, { fill: colors[randomNum] });
         })
     }
     function svgClear() {
-        $(svgColor).each(function(){
+        console.log($drawing)
+        $drawing.find('path').each(function(){
             TweenMax.to(this, fillSpeed, { fill: "#FFF" });
         })
     }
@@ -79,25 +79,12 @@
     $.fn.makeSVGcolor = function(svgURL) {
         console.log(this)
         mainHolder = this
-        $( this ).load(svgURL, function() {
-            console.log(this)
-            svgObject  = $('svg', this)
-            console.log(svgObject)
-            svgColor   = $('g:nth-child(2)', svgObject).children()
-            console.log(svgColor)
-            svgOutline = $('g:nth-child(1)', svgObject).children()
+            svgColor   = $drawing.find('path')
             $(svgColor).on('click', colorMe)
             $(mainHolder).makeSwatches()
             $('.swatchHolder').addClass('gray')
-        });
     }
 
-    $.fn.makeSVGcolor2 = function() {
-        console.log(this)
-        var myContext = $('#svgCanvas');
-        var svgObject2 = $('svg', '#svgCanvas')
-        console.log(svgObject2)
-    }
 
     $.fn.btnRandom    = function() {
         btnRandom = this
@@ -116,21 +103,21 @@
             $(this).on('mouseenter', svgDownloadSVG)
         }
     }
+    var $drawing = $('#svgCanvas')
+    console.log($drawing)
+    $drawing.click(function(event) {
+        console.log(chosenColor.valueOf())
+        color = chosenColor.valueOf()
+        // event.target.style.fill = color;
+        TweenMax.to(event.target, fillSpeed, { fill: chosenColor });
+    }); 
 }( jQuery ));
 
 $(document).ready()
 {
-    $('#svgCanvas').makeSVGcolor2()
-    $('#ActivityDIV').makeSVGcolor('https://s3-us-west-2.amazonaws.com/s.cdpn.io/40041/cheshire.svg')
+    $('#svgCanvas1').makeSVGcolor('https://s3-us-west-2.amazonaws.com/s.cdpn.io/40041/cheshire.svg')
     $('#btnRandom').btnRandom()
     $('#btnClear').btnClear()
     $('#btnDownloadSVG').btnDownload()
 
-    // var $drawing = $('#svgCanvas')
-    // console.log($drawing)
-    // var color = "#FFDDFD"
-    // $drawing.click(function(event) {
-    //     event.target.style.fill = color;
-    //     console.log(event.target.id)
-    // }); 
 }

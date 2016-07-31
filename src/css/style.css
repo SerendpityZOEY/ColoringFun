@@ -165,7 +165,7 @@ input[type=range]::-webkit-slider-thumb {
     border-radius: 20px 20px 0px 0px;
     color: black;
 }
-#ActivityDIV .swatchHolder .colorHolder{
+.swatchHolder .colorHolder{
     width:100%;
     line-height: 100%;
     content:'Chosen Color';
@@ -177,7 +177,7 @@ input[type=range]::-webkit-slider-thumb {
     -moz-box-shadow: 0 1px 5px rgba(0,0,0,0.5);
     box-shadow: 0 1px 5px rgba(0,0,0,0.5);
 }
-#ActivityDIV .swatchHolder li:not(.colorHolder){
+.swatchHolder li:not(.colorHolder){
     height:25px;
     width:25px;
     margin:2px;
@@ -196,3 +196,4 @@ input[type=range]::-webkit-slider-thumb {
 #ActivityDIV svg path{
     cursor:pointer;
 }
+
