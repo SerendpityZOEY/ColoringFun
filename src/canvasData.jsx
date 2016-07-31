@@ -75,8 +75,6 @@ actions.resetCanvas = function(){
 }
 
 actions.upload = function(file){
-    console.log('hhh')
-
     // Get a reference to the storage service, which is used to create references in your storage bucket
     var storageRef = firebase.storage().ref();
 
@@ -96,7 +94,7 @@ actions.upload = function(file){
 
     var bucket = spaceRef.bucket;
 
-    console.log('properties',path,name,bucket)
+    //console.log('properties',path,name,bucket)
 
     // Points to 'images'
     var imagesRef = spaceRef.parent;
@@ -111,8 +109,8 @@ actions.upload = function(file){
     mountainsRef.name === mountainImagesRef.name            // true
     mountainsRef.fullPath === mountainImagesRef.fullPath    // false
 
-    console.log('name',mountainsRef.name)
-    console.log('path',mountainsRef.fullPath)
+    //console.log('name',mountainsRef.name)
+    //console.log('path',mountainsRef.fullPath)
 
     // File or Blob, assume the file is called rivers.jpg
     //var file = evt.target.files; // FileList object
@@ -122,7 +120,7 @@ actions.upload = function(file){
         contentType: 'image/jpeg',
     };
 
-    var uploadTask = storageRef.child('images/' + file.name).put(file,metadata);
+    var uploadTask = storageRef.child(data.user.uid+'images/' + file.name).put(file,metadata);
 
 
     uploadTask.on('state_changed', function(snapshot){
