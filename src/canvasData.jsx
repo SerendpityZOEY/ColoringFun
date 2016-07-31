@@ -25,7 +25,7 @@ function render_canvas(){
 
 function render_storage(){
     ReactDOM.render(
-        <MyComponents.Storage
+        <MyComponents.ImageUpload
         actions={actions}
         data={data}/>,
         $('#storage').get(0)
@@ -59,8 +59,84 @@ actions.resetCanvas = function(){
     draw.remove();
 }
 
+actions.upload = function(file){
+    console.log('hhh')
+
+    // Get a reference to the storage service, which is used to create references in your storage bucket
+    var storageRef = firebase.storage().ref();
+
+    // Points to 'images'
+    var imagesRef = storageRef.child('images');
+
+    // Points to 'images/space.jpg'
+    // Note that you can use variables to create child values
+    var fileName = 'chart.jpeg';
+    var spaceRef = imagesRef.child(fileName);
+
+    // File path is 'images/space.jpg'
+    var path = spaceRef.fullPath
+
+    // File name is 'space.jpg'
+    var name = spaceRef.name
+
+    var bucket = spaceRef.bucket;
+
+    console.log('properties',path,name,bucket)
+
+    // Points to 'images'
+    var imagesRef = spaceRef.parent;
+
+    // Create a reference to 'mountains.jpg'
+    var mountainsRef = storageRef.child('mountains.jpg');
+
+    // Create a reference to 'images/mountains.jpg'
+    var mountainImagesRef = storageRef.child('images/mountains.jpg');
+
+    // While the file names are the same, the references point to different files
+    mountainsRef.name === mountainImagesRef.name            // true
+    mountainsRef.fullPath === mountainImagesRef.fullPath    // false
+
+    console.log('name',mountainsRef.name)
+    console.log('path',mountainsRef.fullPath)
+
+    // File or Blob, assume the file is called rivers.jpg
+    //var file = evt.target.files; // FileList object
+
+    // Create file metadata including the content type
+    var metadata = {
+        contentType: 'image/jpeg',
+    };
+
+    var uploadTask = storageRef.child('images/' + file.name).put(file,metadata);
+
+
+    uploadTask.on('state_changed', function(snapshot){
+        // Observe state change events such as progress, pause, and resume
+        // See below for more detail
+        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+        var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log('Upload is ' + progress + '% done');
+        switch (snapshot.state) {
+            case firebase.storage.TaskState.PAUSED: // or 'paused'
+                console.log('Upload is paused');
+                break;
+            case firebase.storage.TaskState.RUNNING: // or 'running'
+                console.log('Upload is running');
+                break;
+        }
+    }, function(error) {
+        // Handle unsuccessful uploads
+    }, function() {
+        // Handle successful uploads on complete
+        // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+        var downloadURL = uploadTask.snapshot.downloadURL;
+    });
+
+}
+
 
 var firebaseRef = new Firebase('https://reactresume.firebaseio.com/')
+
 var provider = new firebase.auth.GoogleAuthProvider();
 
 actions.login = function(){
