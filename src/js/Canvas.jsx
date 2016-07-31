@@ -35,26 +35,54 @@ class Canvas extends React.Component {
                         </form>
                     </div>
 
-                    <div className="col m2 l2 push-l1 push-m2" id="color-picker" style={{margin:'3em'}}>
+                    <div className="col m2 l3 push-l1 push-m2" id="color-picker" style={{margin:'2em 2em 2em -1em'}}>
                         <button id="#fff" style={{background:"#fff"}}> </button>
+                        <button id = '#eee' style={{background:"#eee"}}> </button>
                         <button id = '#000' style={{background:"#000"}}> </button>
                         <button id = '#f00' style={{background:"#f00"}}> </button>
-                        <button id = '#0f0' style={{background:"#0f0"}}> </button>
-                        <button id = '#00f' style={{background:"#00f"}}> </button>
-                        <button id = '#88f' style={{background:"#88f"}}> </button>
-                        <button id = '#f8d' style={{background:"#f8d"}}> </button>
+                        <button id = '#f44336' style={{background:"#f44336"}}> </button>
+                        <button id = '#e91e63' style={{background:"#e91e63"}}> </button>
                         <button id=  "#f88" style={{background:"#f88"}}> </button>
-                        <button id = '#f05' style={{background:"#f05"}}> </button>
+                        <button id = '#ff4081' style={{background:"#ff4081"}}> </button>
+                        <button id = '#f8d' style={{background:"#f8d"}}> </button>
+                        <button id = '#b39ddb' style={{background:"#b39ddb"}}> </button>
+                        <button id = '#90caf9' style={{background:"#90caf9"}}> </button>
 
+                        <button id = '#88f' style={{background:"#88f"}}> </button>
+
+                        <button id = '#9c27b0' style={{background:"#9c27b0"}}> </button>
+                        <button id = '#673ab7' style={{background:"#673ab7"}}> </button>
+                        <button id = '#408' style={{background:"#408"}}> </button>
+                        <button id = '#00f' style={{background:"#00f"}}> </button>
+
+                        <button id = '#3f51b5' style={{background:"#3f51b5"}}> </button>
+                        <button id = '#08f' style={{background:"#08f"}}> </button>
+                        <button id = '#448aff' style={{background:"#448aff"}}> </button>
+                        <button id = '#8ff' style={{background:"#8ff"}}> </button>
+                        <button id = '#00bcd4' style={{background:"#00bcd4"}}> </button>
+
+                        <button id = '#009688' style={{background:"#009688"}}> </button>
+                        <button id = '#4caf50' style={{background:"#4caf50"}}> </button>
+                        <button id = '#8bc34a' style={{background:"#8bc34a"}}> </button>
+                        <button id = '#aed081' style={{background: "#aed081"}}> </button>
+
+                        <button id = '#cddc39' style={{background:"#cddc39"}}> </button>
+                        <button id = '#ffff00' style={{background:"#ffff00"}}> </button>
+                        <button id = '#ffeb3b' style={{background:"#ffeb34"}}> </button>
+                        <button id = '#ffc107' style={{background:"#ffc107"}}> </button>
+                        <button id = '#ff9800' style={{background:"#ff9800"}}> </button>
                         <button id = '#f80' style={{background:"#f80"}}> </button>
+
+                        <button id = '#ff5722' style={{background:"#ff5722"}}> </button>
+                        <button id = '#795548' style={{background:"#795548"}}> </button>
+                        <button id = '#9e9e9e' style={{background:"#9e9e9e"}}> </button>
+                        <button id = '#607d8b' style={{background:"#607d8b"}}> </button>
+
+                        <button id = '#0f0' style={{background:"#0f0"}}> </button>
+
                         <button id = '#0f8' style={{background:"#0f8"}}> </button>
                         <button id = '#cf0' style={{background:"#cf0"}}> </button>
-                        <button id = '#08f' style={{background:"#08f"}}> </button>
-                        <button id = '#408' style={{background:"#408"}}> </button>
                         <button id="#ff8" style={{background:"#ff8"}}> </button>
-                        <button id = '#8ff' style={{background:"#8ff"}}> </button>
-                        <button id = '#aed081' style={{background: "#aed081"}}> </button>
-                        <button id = '#eee' style={{background:"#eee"}}> </button>
                     </div>
                 </div>
             </div>
