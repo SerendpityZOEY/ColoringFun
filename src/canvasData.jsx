@@ -47,6 +47,14 @@ function render_storage(){
     )
 }
 
+function render_download(){
+    ReactDOM.render(
+        <MyComponents.Download
+        actions={actions}
+        data={data}/>,
+        $('#download').get(0)
+    )
+}
 
 var firebaseRef = new Firebase('https://reactresume.firebaseio.com/');
 
@@ -59,12 +67,22 @@ draw.on('value', function(snapshot){
     render_storage()
 })
 
-firebaseRef.on('value', function(snapshot){
-    data.list = snapshot.val();
-    console.log('rendering list',data.list)
+firebaseRef.child('userImages').on('value', function(snapshot){
+    data.userlist = snapshot.val();
+    console.log('rendering personal list',data.userlist)
     render_nav();
     render_canvas();
     render_storage();
+    render_download();
+});
+
+firebaseRef.child('pubImages').on('value', function(snapshot){
+    data.publist = snapshot.val();
+    console.log('rendering pub list',data.publist)
+    render_nav();
+    render_canvas();
+    render_storage();
+    render_download();
 });
 
 actions.drawingAction = function(last_mouseX,last_mouseY,mouseX,mouseY,color,tool,lineSize,opacity) {
@@ -164,6 +182,7 @@ actions.upload = function(file){
         // Handle successful uploads on complete
         // For instance, get the download URL: https://firebasestorage.googleapis.com/...
         var downloadURL = uploadTask.snapshot.downloadURL;
+        console.log('download url',downloadURL);
     });
 
 }
@@ -210,6 +229,7 @@ actions.login = function(){
     render_nav()
 
 }
+
 actions.logout = function(){
 
     if (data.user){
