@@ -15,13 +15,13 @@ class SvgCanvas extends React.Component {
     render() {
         var paths = this.props.paths
         return (
-            <svg version="1.1"   enable-background="new 0 0 612 792" >
+            <svg version="1.1"   enableBackground="new 0 0 612 792" >
         
             <g id="Color">
                 {
                     _.map(paths,function (val, key) {
                         return (
-                            <path key = {key} fill="FFFFFF" stroke={val.stroke} stroke-miterlimit={val.stroke_miterlimit} d={val.d} style={{"fill":"#FFFFFF"}}/>
+                            <path key = {key} fill="FFFFFF" stroke={val.stroke} strokeMiterlimit={val.stroke_miterlimit} d={val.d} style={{"fill":"#FFFFFF"}}/>
                         )
                     })
                     
