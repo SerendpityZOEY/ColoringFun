@@ -120,7 +120,12 @@ actions.upload = function(file){
         contentType: 'image/jpeg',
     };
 
-    var uploadTask = storageRef.child(data.user.uid+'/images/' + file.name).put(file,metadata);
+    if(data.user==null){
+        var uploadTask = storageRef.child('images/' + file.name).put(file,metadata);
+    }else{
+        uploadTask = storageRef.child(data.user.uid+'/images/' + file.name).put(file,metadata);
+
+    }
 
 
     uploadTask.on('state_changed', function(snapshot){
