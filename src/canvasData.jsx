@@ -120,7 +120,7 @@ actions.upload = function(file){
         contentType: 'image/jpeg',
     };
 
-    var uploadTask = storageRef.child(data.user.uid+'images/' + file.name).put(file,metadata);
+    var uploadTask = storageRef.child(data.user.uid+'/images/' + file.name).put(file,metadata);
 
 
     uploadTask.on('state_changed', function(snapshot){
