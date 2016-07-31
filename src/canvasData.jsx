@@ -5,6 +5,20 @@ var data = {
 
 var actions={}
 
+function render_svgCanvas() {
+    // ReactDOM.render(
+    //     <MyComponents.SvgCanvas
+    //         />,
+    //     $('#svgCanvas').get(0)
+    // )
+    ReactDOM.render(
+        <MyComponents.SvgCanvas
+            actions={actions}
+            user = {data.user}/>,
+        $('#svgCanvas').get(0)
+    )
+}
+
 function render_nav(){
     ReactDOM.render(
         <MyComponents.NavBar
@@ -39,6 +53,7 @@ draw.on('value', function(snapshot){
     render_nav()
     render_canvas()
     render_storage()
+    render_svgCanvas()
 })
 
 
@@ -74,71 +89,20 @@ actions.login = function(){
         data.user.uid = user.uid
         console.log(data.user)
         var userRef = firebaseRef.child('users')
-        // userRef.on('value', function(snapshot){
-        //     userRef.set(data.user)
-        // })
-        // userRef.on('value', function(snapshot){
-        //     data.user = snapshot.val()
-        //     console.log('new data.user')
-        //     console.log(data.user)
-        //     render()
-        // })
-        //         var userRef = firebaseRef.child('users').child(user.username)
-        //
-        //         // subscribe to the user data
+
         var uRef = userRef.child(data.user.uid)
         uRef.set(data.user)
                 uRef.on('value', function(snapshot){
                     data.user = snapshot.val()
                     render_nav()
+                    render_canvas()
+                    render_storage()
                 })
-        //
-        //         // set the user data
-        //         // data.user =user
-        // ...
     }).catch(function(error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // The email of the user's account used.
-        var email = error.email;
-        // The firebase.auth.AuthCredential type that was used.
-        var credential = error.credential;
-        // ...
+
     });
 
-    // firebaseRef.authWithOAuthPopup("github", function(error, authData){
-    //
-    //     console.log(authData)
-    //     // handle the result of the authentication
-    //     if (error) {
-    //         console.log("Login Failed!", error);
-    //     } else {
-    //         console.log("Authenticated successfully with payload:", authData);
-    //
-    //         // create a user object based on authData
-    //         var user = {
-    //             displayName: authData.github.displayName,
-    //             username: authData.github.username,
-    //             id: authData.github.id,
-    //             status: 'online',
-    //             pos: data.center  // position, default to the map center
-    //         }
-    //
-    //         var userRef = firebaseRef.child('users').child(user.username)
-    //
-    //         // subscribe to the user data
-    //         userRef.on('value', function(snapshot){
-    //             data.user = snapshot.val()
-    //             render()
-    //         })
-    //
-    //         // set the user data
-    //         // data.user =user 
-    //         userRef.set(user)
-    //
-    //     }
-    // })
+
     render_nav()
 
 }
