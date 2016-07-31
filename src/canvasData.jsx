@@ -47,6 +47,9 @@ function render_storage(){
     )
 }
 
+
+var firebaseRef = new Firebase('https://reactresume.firebaseio.com/');
+
 var draw = new Firebase('https://reactresume.firebaseio.com/drawing');
 
 draw.on('value', function(snapshot){
@@ -56,6 +59,13 @@ draw.on('value', function(snapshot){
     render_storage()
 })
 
+firebaseRef.on('value', function(snapshot){
+    data.list = snapshot.val();
+    console.log('rendering list',data.list)
+    render_nav();
+    render_canvas();
+    render_storage();
+});
 
 actions.drawingAction = function(last_mouseX,last_mouseY,mouseX,mouseY,color,tool,lineSize,opacity) {
     draw.child(last_mouseX+":"+last_mouseY).set({
@@ -127,6 +137,12 @@ actions.upload = function(file){
 
     }
 
+    if(data.user==null){
+        firebaseRef.child('pubImages').push(file.name);
+    }else{
+        firebaseRef.child('userImages').child(data.user.uid).push(file.name);
+    }
+
 
     uploadTask.on('state_changed', function(snapshot){
         // Observe state change events such as progress, pause, and resume
@@ -152,8 +168,6 @@ actions.upload = function(file){
 
 }
 
-
-var firebaseRef = new Firebase('https://reactresume.firebaseio.com/')
 
 var provider = new firebase.auth.GoogleAuthProvider();
 
