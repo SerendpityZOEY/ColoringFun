@@ -3,6 +3,8 @@ var data = {
     user: null
 }
 
+
+var paths = {}
 var actions={}
 
 function render_svgCanvas() {
@@ -13,8 +15,7 @@ function render_svgCanvas() {
     // )
     ReactDOM.render(
         <MyComponents.SvgCanvas
-            actions={actions}
-            user = {data.user}/>,
+            paths = {paths}/>,
         $('#svgCanvas').get(0)
     )
 }
@@ -53,7 +54,6 @@ draw.on('value', function(snapshot){
     render_nav()
     render_canvas()
     render_storage()
-    render_svgCanvas()
 })
 
 
@@ -151,6 +151,17 @@ actions.upload = function(file){
 var firebaseRef = new Firebase('https://reactresume.firebaseio.com/')
 
 var provider = new firebase.auth.GoogleAuthProvider();
+
+firebaseRef.child('svg_template').child("cat").once('value', function (snapshot) {
+    var val = snapshot.val()
+    _.map(val, function (v, k) {
+        paths[k] = {} 
+        paths[k].d= v.d
+        paths[k].stroke = v.stroke
+        paths[k].stroke_miterlimit = v.stroke_miterlimit
+    })
+    render_svgCanvas()
+})
 
 actions.login = function(){
     firebase.auth().signInWithPopup(provider).then(function(result) {
