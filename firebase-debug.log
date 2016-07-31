@@ -3,7 +3,7 @@
 [debug] CLI Version:  3.0.4
 [debug] Platform:     darwin
 [debug] Node Version: v5.3.0
-[debug] Time:         Fri Jul 29 2016 21:09:52 GMT-0600 (MDT)
+[debug] Time:         Sat Jul 30 2016 17:47:18 GMT-0600 (MDT)
 [debug] ----------------------------------------------------------------------
 [debug] 
 [warn] ⚠  "firebase" key in firebase.json is deprecated. Run firebase use --add instead
@@ -11,40 +11,6 @@
 [info] Starting Firebase development server...
 [info] 
 [info] Project Directory: /Users/pepe/Courses/IndStu/AmazingPixel
-[info] Public Directory: build
-[info] 
-[info] Server listening at: http://localhost:5000
-[debug] ----------------------------------------------------------------------
-[debug] Command:      /usr/local/bin/node /usr/local/bin/firebase serve
-[debug] Platform:     linux
-[debug] Node Version: v5.4.1
-[debug] Time:         Sat Jul 30 2016 01:17:21 GMT-0600 (MDT)
-[debug] ----------------------------------------------------------------------
-[debug] 
-[info] Listening at http://localhost:5000
-[debug] Error: listen EADDRINUSE 127.0.0.1:5000
-    at Object.exports._errnoException (util.js:856:11)
-    at exports._exceptionWithHostPort (util.js:879:20)
-    at Server._listen2 (net.js:1236:14)
-    at listen (net.js:1272:10)
-    at net.js:1381:9
-    at GetAddrInfoReqWrap.asyncCallback [as callback] (dns.js:63:16)
-    at GetAddrInfoReqWrap.onlookup [as oncomplete] (dns.js:82:10)
-[error] 
-[error] Error: An unexpected error has occurred.
-[debug] ----------------------------------------------------------------------
-[debug] Command:      /usr/local/Cellar/node/6.3.1/bin/node /usr/local/bin/firebase serve
-[debug] CLI Version:  3.0.4
-[debug] Platform:     darwin
-[debug] Node Version: v6.3.1
-[debug] Time:         Sat Jul 30 2016 09:52:13 GMT-0600 (MDT)
-[debug] ----------------------------------------------------------------------
-[debug] 
-[warn] ⚠  "firebase" key in firebase.json is deprecated. Run firebase use --add instead
-[warn] ⚠  Deprecation Warning: Firebase Hosting configuration should be moved under "hosting" key.
-[info] Starting Firebase development server...
-[info] 
-[info] Project Directory: /Users/yuezhang/Documents/AmazingPixel
 [info] Public Directory: build
 [info] 
 [info] Server listening at: http://localhost:5000
