@@ -76,10 +76,13 @@
         swatchDown = {css:{bottom:closeOffset}}
     }
     $.fn.makeSVGcolor = function(svgURL) {
+        console.log(this)
+
         mainHolder = this
         $( this ).load(svgURL, function() {
             svgObject  = $('svg', this)
             svgColor   = $('g:nth-child(2)', svgObject).children()
+
             svgOutline = $('g:nth-child(1)', svgObject).children()
             $(svgColor).on('click', colorMe)
             $(mainHolder).makeSwatches()

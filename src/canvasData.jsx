@@ -47,6 +47,17 @@ function render_storage(){
     )
 }
 
+function render_download(){
+    ReactDOM.render(
+        <MyComponents.Download
+        actions={actions}
+        data={data}/>,
+        $('#download').get(0)
+    )
+}
+
+var firebaseRef = new Firebase('https://reactresume.firebaseio.com/');
+
 var draw = new Firebase('https://reactresume.firebaseio.com/drawing');
 
 draw.on('value', function(snapshot){
@@ -56,6 +67,23 @@ draw.on('value', function(snapshot){
     render_storage()
 })
 
+firebaseRef.child('userImages').on('value', function(snapshot){
+    data.userlist = snapshot.val();
+    console.log('rendering personal list',data.userlist)
+    render_nav();
+    render_canvas();
+    render_storage();
+    render_download();
+});
+
+firebaseRef.child('pubImages').on('value', function(snapshot){
+    data.publist = snapshot.val();
+    console.log('rendering pub list',data.publist)
+    render_nav();
+    render_canvas();
+    render_storage();
+    render_download();
+});
 
 actions.drawingAction = function(last_mouseX,last_mouseY,mouseX,mouseY,color,tool,lineSize,opacity) {
     draw.child(last_mouseX+":"+last_mouseY).set({
@@ -127,6 +155,12 @@ actions.upload = function(file){
 
     }
 
+    if(data.user==null){
+        firebaseRef.child('pubImages').push(file.name);
+    }else{
+        firebaseRef.child('userImages').child(data.user.uid).push(file.name);
+    }
+
 
     uploadTask.on('state_changed', function(snapshot){
         // Observe state change events such as progress, pause, and resume
@@ -148,12 +182,11 @@ actions.upload = function(file){
         // Handle successful uploads on complete
         // For instance, get the download URL: https://firebasestorage.googleapis.com/...
         var downloadURL = uploadTask.snapshot.downloadURL;
+        console.log('download url',downloadURL);
     });
 
 }
 
-
-var firebaseRef = new Firebase('https://reactresume.firebaseio.com/')
 
 var provider = new firebase.auth.GoogleAuthProvider();
 
@@ -196,6 +229,7 @@ actions.login = function(){
     render_nav()
 
 }
+
 actions.logout = function(){
 
     if (data.user){
