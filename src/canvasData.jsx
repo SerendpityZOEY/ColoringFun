@@ -60,6 +60,8 @@ var firebaseRef = new Firebase('https://reactresume.firebaseio.com/');
 
 var draw = new Firebase('https://reactresume.firebaseio.com/drawing');
 
+var userImgSvgRef
+
 draw.on('value', function(snapshot){
     data.drawing = snapshot.val()
     render_nav()
@@ -189,18 +191,22 @@ actions.upload = function(file){
 
 
 var provider = new firebase.auth.GoogleAuthProvider();
+//
+// firebaseRef.child('svg_template').child("cat").once('value', function (snapshot) {
+//     var val = snapshot.val()
+//     _.map(val, function (v, k) {
+//         paths[k] = {} 
+//         paths[k].d= v.d
+//         paths[k].stroke = v.stroke
+//         paths[k].stroke_miterlimit = v.stroke_miterlimit
+//     })
+//     render_svgCanvas()
+// })
 
-firebaseRef.child('svg_template').child("cat").once('value', function (snapshot) {
-    var val = snapshot.val()
-    _.map(val, function (v, k) {
-        paths[k] = {} 
-        paths[k].d= v.d
-        paths[k].stroke = v.stroke
-        paths[k].stroke_miterlimit = v.stroke_miterlimit
-    })
-    render_svgCanvas()
-})
 
+var imgKey
+
+var svgImgSvgRef
 actions.login = function(){
     firebase.auth().signInWithPopup(provider).then(function(result) {
         // This gives you a GitHub Access Token. You can use it to access the GitHub API.
@@ -221,10 +227,29 @@ actions.login = function(){
                     render_canvas()
                     render_storage()
                 })
+        if (data.user != null)
+        {
+            // userImgSvgRef = firebaseRef.child('userImages').child(data.user.uid).child('svg').push()
+            imgKey = '-KO1YIEkBU1H0ort7I17'
+            svgImgSvgRef = firebaseRef.child('userImages').child(data.user.uid).child('svg').child(imgKey)
+            console.log(imgKey)
+            // userImgSvgRef.set(paths)
+            svgImgSvgRef.on('value', function (snapshot) {
+                var val = snapshot.val()
+                _.map(val, function (v, k) {
+                    paths[k] = {}
+                    paths[k].d= v.d
+                    paths[k].stroke = v.stroke
+                    paths[k].stroke_miterlimit = v.stroke_miterlimit
+                    paths[k].style = v.style
+                })
+                render_svgCanvas()
+
+            })
+        }
     }).catch(function(error) {
 
     });
-
 
     render_nav()
 

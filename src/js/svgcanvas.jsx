@@ -35,7 +35,7 @@ class SvgCanvas extends React.Component {
                 {
                     _.map(paths,function (val, key) {
                         return (
-                            <path key = {key} id = {key} fill="FFFFFF" stroke={val.stroke} strokeMiterlimit={val.stroke_miterlimit} d={val.d} style={{"fill":"#FFDDFF"}}/>
+                            <path key = {key} id = {key} fill="FFFFFF" stroke={val.stroke} strokeMiterlimit={val.stroke_miterlimit} d={val.d} style={val.style}/>
                         )
                     })
                     

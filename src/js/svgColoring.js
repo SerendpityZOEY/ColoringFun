@@ -105,11 +105,16 @@
     }
     var $drawing = $('#svgCanvas')
     console.log($drawing)
+    var firebaseRef = new Firebase('https://reactresume.firebaseio.com/');
+    var imgKey = '-KO1YIEkBU1H0ort7I17'
+    var svgImgSvgRef = firebaseRef.child('userImages').child("hnGL9hCfauNfOn7LBRNlqyG7Yli2").child('svg').child(imgKey)
     $drawing.click(function(event) {
         console.log(chosenColor.valueOf())
         color = chosenColor.valueOf()
         // event.target.style.fill = color;
         TweenMax.to(event.target, fillSpeed, { fill: chosenColor });
+        svgImgSvgRef.child(event.target.id).update({"style":{"fill":color}})
+        
     }); 
 }( jQuery ));
 
