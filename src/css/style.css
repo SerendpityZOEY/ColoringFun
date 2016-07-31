@@ -121,7 +121,7 @@ input[type=range]::-webkit-slider-thumb {
     height:36px;
     width:280px;
     padding: .58em .72em;
-    margin: 0 0.6em 0.6em 1.2em;
+    margin: 0.6em 0.6em 0.6em 3em;
     border: none;
     cursor: pointer;
     border-radius: 0;
@@ -132,4 +132,24 @@ input[type=range]::-webkit-slider-thumb {
 
 .btn1:hover {
     background-color: #fb8c00;
+}
+
+.btnContainer{
+    margin-left:-4em;
+    margin-right:3em;
+}
+
+.btn{
+    margin-right:2em;
+    margin-left:-2em;
+}
+
+#dl{
+    margin-left:13em;
+    margin-top:-15em;
+    margin-bottom:7.6em;
+}
+
+#dl .waves-effect{
+    width:120px;
 }

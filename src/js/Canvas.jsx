@@ -9,16 +9,6 @@ class Canvas extends React.Component {
                             <canvas id="paint"></canvas>
                         </div>
                     </div>
-                    <div className="col s5 m5 l5 push-s1">
-                        <a className="waves-effect waves-light btn orange darken-1 col s3 push-s4" id="brush">Brush</a>
-                        <br></br><br></br>
-                        <a className="waves-effect waves-light btn orange darken-1 col s3 push-s4" id="pencil">Pencil</a>
-                        <br></br><br></br>
-                        <a className="waves-effect waves-light btn orange darken-1 col s3 push-s4" id="spray">Spray</a>
-                        <br></br><br></br>
-                        <a className="waves-effect waves-light btn orange darken-1 col s3 push-s4" onClick={this.props.actions.resetCanvas}>Reset</a>
-                        <br></br><br></br>
-                    </div>
 
                     <div className="col m1 l3 push-m2 push-l1">
                         <form action="#">Brush Size:
@@ -35,7 +25,7 @@ class Canvas extends React.Component {
                         </form>
                     </div>
 
-                    <div className="col m2 l3 push-l1 push-m2" id="color-picker" style={{margin:'2em 2em 2em -1em'}}>
+                    <div className="col m2 l3 push-l1 push-m2" id="color-picker" style={{margin:'2em 2em 2em 0.2em'}}>
                         <button id="#fff" style={{background:"#fff"}}> </button>
                         <button id = '#eee' style={{background:"#eee"}}> </button>
                         <button id = '#000' style={{background:"#000"}}> </button>
@@ -84,6 +74,18 @@ class Canvas extends React.Component {
                         <button id = '#cf0' style={{background:"#cf0"}}> </button>
                         <button id="#ff8" style={{background:"#ff8"}}> </button>
                     </div>
+
+                    <div className="col s5 m5 l5 push-s1">
+                        <div className="btnContainer">
+                            <a className="waves-effect waves-light btn orange darken-1 col s3 push-s4" id="brush">Brush</a>
+                            <a className="waves-effect waves-light btn orange darken-1 col s3 push-s4" id="pencil">Pencil</a>
+                            <br></br><br></br>
+                            <a className="waves-effect waves-light btn orange darken-1 col s3 push-s4" id="spray">Spray</a>
+                            <a className="waves-effect waves-light btn orange darken-1 col s3 push-s4" onClick={this.props.actions.resetCanvas}>Reset</a>
+                            <br></br><br></br>
+                        </div>
+                    </div>
+
                 </div>
             </div>
             //console.log(this.props.data.drawing)
