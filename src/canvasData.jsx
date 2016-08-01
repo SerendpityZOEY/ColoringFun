@@ -59,6 +59,15 @@ function render_dropdown(){
 }
 
 
+function render_modal(){
+    ReactDOM.render(
+        <MyComponents.Modal
+            actions={actions}
+            openbtn={true} opentext="open demo modal" content={<div id='content'>some demo content for modal</div>}/>,
+        $('#modal').get(0)
+    )
+}
+
 var firebaseRef = new Firebase('https://reactresume.firebaseio.com/');
 
 var draw = new Firebase('https://reactresume.firebaseio.com/drawing');
@@ -70,6 +79,8 @@ draw.on('value', function(snapshot){
     render_nav()
     render_canvas()
     render_storage()
+    render_dropdown()
+    render_modal()
 })
 
 firebaseRef.child('userImages').on('value', function(snapshot){
@@ -79,6 +90,7 @@ firebaseRef.child('userImages').on('value', function(snapshot){
     render_canvas();
     render_storage();
     render_dropdown();
+    render_modal()
 });
 
 firebaseRef.child('pubImages').on('value', function(snapshot){
@@ -90,6 +102,7 @@ firebaseRef.child('pubImages').on('value', function(snapshot){
     render_canvas();
     render_storage();
     render_dropdown();
+    render_modal();
 });
 
 actions.drawingAction = function(last_mouseX,last_mouseY,mouseX,mouseY,color,tool,lineSize,opacity) {

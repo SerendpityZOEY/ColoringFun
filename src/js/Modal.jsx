@@ -1,59 +1,43 @@
-var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
-
-var Modal = React.createClass({
-    render: function() {
-        if(this.props.isOpen){
-            return (
-                <ReactCSSTransitionGroup transitionName={this.props.transitionName}>
-                    <div className="modal">
-                        {this.props.children}
-                    </div>
-                </ReactCSSTransitionGroup>
-            );
-        } else {
-            return <ReactCSSTransitionGroup transitionName={this.props.transitionName} />;
-        }
-    }
-});
-
-class Modall extends React.Component {
-
+class Modal extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isModalOpen:false
-        };
+            display: 'none'
+        }
     }
 
-    getInitialState() {
-        return { isModalOpen: false };
+    componentWillMount() {
+        this.props.openbtn || this.showModal();
     }
 
-    openModal() {
-        this.setState({ isModalOpen: true });
+    showModal() {
+        this.setState({ display: 'block' });
     }
 
-    closeModal() {
-        this.setState({ isModalOpen: false });
+    hideModal() {
+        this.setState({ display: 'none' });
+    }
+
+    closeOnBackground(e) {
+        if( e.target.id == 'modal') {
+            this.hideModal();
+        }
     }
 
     render() {
+        var button;
+        if (this.props.openbtn) { var button = <button id='modal-open-btn' onClick={(e) => this.showModal(e)}>{this.props.opentext || 'Open modal'}</button>; }
         return (
-            <div className="app">
-                <h1>App</h1>
-                <button onClick={this.openModal}>Open modal</button>
-                <Modal isOpen={this.state.isModalOpen}
-                       transitionName="modal-anim">
-                    <h3>My Modal</h3>
-                    <div className="body">
-                        <p>This is the modal&apos;s body.</p>
-                    </div>
-                    <button onClick={this.closeModal}>Close modal</button>
-                </Modal>
-            </div>
+            <span>
+		    {button}
+                <div id="modal" style={this.state} onClick={(e) => this.closeOnBackground(e)}>
+          <span className="modal-close" onClick={(e) => this.hideModal(e)}>x</span>
+                    {this.props.content}
+        </div>
+      </span>
         );
     }
 }
 
-MyComponents.Modall = Modall
+MyComponents.Modal = Modal
 

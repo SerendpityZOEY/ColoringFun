@@ -38,8 +38,6 @@
         firebase.initializeApp(config);
     </script>
 
-    <script src="http://fb.me/react-with-addons-0.12.2.js"></script>
-    <script src="http://fb.me/JSXTransformer-0.12.2.js"></script>
 </head>
 
 <body>
@@ -56,10 +54,8 @@
 <!-- import each component class in components/ -->
 <!-- The order is important. Dependencies must be loaded first -->
 <script type="text/babel" src="js/Navbar.jsx"></script>
-<script type="text/babel" src="js/Modal.jsx"></script>
 
-<script type="text/babel" src="data.jsx"></script>
-
+<script type="text/babel" src="canvasData.jsx"></script>
 
 <div id="navbar"></div>
 <div class="container">
@@ -69,9 +65,9 @@
         <a class="Button StreamsSignUp js-nav js-signup" data-component="hero" data-element="buttons" href="reactCanvas.html">ReactJS Canvas</a>
     </div>
 
-    <div id="modal"></div>
 
 </div>
+
 
 </body>
 </html>

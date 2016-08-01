@@ -1,6 +1,7 @@
 class NavBar extends React.Component {
     render() {
         var user = this.props.user
+        console.log(user)
         if (user != null){
             return (
                 <nav className="deep-purple">

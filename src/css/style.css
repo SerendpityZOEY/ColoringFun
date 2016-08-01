@@ -258,3 +258,51 @@ input[type=range]::-webkit-slider-thumb {
     border-bottom-left-radius: 0;
     color: #fff;
 }
+
+
+/*-------- modal styling --------- */
+
+#modal {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 7000;
+}
+
+#modal-open-btn {
+    border: 0;
+    background: #069;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.modal-close {
+    cursor: pointer;
+    color: white;
+    padding: 20px;
+    z-index: 9100;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.modal-close:hover {
+    color: red;
+}
+
+
+/*-------- content styling --------- */
+
+#content {
+    width: 500px;
+    display: block;
+    color: white;
+    position: relative;
+    margin: 100px auto;
+    padding: 30px;
+    border: 1px solid white;
+    background: rgba(0, 0, 0, 0.25);
+}
