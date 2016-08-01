@@ -83,6 +83,8 @@ class Canvas extends React.Component {
                             <a className="waves-effect waves-light btn orange darken-1 col s3 push-s4" id="spray">Spray</a>
                             <a className="waves-effect waves-light btn orange darken-1 col s3 push-s4" onClick={this.props.actions.resetCanvas}>Reset</a>
                             <br></br><br></br>
+                            <a className="waves-effect waves-light btn orange darken-1 col s3 push-s4" id="saveFile">Save</a>
+
                         </div>
                     </div>
 
@@ -273,6 +275,10 @@ class Canvas extends React.Component {
         document.getElementById("opacity").addEventListener("change", function(){
             tmp_ctx.globalAlpha = document.getElementById("opacity").value/100;
         });
+
+        saveFile.onclick = function(){
+            this.props.actions.saveCanvas(paint,'myPicture.png');
+        }.bind(this);
     }
 }
 MyComponents.Canvas = Canvas
