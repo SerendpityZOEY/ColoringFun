@@ -15,6 +15,15 @@ function render_nav(){
   )
 }
 
+function render_modal(){
+  ReactDOM.render(
+      <MyComponents.Modall
+      actions={actions}
+      user={data.user}/>,
+      $('#modal').get(0)
+  )
+}
+
 function render_about(schools){
   ReactDOM.render(
       <MyComponents.About schools={schools} title={"Education"}/>,
@@ -148,6 +157,7 @@ actions.login = function(){
   });
 
   render_nav()
+  render_modal()
 
 }
 actions.logout = function(){
