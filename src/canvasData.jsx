@@ -3,6 +3,7 @@ var data = {
     user: null
 }
 
+var options = []
 
 var paths = {}
 var actions={}
@@ -47,14 +48,16 @@ function render_storage(){
     )
 }
 
-function render_download(){
+function render_dropdown(){
     ReactDOM.render(
-        <MyComponents.Download
+        <MyComponents.Dropdown
         actions={actions}
-        data={data}/>,
-        $('#download').get(0)
+        data={data}
+        options={options}/>,
+        $('#app').get(0)
     )
 }
+
 
 var firebaseRef = new Firebase('https://reactresume.firebaseio.com/');
 
@@ -75,16 +78,18 @@ firebaseRef.child('userImages').on('value', function(snapshot){
     render_nav();
     render_canvas();
     render_storage();
-    render_download();
+    render_dropdown();
 });
 
 firebaseRef.child('pubImages').on('value', function(snapshot){
-    data.publist = snapshot.val();
-    console.log('rendering pub list',data.publist)
+    var objs = snapshot.val();
+    for (var key in objs) {
+        options.push(objs[key])
+    }
     render_nav();
     render_canvas();
     render_storage();
-    render_download();
+    render_dropdown();
 });
 
 actions.drawingAction = function(last_mouseX,last_mouseY,mouseX,mouseY,color,tool,lineSize,opacity) {
@@ -150,6 +155,7 @@ actions.upload = function(file){
         contentType: 'image/jpeg',
     };
 
+    //Upload images to pub or user
     if(data.user==null){
         var uploadTask = storageRef.child('images/' + file.name).put(file,metadata);
     }else{
@@ -157,6 +163,7 @@ actions.upload = function(file){
 
     }
 
+    //Upload file names to pub or user
     if(data.user==null){
         firebaseRef.child('pubImages').push(file.name);
     }else{
