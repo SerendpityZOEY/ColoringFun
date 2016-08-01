@@ -3,7 +3,8 @@ class Canvas extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            display: 'none'
+            display: 'none',
+            value: 'DOWNLOAD'
         }
     }
 
@@ -12,7 +13,6 @@ class Canvas extends React.Component {
     }
 
     showModal() {
-        console.log('event triggering')
         this.setState({ display: 'block' });
     }
 
@@ -26,7 +26,25 @@ class Canvas extends React.Component {
         }
     }
 
+    handleItemClick(e) {
+        console.log(e.target.innerText)
+        this.setState({
+            expanded: false,
+            value: e.target.innerText
+        });
+    }
+
     render() {
+
+        var dropdown = (
+                <div id="content">
+                    {
+                        this.props.options.map(item => {
+                            return <div onClick={this.handleItemClick.bind(this)} className="item">{item}</div>;
+                        })
+                    }
+                </div>
+            );
 
         return (
             <div>
@@ -115,7 +133,7 @@ class Canvas extends React.Component {
 
                             <div id="modal" style={this.state} onClick={(e) => this.closeOnBackground(e)}>
                                 <span className="modal-close" onClick={(e) => this.hideModal(e)}>x</span>
-                                {this.props.content}
+                                {dropdown}
                             </div>
                         </div>
                     </div>

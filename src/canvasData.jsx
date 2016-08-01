@@ -35,7 +35,8 @@ function render_canvas(){
         <MyComponents.Canvas
         actions={actions}
         data={data}
-        openbtn={true} opentext="open demo modal" content={<div id='content'>some demo content for modal</div>}/>,
+        openbtn={true} opentext="open demo modal" content={<div id='content'>some demo content for modal</div>}
+        options={options}/>,
         $('#canvas').get(0)
     )
 }
