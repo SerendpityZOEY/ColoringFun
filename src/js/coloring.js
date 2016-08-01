@@ -76,8 +76,6 @@
         swatchDown = {css:{bottom:closeOffset}}
     }
     $.fn.makeSVGcolor = function(svgURL) {
-        console.log(this)
-
         mainHolder = this
         $( this ).load(svgURL, function() {
             svgObject  = $('svg', this)

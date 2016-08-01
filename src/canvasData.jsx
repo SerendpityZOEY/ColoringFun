@@ -113,43 +113,6 @@ actions.upload = function(file){
     // Get a reference to the storage service, which is used to create references in your storage bucket
     var storageRef = firebase.storage().ref();
 
-    // Points to 'images'
-    var imagesRef = storageRef.child('images');
-
-    // Points to 'images/space.jpg'
-    // Note that you can use variables to create child values
-    var fileName = 'chart.jpeg';
-    var spaceRef = imagesRef.child(fileName);
-
-    // File path is 'images/space.jpg'
-    var path = spaceRef.fullPath
-
-    // File name is 'space.jpg'
-    var name = spaceRef.name
-
-    var bucket = spaceRef.bucket;
-
-    //console.log('properties',path,name,bucket)
-
-    // Points to 'images'
-    var imagesRef = spaceRef.parent;
-
-    // Create a reference to 'mountains.jpg'
-    var mountainsRef = storageRef.child('mountains.jpg');
-
-    // Create a reference to 'images/mountains.jpg'
-    var mountainImagesRef = storageRef.child('images/mountains.jpg');
-
-    // While the file names are the same, the references point to different files
-    mountainsRef.name === mountainImagesRef.name            // true
-    mountainsRef.fullPath === mountainImagesRef.fullPath    // false
-
-    //console.log('name',mountainsRef.name)
-    //console.log('path',mountainsRef.fullPath)
-
-    // File or Blob, assume the file is called rivers.jpg
-    //var file = evt.target.files; // FileList object
-
     // Create file metadata including the content type
     var metadata = {
         contentType: 'image/jpeg',
@@ -196,6 +159,49 @@ actions.upload = function(file){
 
 }
 
+actions.download = function(){
+    var starsRef = firebase.storage().ref();
+
+    // Get the download URL
+    starsRef.child('images/IMG_3377.JPG').getDownloadURL().then(function(url) {
+        // Insert url into an <img> tag to "download"
+        SaveToDisk(url,"test")
+        console.log('downloading',url)
+    }).catch(function(error) {
+        switch (error.code) {
+            case 'storage/object_not_found':
+                // File doesn't exist
+                break;
+
+            case 'storage/unauthorized':
+                // User doesn't have permission to access the object
+                break;
+
+            case 'storage/canceled':
+                // User canceled the upload
+                break;
+
+            case 'storage/unknown':
+                // Unknown error occurred, inspect the server response
+                break;
+        }
+    });
+
+    function SaveToDisk(fileURL, fileName) {
+        // for non-IE
+        if (!window.ActiveXObject) {
+            var save = document.createElement('a');
+            save.href = fileURL;
+            save.target = '_blank';
+            save.download = fileName || 'unknown';
+
+            var event = document.createEvent('Event');
+            event.initEvent('click', true, true);
+            save.dispatchEvent(event);
+            (window.URL || window.webkitURL).revokeObjectURL(save.href);
+        }
+    }
+}
 
 var provider = new firebase.auth.GoogleAuthProvider();
 //
