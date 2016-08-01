@@ -25,8 +25,13 @@ class Modal extends React.Component {
     }
 
     render() {
+        console.log('this.props.openbtn',this.props.openbtn)
+        console.log('this.props.opentext',this.props.opentext)
+        console.log('this.props.content',this.props.content)
+
         var button;
         if (this.props.openbtn) { var button = <button id='modal-open-btn' onClick={(e) => this.showModal(e)}>{this.props.opentext || 'Open modal'}</button>; }
+        console.log('button',button)
         return (
             <span>
 		    {button}

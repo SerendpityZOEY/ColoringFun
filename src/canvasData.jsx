@@ -34,7 +34,8 @@ function render_canvas(){
     ReactDOM.render(
         <MyComponents.Canvas
         actions={actions}
-        data={data}/>,
+        data={data}
+        openbtn={true} opentext="open demo modal" content={<div id='content'>some demo content for modal</div>}/>,
         $('#canvas').get(0)
     )
 }
@@ -80,7 +81,6 @@ draw.on('value', function(snapshot){
     render_canvas()
     render_storage()
     render_dropdown()
-    render_modal()
 })
 
 firebaseRef.child('userImages').on('value', function(snapshot){
@@ -90,7 +90,6 @@ firebaseRef.child('userImages').on('value', function(snapshot){
     render_canvas();
     render_storage();
     render_dropdown();
-    render_modal()
 });
 
 firebaseRef.child('pubImages').on('value', function(snapshot){
@@ -102,7 +101,6 @@ firebaseRef.child('pubImages').on('value', function(snapshot){
     render_canvas();
     render_storage();
     render_dropdown();
-    render_modal();
 });
 
 actions.drawingAction = function(last_mouseX,last_mouseY,mouseX,mouseY,color,tool,lineSize,opacity) {

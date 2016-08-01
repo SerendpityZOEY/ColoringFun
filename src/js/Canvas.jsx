@@ -1,6 +1,33 @@
 class Canvas extends React.Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            display: 'none'
+        }
+    }
+
+    componentWillMount() {
+        this.props.openbtn || this.showModal();
+    }
+
+    showModal() {
+        console.log('event triggering')
+        this.setState({ display: 'block' });
+    }
+
+    hideModal() {
+        this.setState({ display: 'none' });
+    }
+
+    closeOnBackground(e) {
+        if( e.target.id == 'modal') {
+            this.hideModal();
+        }
+    }
+
     render() {
+
         return (
             <div>
                 <div className="row">
@@ -84,14 +111,17 @@ class Canvas extends React.Component {
                             <a className="waves-effect waves-light btn orange darken-1 col s3 push-s4" onClick={this.props.actions.resetCanvas}>Reset</a>
                             <br></br><br></br>
                             <a className="waves-effect waves-light btn orange darken-1 col s3 push-s4" id="saveFile">Save</a>
-                            <a className="waves-effect waves-light btn orange darken-1 col s3 push-s4">Background</a>
+                            <a className="waves-effect waves-light btn orange darken-1 col s3 push-s4" onClick={this.showModal.bind(this)}>Background</a>
 
+                            <div id="modal" style={this.state} onClick={(e) => this.closeOnBackground(e)}>
+                                <span className="modal-close" onClick={(e) => this.hideModal(e)}>x</span>
+                                {this.props.content}
+                            </div>
                         </div>
                     </div>
 
                 </div>
             </div>
-            //console.log(this.props.data.drawing)
         );
     }
     componentDidMount(){
