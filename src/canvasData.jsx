@@ -159,11 +159,11 @@ actions.upload = function(file){
 
 }
 
-actions.download = function(){
+actions.download = function(fileName){
     var starsRef = firebase.storage().ref();
 
     // Get the download URL
-    starsRef.child('images/IMG_3377.JPG').getDownloadURL().then(function(url) {
+    starsRef.child('images/'+fileName).getDownloadURL().then(function(url) {
         // Insert url into an <img> tag to "download"
         SaveToDisk(url,"test")
         console.log('downloading',url)

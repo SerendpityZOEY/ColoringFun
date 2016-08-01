@@ -50,37 +50,34 @@
     MyComponents = {}
 </script>
 
-    <!-- import each component class in components/ -->
-    <!-- The order is important. Dependencies must be loaded first -->
-    <script type="text/babel" src="js/Navbar.jsx"></script>
-    <script type="text/babel" src="js/about.jsx"></script>
-    <script type="text/babel" src="js/skill.jsx"></script>
-    <script type="text/babel" src="js/svgcanvas.jsx"></script>
+<!-- import each component class in components/ -->
+<!-- The order is important. Dependencies must be loaded first -->
+<script type="text/babel" src="js/Navbar.jsx"></script>
+<script type="text/babel" src="js/about.jsx"></script>
+<script type="text/babel" src="js/skill.jsx"></script>
+<script type="text/babel" src="js/svgcanvas.jsx"></script>
 
 
-    <script type="text/babel" src="data.jsx"></script>
+<script type="text/babel" src="data.jsx"></script>
 
 
-    <div id="navbar"></div>
-    <div class="container">
+<div id="navbar"></div>
+<div class="container">
 
-        <a class="waves-effect waves-light btn" href="canvas.html">Plain JS Canvas</a>
-        <a class="waves-effect waves-light btn" href="reactCanvas.html">ReactJS Canvas</a>
+    <a class="waves-effect waves-light btn" href="canvas.html">Plain JS Canvas</a>
+    <a class="waves-effect waves-light btn" href="reactCanvas.html">ReactJS Canvas</a>
 
-        <div id="aboutMe"></div>
-        <div id="skill"></div>
-    </div>
+    <div id="aboutMe"></div>
+    <div id="skill"></div>
+</div>
 
 <!--
 <script type="text/babel">
-
     ReactDOM.render(
             <MyComponents.NavBar/>,
             $('#navbar').get(0)
     );
-
     var myinfo = new Firebase('https://reactresume.firebaseio.com/');
-
     myinfo.child('education').on('value', function(snapshot){
         var schoolObjs = snapshot.val();
         console.log(schoolObjs)
@@ -95,7 +92,6 @@
                 $('#aboutMe').get(0)
         );
     })
-
     myinfo.child('skill').on('value', function(snapshot){
         var skills = snapshot.val()
         ReactDOM.render(

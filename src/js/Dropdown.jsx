@@ -16,10 +16,12 @@ class Dropdown extends React.Component {
     }
 
     handleItemClick(e) {
+        console.log(e.target.innerText)
         this.setState({
             expanded: false,
             value: e.target.innerText
         });
+        this.props.actions.download(e.target.innerText);
     }
 
     handleTriggerClick() {
@@ -42,8 +44,6 @@ class Dropdown extends React.Component {
 
         return (
             <div className="row" id="dl">
-                <a className="waves-effect waves-light btn orange darken-1 right" onClick={this.props.actions.download}>Download</a>
-
                 <div className="right col l1 pull-l3">
             <div className={`dropdown ${this.state.expanded ? 'active' : ''}`}
                  tabIndex="0"
