@@ -29,14 +29,30 @@ class Canvas extends React.Component {
     handleItemClick(e) {
         console.log(e.target.innerText)
         this.setState({
-            expanded: false,
             value: e.target.innerText
         });
+
+        var canvas = document.querySelector('#paint');
+        var ctx = canvas.getContext('2d');
+
+        var sketch = document.querySelector('#sketch');
+        var sketch_style = getComputedStyle(sketch);
+        canvas.width = parseInt(sketch_style.getPropertyValue('width'));
+        canvas.height = parseInt(sketch_style.getPropertyValue('height'));
+        console.log('canvas',canvas.width,canvas.height)
+
+        // draw image
+        var img = new Image();
+        img.src = 'http://www.almuslim.or.id/images/background-fix.png';
+
+        img.onload = function() {
+            ctx.drawImage(img, 0, 0, canvas.width,canvas.height);
+        };
     }
 
     render() {
 
-        var dropdown = (
+        var backgroundList = (
                 <div id="content">
                     {
                         this.props.options.map(item => {
@@ -133,7 +149,7 @@ class Canvas extends React.Component {
 
                             <div id="modal" style={this.state} onClick={(e) => this.closeOnBackground(e)}>
                                 <span className="modal-close" onClick={(e) => this.hideModal(e)}>x</span>
-                                {dropdown}
+                                {backgroundList}
                             </div>
                         </div>
                     </div>
@@ -151,6 +167,7 @@ class Canvas extends React.Component {
         canvas.width = parseInt(sketch_style.getPropertyValue('width'));
         canvas.height = parseInt(sketch_style.getPropertyValue('height'));
         console.log('canvas',canvas.width,canvas.height)
+        
 
         var tool = 'brush';
 
