@@ -3,6 +3,7 @@ var data = {
     user: null
 }
 
+var Imgurl = []
 var options = []
 
 var paths = {}
@@ -36,7 +37,8 @@ function render_canvas(){
         actions={actions}
         data={data}
         openbtn={true} opentext="open demo modal" content={<div id='content'>some demo content for modal</div>}
-        options={options}/>,
+        options={options}
+        Imgurl={Imgurl}/>,
         $('#canvas').get(0)
     )
 }
@@ -237,6 +239,21 @@ actions.download = function(fileName){
             (window.URL || window.webkitURL).revokeObjectURL(save.href);
         }
     }
+}
+
+
+actions.getImageURL = function(fileName){
+    var starsRef = firebase.storage().ref();
+    // Get the download URL
+    starsRef.child('images/'+fileName).getDownloadURL().then(function(url) {
+        Imgurl=url
+        render_nav();
+        render_canvas();
+        render_storage();
+        render_dropdown();
+    });
+
+    console.log(Imgurl)
 }
 
 var provider = new firebase.auth.GoogleAuthProvider();

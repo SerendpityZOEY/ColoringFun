@@ -54,7 +54,7 @@ class ImageUpload extends React.Component {
     // coverts byte size to the closest full size - ie kb's
     updateSize(fSize){
         for (var aMultiples = ["KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"], nMultiple = 0, nApprox = fSize / 1024; nApprox > 1; nApprox /= 1024, nMultiple++) {
-            console.log(nApprox.toFixed(2) + " " + aMultiples[nMultiple])
+            //console.log(nApprox.toFixed(2) + " " + aMultiples[nMultiple])
             return nApprox.toFixed(2) + " " + aMultiples[nMultiple];
         }
     };
@@ -67,7 +67,6 @@ class ImageUpload extends React.Component {
         } else {
             $imagePreview = (<div className="previewText">Please select an Image for Preview</div>);
         }
-        console.log(this.state)
         let fileSize = this.state.sizeCal;
 
         return (

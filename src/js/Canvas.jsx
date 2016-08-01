@@ -39,12 +39,12 @@ class Canvas extends React.Component {
         var sketch_style = getComputedStyle(sketch);
         canvas.width = parseInt(sketch_style.getPropertyValue('width'));
         canvas.height = parseInt(sketch_style.getPropertyValue('height'));
-        console.log('canvas',canvas.width,canvas.height)
 
         // draw image
         var img = new Image();
-        img.src = 'http://www.almuslim.or.id/images/background-fix.png';
-
+        //img.src = 'http://www.almuslim.or.id/images/background-fix.png';
+        this.props.actions.getImageURL(e.target.innerText);
+        img.src = this.props.Imgurl;
         img.onload = function() {
             ctx.drawImage(img, 0, 0, canvas.width,canvas.height);
         };
@@ -167,7 +167,7 @@ class Canvas extends React.Component {
         canvas.width = parseInt(sketch_style.getPropertyValue('width'));
         canvas.height = parseInt(sketch_style.getPropertyValue('height'));
         console.log('canvas',canvas.width,canvas.height)
-        
+
 
         var tool = 'brush';
 
