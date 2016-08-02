@@ -3,6 +3,8 @@ var data = {
     user: null
 }
 
+var Imgurl = []
+var options = []
 
 var paths = {}
 var actions={}
@@ -33,7 +35,10 @@ function render_canvas(){
     ReactDOM.render(
         <MyComponents.Canvas
         actions={actions}
-        data={data}/>,
+        data={data}
+        openbtn={true} opentext="open demo modal" content={<div id='content'>some demo content for modal</div>}
+        options={options}
+        Imgurl={Imgurl}/>,
         $('#canvas').get(0)
     )
 }
@@ -47,12 +52,23 @@ function render_storage(){
     )
 }
 
-function render_download(){
+function render_dropdown(){
     ReactDOM.render(
-        <MyComponents.Download
+        <MyComponents.Dropdown
         actions={actions}
-        data={data}/>,
-        $('#download').get(0)
+        data={data}
+        options={options}/>,
+        $('#app').get(0)
+    )
+}
+
+
+function render_modal(){
+    ReactDOM.render(
+        <MyComponents.Modal
+            actions={actions}
+            openbtn={true} opentext="open demo modal" content={<div id='content'>some demo content for modal</div>}/>,
+        $('#modal').get(0)
     )
 }
 
@@ -67,6 +83,7 @@ draw.on('value', function(snapshot){
     render_nav()
     render_canvas()
     render_storage()
+    render_dropdown()
 })
 
 firebaseRef.child('userImages').on('value', function(snapshot){
@@ -75,16 +92,18 @@ firebaseRef.child('userImages').on('value', function(snapshot){
     render_nav();
     render_canvas();
     render_storage();
-    render_download();
+    render_dropdown();
 });
 
 firebaseRef.child('pubImages').on('value', function(snapshot){
-    data.publist = snapshot.val();
-    console.log('rendering pub list',data.publist)
+    var objs = snapshot.val();
+    for (var key in objs) {
+        options.push(objs[key])
+    }
     render_nav();
     render_canvas();
     render_storage();
-    render_download();
+    render_dropdown();
 });
 
 actions.drawingAction = function(last_mouseX,last_mouseY,mouseX,mouseY,color,tool,lineSize,opacity) {
@@ -104,52 +123,40 @@ actions.resetCanvas = function(){
     draw.remove();
 }
 
+actions.saveCanvas = function(canvas,filename){
+
+    var lnk = document.createElement('a'),
+        e;
+
+    lnk.download = filename;
+
+    lnk.href = canvas.toDataURL();
+
+    if (document.createEvent) {
+
+        e = document.createEvent("MouseEvents");
+        e.initMouseEvent("click", true, true, window,
+            0, 0, 0, 0, 0, false, false, false,
+            false, 0, null);
+
+        lnk.dispatchEvent(e);
+
+    } else if (lnk.fireEvent) {
+
+        lnk.fireEvent("onclick");
+    }
+}
+
 actions.upload = function(file){
     // Get a reference to the storage service, which is used to create references in your storage bucket
     var storageRef = firebase.storage().ref();
-
-    // Points to 'images'
-    var imagesRef = storageRef.child('images');
-
-    // Points to 'images/space.jpg'
-    // Note that you can use variables to create child values
-    var fileName = 'chart.jpeg';
-    var spaceRef = imagesRef.child(fileName);
-
-    // File path is 'images/space.jpg'
-    var path = spaceRef.fullPath
-
-    // File name is 'space.jpg'
-    var name = spaceRef.name
-
-    var bucket = spaceRef.bucket;
-
-    //console.log('properties',path,name,bucket)
-
-    // Points to 'images'
-    var imagesRef = spaceRef.parent;
-
-    // Create a reference to 'mountains.jpg'
-    var mountainsRef = storageRef.child('mountains.jpg');
-
-    // Create a reference to 'images/mountains.jpg'
-    var mountainImagesRef = storageRef.child('images/mountains.jpg');
-
-    // While the file names are the same, the references point to different files
-    mountainsRef.name === mountainImagesRef.name            // true
-    mountainsRef.fullPath === mountainImagesRef.fullPath    // false
-
-    //console.log('name',mountainsRef.name)
-    //console.log('path',mountainsRef.fullPath)
-
-    // File or Blob, assume the file is called rivers.jpg
-    //var file = evt.target.files; // FileList object
 
     // Create file metadata including the content type
     var metadata = {
         contentType: 'image/jpeg',
     };
 
+    //Upload images to pub or user
     if(data.user==null){
         var uploadTask = storageRef.child('images/' + file.name).put(file,metadata);
     }else{
@@ -157,6 +164,7 @@ actions.upload = function(file){
 
     }
 
+    //Upload file names to pub or user
     if(data.user==null){
         firebaseRef.child('pubImages').push(file.name);
     }else{
@@ -189,6 +197,64 @@ actions.upload = function(file){
 
 }
 
+actions.download = function(fileName){
+    var starsRef = firebase.storage().ref();
+
+    // Get the download URL
+    starsRef.child('images/'+fileName).getDownloadURL().then(function(url) {
+        // Insert url into an <img> tag to "download"
+        SaveToDisk(url,"test")
+        console.log('downloading',url)
+    }).catch(function(error) {
+        switch (error.code) {
+            case 'storage/object_not_found':
+                // File doesn't exist
+                break;
+
+            case 'storage/unauthorized':
+                // User doesn't have permission to access the object
+                break;
+
+            case 'storage/canceled':
+                // User canceled the upload
+                break;
+
+            case 'storage/unknown':
+                // Unknown error occurred, inspect the server response
+                break;
+        }
+    });
+
+    function SaveToDisk(fileURL, fileName) {
+        // for non-IE
+        if (!window.ActiveXObject) {
+            var save = document.createElement('a');
+            save.href = fileURL;
+            save.target = '_blank';
+            save.download = fileName || 'unknown';
+
+            var event = document.createEvent('Event');
+            event.initEvent('click', true, true);
+            save.dispatchEvent(event);
+            (window.URL || window.webkitURL).revokeObjectURL(save.href);
+        }
+    }
+}
+
+
+actions.getImageURL = function(fileName){
+    var starsRef = firebase.storage().ref();
+    // Get the download URL
+    starsRef.child('images/'+fileName).getDownloadURL().then(function(url) {
+        Imgurl=url
+        render_nav();
+        render_canvas();
+        render_storage();
+        render_dropdown();
+    });
+
+    console.log(Imgurl)
+}
 
 var provider = new firebase.auth.GoogleAuthProvider();
 //

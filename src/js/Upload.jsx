@@ -54,7 +54,7 @@ class ImageUpload extends React.Component {
     // coverts byte size to the closest full size - ie kb's
     updateSize(fSize){
         for (var aMultiples = ["KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"], nMultiple = 0, nApprox = fSize / 1024; nApprox > 1; nApprox /= 1024, nMultiple++) {
-            console.log(nApprox.toFixed(2) + " " + aMultiples[nMultiple])
+            //console.log(nApprox.toFixed(2) + " " + aMultiples[nMultiple])
             return nApprox.toFixed(2) + " " + aMultiples[nMultiple];
         }
     };
@@ -67,7 +67,6 @@ class ImageUpload extends React.Component {
         } else {
             $imagePreview = (<div className="previewText">Please select an Image for Preview</div>);
         }
-        console.log(this.state)
         let fileSize = this.state.sizeCal;
 
         return (
@@ -75,8 +74,9 @@ class ImageUpload extends React.Component {
                 <div className="col l5 m5 s5 right" id="uploadContainer">
                     <div className="previewComponent">
                         <form onSubmit={(e)=>this._handleSubmit(e)}>
-                            <input className="fileInput btn1 waves-effect waves-light btn" type="file" onChange={(e)=>this._handleImageChange(e)} />
                             <button className="waves-effect waves-light btn orange darken-1 submitButton" type="submit" onClick={(e)=>this._handleSubmit(e)}>Upload</button>
+                            <br></br>
+                            <input className="fileInput btn1 waves-effect waves-light btn" type="file" onChange={(e)=>this._handleImageChange(e)} />
                         </form>
                         {
                             this.state.childVisible?

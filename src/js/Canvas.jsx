@@ -1,6 +1,67 @@
 class Canvas extends React.Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            display: 'none',
+            value: 'DOWNLOAD'
+        }
+    }
+
+    componentWillMount() {
+        this.props.openbtn || this.showModal();
+    }
+
+    showModal() {
+        this.setState({ display: 'block' });
+    }
+
+    hideModal() {
+        this.setState({ display: 'none' });
+    }
+
+    closeOnBackground(e) {
+        if( e.target.id == 'modal') {
+            this.hideModal();
+        }
+    }
+
+    handleItemClick(e) {
+        console.log(e.target.innerText)
+        this.setState({
+            value: e.target.innerText
+        });
+
+        var canvas = document.querySelector('#paint');
+        var ctx = canvas.getContext('2d');
+
+        var sketch = document.querySelector('#sketch');
+        var sketch_style = getComputedStyle(sketch);
+        canvas.width = parseInt(sketch_style.getPropertyValue('width'));
+        canvas.height = parseInt(sketch_style.getPropertyValue('height'));
+
+        // draw image
+        var img = new Image();
+        //img.src = 'http://www.almuslim.or.id/images/background-fix.png';
+        this.props.actions.getImageURL(e.target.innerText);
+        img.src = this.props.Imgurl;
+        img.onload = function() {
+            ctx.drawImage(img, 0, 0, canvas.width,canvas.height);
+        };
+    }
+
     render() {
+
+        var backgroundList = (
+                <div id="content">
+                    {
+                        this.props.options.map(item => {
+                            return <div onClick={this.handleItemClick.bind(this)} className="item">{item}</div>;
+                        })
+                    }
+                </div>
+            );
+
         return (
             <div>
                 <div className="row">
@@ -8,16 +69,6 @@ class Canvas extends React.Component {
                         <div id="sketch">
                             <canvas id="paint"></canvas>
                         </div>
-                    </div>
-                    <div className="col s5 m5 l5 push-s1">
-                        <a className="waves-effect waves-light btn orange darken-1 col s3 push-s4" id="brush">Brush</a>
-                        <br></br><br></br>
-                        <a className="waves-effect waves-light btn orange darken-1 col s3 push-s4" id="pencil">Pencil</a>
-                        <br></br><br></br>
-                        <a className="waves-effect waves-light btn orange darken-1 col s3 push-s4" id="spray">Spray</a>
-                        <br></br><br></br>
-                        <a className="waves-effect waves-light btn orange darken-1 col s3 push-s4" onClick={this.props.actions.resetCanvas}>Reset</a>
-                        <br></br><br></br>
                     </div>
 
                     <div className="col m1 l3 push-m2 push-l1">
@@ -35,7 +86,7 @@ class Canvas extends React.Component {
                         </form>
                     </div>
 
-                    <div className="col m2 l3 push-l1 push-m2" id="color-picker" style={{margin:'2em 2em 2em -1em'}}>
+                    <div className="col m2 l3 push-l1 push-m2" id="color-picker" style={{margin:'2em 2em 2em 0.2em'}}>
                         <button id="#fff" style={{background:"#fff"}}> </button>
                         <button id = '#eee' style={{background:"#eee"}}> </button>
                         <button id = '#000' style={{background:"#000"}}> </button>
@@ -84,9 +135,27 @@ class Canvas extends React.Component {
                         <button id = '#cf0' style={{background:"#cf0"}}> </button>
                         <button id="#ff8" style={{background:"#ff8"}}> </button>
                     </div>
+
+                    <div className="col s5 m5 l5 push-s1">
+                        <div className="btnContainer">
+                            <a className="waves-effect waves-light btn orange darken-1 col s3 push-s4" id="brush">Brush</a>
+                            <a className="waves-effect waves-light btn orange darken-1 col s3 push-s4" id="pencil">Pencil</a>
+                            <br></br><br></br>
+                            <a className="waves-effect waves-light btn orange darken-1 col s3 push-s4" id="spray">Spray</a>
+                            <a className="waves-effect waves-light btn orange darken-1 col s3 push-s4" onClick={this.props.actions.resetCanvas}>Reset</a>
+                            <br></br><br></br>
+                            <a className="waves-effect waves-light btn orange darken-1 col s3 push-s4" id="saveFile">Save</a>
+                            <a className="waves-effect waves-light btn orange darken-1 col s3 push-s4" onClick={this.showModal.bind(this)}>Background</a>
+
+                            <div id="modal" style={this.state} onClick={(e) => this.closeOnBackground(e)}>
+                                <span className="modal-close" onClick={(e) => this.hideModal(e)}>x</span>
+                                {backgroundList}
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
-            //console.log(this.props.data.drawing)
         );
     }
     componentDidMount(){
@@ -98,6 +167,7 @@ class Canvas extends React.Component {
         canvas.width = parseInt(sketch_style.getPropertyValue('width'));
         canvas.height = parseInt(sketch_style.getPropertyValue('height'));
         console.log('canvas',canvas.width,canvas.height)
+
 
         var tool = 'brush';
 
@@ -271,6 +341,10 @@ class Canvas extends React.Component {
         document.getElementById("opacity").addEventListener("change", function(){
             tmp_ctx.globalAlpha = document.getElementById("opacity").value/100;
         });
+
+        saveFile.onclick = function(){
+            this.props.actions.saveCanvas(paint,'myPicture.png');
+        }.bind(this);
     }
 }
 MyComponents.Canvas = Canvas

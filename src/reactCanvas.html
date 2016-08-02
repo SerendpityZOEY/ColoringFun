@@ -46,6 +46,8 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
 
+
+
 <script>
     // MyComponents is a global object where each property is a reference to a component class
     MyComponents = {}
@@ -53,20 +55,19 @@
 
 <script type="text/babel" src="js/Navbar.jsx"></script>
 <script type="text/babel" src="js/Canvas.jsx"></script>
+<script type="text/babel" src="js/Dropdown.jsx"></script>
 
 <script type="text/babel" src="js/Upload.jsx"></script>
-<script type="text/babel" src="js/Download.jsx"></script>
 <script type="text/babel" src="js/svgcanvas.jsx"></script>
 
 <script type="text/babel" src="canvasData.jsx"></script>
 
 <div id="navbar"></div>
 <div id="canvas"></div>
+<div id="app"></div>
+
 <div id="storage"></div>
-<div id="download"></div>
-
-
-
+<iframe id="my_iframe" style="display:none;"></iframe>
 
 <div class='holder'>
     <div class='myTitle'>SVG Coloring Book</div>
@@ -82,5 +83,6 @@
 <script src='http://cdnjs.cloudflare.com/ajax/libs/gsap/1.16.1/TweenMax.min.js'></script>
 <script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/DrawSVGPlugin.js?r=11'></script>
 <script src="js/svgColoring.js"></script>
+
 </body>
 </html>

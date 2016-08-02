@@ -121,7 +121,7 @@ input[type=range]::-webkit-slider-thumb {
     height:36px;
     width:280px;
     padding: .58em .72em;
-    margin: 0 0.6em 0.6em 1.2em;
+    margin: 0.6em 0.6em 0.6em 3em;
     border: none;
     cursor: pointer;
     border-radius: 0;
@@ -134,9 +134,23 @@ input[type=range]::-webkit-slider-thumb {
     background-color: #fb8c00;
 }
 
+.btnContainer{
+    margin-left:-4em;
+    margin-right:3em;
+}
 
+.btn{
+    margin-right:2em;
+    margin-left:-2em;
+}
 
+#dl{
+    margin-left:32em;
+    margin-top:-20em;
+    margin-bottom:4.2em;
+}
 
+/*SVG Styling*/
 @import url("http://codepen.io/MacEvelly/pen/iJGCw.css");
 
 .holder{
@@ -197,3 +211,99 @@ input[type=range]::-webkit-slider-thumb {
     cursor:pointer;
 }
 
+/*Download Dropdown List*/
+.trigger {
+    border-radius: 2px;
+    cursor: pointer;
+    display: inline-block;
+    padding: 10px;
+    width: 100%;
+    height:36px;
+    background:#fb8c00;
+    color:#ffffff;
+}
+
+.content {
+    border: 2px solid #fb8c00;
+    border-radius: 0 0 5px 5px;
+    padding: 10px;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.25);
+}
+
+.item {
+    padding: 10px;
+    transition: background .1s linear;
+}
+.item:hover {
+    background: #ffe0b2;
+    color: #fff;
+    cursor: pointer;
+}
+
+.dropdown {
+    box-shadow: 0 4px 10px rgba(124, 77, 255, 0.2);
+    margin: 50px auto;
+    outline: none;
+    transition: box-shadow .1s linear;
+    width: 120px;
+    height:36px;
+}
+.dropdown.active {
+    box-shadow: 0 10px 30px rgba(124, 77, 255, 0.2);
+}
+
+.dropdown.active > .trigger {
+    background: #fb8c00;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    color: #fff;
+}
+
+
+/*-------- modal styling --------- */
+
+#modal {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 7000;
+}
+
+#modal-open-btn {
+    border: 0;
+    background: #069;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.modal-close {
+    cursor: pointer;
+    color: white;
+    padding: 20px;
+    z-index: 9100;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.modal-close:hover {
+    color: red;
+}
+
+
+/*-------- content styling --------- */
+
+#content {
+    width: 500px;
+    display: block;
+    color: white;
+    position: relative;
+    margin: 100px auto;
+    padding: 30px;
+    border: 1px solid white;
+    background: rgba(0, 0, 0, 0.25);
+}
