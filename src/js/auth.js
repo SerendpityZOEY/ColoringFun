@@ -1,12 +1,12 @@
-import React from 'react';
-
-
 class Auth extends React.Component {
     constructor() {
         super()
-        this.state ={
-            user: JSON.parse(localStorage.getItem('amazingpixel::user'))
-        }
+        this.state = {}
+    }
+
+    componentWillMount()
+    {
+        this.setState({user : JSON.parse(localStorage.getItem('amazingpixel::user'))}) 
     }
     
     login()
@@ -30,9 +30,8 @@ class Auth extends React.Component {
             var firebaseRef = new Firebase('https://reactresume.firebaseio.com/')
             var userRef = firebaseRef.child(react.state.user.uid)
             userRef.set(react.state.user)
-            react.setState({user:true})
         }).catch(function(error) {
-
+            console.log(error)
         });
     }
 
@@ -45,21 +44,27 @@ class Auth extends React.Component {
                 localStorage.removeItem('amazingpixel::user')
                 react.setState({user:null})
             }, function(error) {
-                
+                console.log(error)
             });
-
         }
     }
+    
     render() {
             if (this.state.user == null) {
                 return (
-                    <li><a href="#" onClick={this.login.bind(this)}>Login Google</a></li>
+                    <ul id="nav-mobile" className="right">
+                        <li><a href="#" onClick={this.login.bind(this)}>Login Via Google</a></li>
+                    </ul>
                 );
             } else  {
                 return (
-                    <li><a href="#" onClick={this.logout.bind(this)}>Logout</a></li>
+                    <ul id="nav-mobile" className="right">
+                        <li>{this.state.user.displayName}</li>
+                        <li><a href="#" onClick={this.logout.bind(this)}>Logout</a></li>
+                    </ul>
                 );
             }
         }
 }
-export default Auth;
+
+MyComponents.Auth = Auth
