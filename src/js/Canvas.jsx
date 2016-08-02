@@ -79,7 +79,10 @@ class Canvas extends React.Component {
                 <div id="content">
                     {
                         this.props.options.map(item => {
-                            return <div onClick={this.handleItemClick.bind(this)} className="item">{item}</div>;
+                            return <div onClick={this.handleItemClick.bind(this)} className="item">
+                                {item}
+                                <i className="material-icons right" onClick={this.handleDelete.bind(this,item)}>delete</i>
+                            </div>;
                         })
                     }
                 </div>
@@ -129,14 +132,14 @@ class Canvas extends React.Component {
                         </div>
                     </div>
 
-                    <div className="col m1 l3 push-m2 push-l1">
+                    <div className="col m1 l2 push-m2">
                         <form action="#">Brush Size:
                             <p className="range-field">
                                 <input type="range" id="size" min="2" max="20"/>
                             </p>
                         </form>
                     </div>
-                    <div className="col m1 l3 push-m2 push-l1">
+                    <div className="col m1 l2 push-m2">
                         <form action="#">Opacity:
                             <p className="range-field">
                                 <input type="range" id="opacity" min="1" max="100"/>
@@ -144,7 +147,7 @@ class Canvas extends React.Component {
                         </form>
                     </div>
 
-                    <div className="col m2 l3 push-l1 push-m2" id="color-picker" style={{margin:'2em 2em 2em 0.2em'}}>
+                    <div className="col m2 l3 push-m2" id="color-picker" style={{margin:'2em 2em 2em 0.2em'}}>
                         <button id="#fff" style={{background:"#fff"}}> </button>
                         <button id = '#eee' style={{background:"#eee"}}> </button>
                         <button id = '#000' style={{background:"#000"}}> </button>
@@ -194,16 +197,14 @@ class Canvas extends React.Component {
                         <button id="#ff8" style={{background:"#ff8"}}> </button>
                     </div>
 
-                    <div className="col s5 m5 l5 push-s1">
+                    <div className="col s5 m5 l5">
                         <div className="btnContainer">
-                            <a className="waves-effect waves-light btn orange darken-1 col s3 push-s4" id="brush">Brush</a>
-                            <a className="waves-effect waves-light btn orange darken-1 col s3 push-s4" id="pencil">Pencil</a>
-                            <br></br><br></br>
-                            <a className="waves-effect waves-light btn orange darken-1 col s3 push-s4" id="spray">Spray</a>
-                            <a className="waves-effect waves-light btn orange darken-1 col s3 push-s4" onClick={this.props.actions.resetCanvas}>Reset</a>
-                            <br></br><br></br>
-                            <a className="waves-effect waves-light btn orange darken-1 col s3 push-s4" id="saveFile">Save</a>
-                            <a className="waves-effect waves-light btn orange darken-1 col s3 push-s4" onClick={this.showModal.bind(this)} style={{ fontSize :9}}>Set Background</a>
+                            <a className="waves-effect waves-light btn orange darken-1 col s3" id="brush">Brush</a>
+                            <a className="waves-effect waves-light btn orange darken-1 col s3" id="pencil">Pencil</a>
+                            <a className="waves-effect waves-light btn orange darken-1 col s3" id="spray">Spray</a>
+                            <a className="waves-effect waves-light btn orange darken-1 col s3" onClick={this.props.actions.resetCanvas}>Reset</a>
+                            <a className="waves-effect waves-light btn orange darken-1 col s3" id="saveFile">Save</a>
+                            <a className="waves-effect waves-light btn orange darken-1 col s3" onClick={this.showModal.bind(this)} style={{ fontSize :9}}>Set Background</a>
 
                             <div id="modal" style={this.state} onClick={(e) => this.closeOnBackground(e)}>
                                 <span className="modal-close" onClick={(e) => this.hideModal(e)}>x</span>
