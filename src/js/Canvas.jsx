@@ -28,7 +28,12 @@ class Canvas extends React.Component {
     }
 
     handleItemClick(e) {
-        console.log(e.target.innerText)
+        if(e.target.innerText.indexOf("delete")!==-1){
+            var lastIndex = e.target.innerText.lastIndexOf("d");
+
+            e.target.innerText = e.target.innerText.substring(0, lastIndex);
+        }
+
         this.setState({
             value: e.target.innerText
         });
@@ -51,6 +56,23 @@ class Canvas extends React.Component {
         };
     }
 
+    handleDelete(item,e){
+
+        console.log(item)
+        var firebaseRef = new Firebase('https://reactresume.firebaseio.com/userImages');
+        var userRef = firebaseRef.child(this.state.user.uid);
+        userRef.on('value', function(snapshot){
+            snapshot.forEach(function(childSnapshot) {
+                var key = childSnapshot.key();
+                var childData = childSnapshot.val();
+                if(childData==item){
+                    userRef.child(key).remove();
+                }
+            });
+        });
+
+    }
+
     render() {
 
         if(this.state.user==null){
@@ -64,20 +86,34 @@ class Canvas extends React.Component {
                 </div>
             );
         }else{
-            var personalFiles = [];
-            var objs= this.props.data.userlist[this.state.user.uid];
-            for (var key in objs) {
-                personalFiles.push(objs[key])
+            if(this.props.data.userlist[this.state.user.uid]==undefined){
+                backgroundList=(
+                    <div id="content">
+                         You don't have any files in our database. :)
+                        </div>
+                )
+            }else{
+                var personalFiles = [];
+                var objs= this.props.data.userlist[this.state.user.uid];
+                for (var key in objs) {
+                    personalFiles.push(objs[key])
+                }
+                backgroundList = (
+                    <div id="content">
+                        {
+                            personalFiles.map(item => {
+                                return <div>
+                                    <div onClick={this.handleItemClick.bind(this)} className="item">
+                                        {item}
+                                        <i className="material-icons right" onClick={this.handleDelete.bind(this,item)}>delete</i>
+                                    </div>
+                                </div>;
+                            })
+                        }
+                    </div>
+                );
             }
-            backgroundList = (
-                <div id="content">
-                    {
-                        personalFiles.map(item => {
-                            return <div onClick={this.handleItemClick.bind(this)} className="item">{item}</div>;
-                        })
-                    }
-                </div>
-            );
+
         }
 
 

@@ -78,7 +78,6 @@ draw.on('value', function(snapshot){
 
 firebaseRef.child('userImages').on('value', function(snapshot){
     data.userlist = snapshot.val();
-    console.log('rendering personal list',data.userlist)
     render_nav();
     render_canvas();
     render_storage();
