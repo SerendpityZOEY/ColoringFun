@@ -3,7 +3,8 @@ class Dropdown extends React.Component {
         super(props);
         this.state = {
             expanded: false,
-            value: 'DOWNLOAD'
+            value: 'DOWNLOAD',
+            user: JSON.parse(localStorage.getItem('amazingpixel::user'))
         };
     }
 
@@ -19,7 +20,7 @@ class Dropdown extends React.Component {
         console.log(e.target.innerText)
         this.setState({
             expanded: false,
-            value: e.target.innerText
+            value: e.target.innerText,
         });
         this.props.actions.download(e.target.innerText);
     }
@@ -31,15 +32,33 @@ class Dropdown extends React.Component {
     render() {
         let dropdown = undefined;
         if (this.state.expanded) {
-            dropdown = (
-                <div className="content">
-                    {
-                        this.props.options.map(item => {
-                            return <div onClick={(e) => { this.handleItemClick(e); }} className="item">{item}</div>;
-                        })
-                    }
-                </div>
-            );
+            if(this.state.user==null){
+                dropdown = (
+                    <div className="content">
+                        {
+                            this.props.options.map(item => {
+                                return <div onClick={(e) => { this.handleItemClick(e); }} className="item">{item}</div>;
+                            })
+                        }
+                    </div>
+                );
+            }else{
+                var personalFiles = [];
+                var objs= this.props.data.userlist[this.state.user.uid];
+                for (var key in objs) {
+                    personalFiles.push(objs[key])
+                }
+                dropdown = (
+                    <div className="content">
+                        {
+                            personalFiles.map(item => {
+                                return <div onClick={(e) => { this.handleItemClick(e); }} className="item">{item}</div>;
+                            })
+                        }
+                    </div>
+                );
+            }
+
         }
 
         return (
@@ -59,4 +78,3 @@ class Dropdown extends React.Component {
     }
 }
 MyComponents.Dropdown = Dropdown
-

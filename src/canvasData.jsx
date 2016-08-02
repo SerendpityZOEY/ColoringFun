@@ -62,16 +62,6 @@ function render_dropdown(){
     )
 }
 
-
-function render_modal(){
-    ReactDOM.render(
-        <MyComponents.Modal
-            actions={actions}
-            openbtn={true} opentext="open demo modal" content={<div id='content'>some demo content for modal</div>}/>,
-        $('#modal').get(0)
-    )
-}
-
 var firebaseRef = new Firebase('https://reactresume.firebaseio.com/');
 
 var draw = new Firebase('https://reactresume.firebaseio.com/drawing');
@@ -157,10 +147,13 @@ actions.upload = function(file){
         contentType: 'image/jpeg',
     };
 
+    data.user = JSON.parse(localStorage.getItem('amazingpixel::user'));
+
     //Upload images to pub or user
     if(data.user==null){
         var uploadTask = storageRef.child('images/' + file.name).put(file,metadata);
     }else{
+        console.log('user id',data.user.uid)
         uploadTask = storageRef.child(data.user.uid+'/images/' + file.name).put(file,metadata);
 
     }
@@ -285,7 +278,7 @@ actions.login = function(){
         data.user.displayName = user.displayName
         data.user.uid = user.uid
         localStorage.setItem('amazingpixel::user', JSON.stringify(data.user))
-        console.log(data.user)
+        console.log('>>>>',data.user)
         var userRef = firebaseRef.child('users')
 
         var uRef = userRef.child(data.user.uid)
