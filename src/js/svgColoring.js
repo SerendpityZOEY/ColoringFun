@@ -112,8 +112,8 @@
         console.log(chosenColor.valueOf())
         color = chosenColor.valueOf()
         // event.target.style.fill = color;
-        TweenMax.to(event.target, fillSpeed, { fill: chosenColor });
-        svgImgSvgRef.child(event.target.id).update({"style":{"fill":color}})
+        TweenMax.to(event.target, 0.05, { fill: chosenColor });
+        // svgImgSvgRef.child(event.target.id).update({"style":{"fill":color}})
         
     }); 
 }( jQuery ));
