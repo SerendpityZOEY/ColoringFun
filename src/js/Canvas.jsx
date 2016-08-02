@@ -4,7 +4,8 @@ class Canvas extends React.Component {
         super(props);
         this.state = {
             display: 'none',
-            value: 'DOWNLOAD'
+            value: 'DOWNLOAD',
+            user: JSON.parse(localStorage.getItem('amazingpixel::user'))
         }
     }
 
@@ -52,7 +53,8 @@ class Canvas extends React.Component {
 
     render() {
 
-        var backgroundList = (
+        if(this.state.user==null){
+            var backgroundList = (
                 <div id="content">
                     {
                         this.props.options.map(item => {
@@ -61,6 +63,24 @@ class Canvas extends React.Component {
                     }
                 </div>
             );
+        }else{
+            var personalFiles = [];
+            var objs= this.props.data.userlist[this.state.user.uid];
+            for (var key in objs) {
+                personalFiles.push(objs[key])
+            }
+            backgroundList = (
+                <div id="content">
+                    {
+                        personalFiles.map(item => {
+                            return <div onClick={this.handleItemClick.bind(this)} className="item">{item}</div>;
+                        })
+                    }
+                </div>
+            );
+        }
+
+
 
         return (
             <div>
