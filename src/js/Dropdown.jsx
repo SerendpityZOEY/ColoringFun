@@ -17,7 +17,6 @@ class Dropdown extends React.Component {
     }
 
     handleItemClick(e) {
-        console.log(e.target.innerText)
         this.setState({
             expanded: false,
             value: e.target.innerText,

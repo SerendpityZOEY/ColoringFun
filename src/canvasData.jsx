@@ -153,7 +153,7 @@ actions.upload = function(file){
         var uploadTask = storageRef.child('images/' + file.name).put(file,metadata);
     }else{
         console.log('user id',data.user.uid)
-        uploadTask = storageRef.child(data.user.uid+'/images/' + file.name).put(file,metadata);
+        uploadTask = storageRef.child(data.user.uid + '/images/' + file.name).put(file,metadata);
 
     }
 
@@ -191,32 +191,62 @@ actions.upload = function(file){
 }
 
 actions.download = function(fileName){
+    data.user = JSON.parse(localStorage.getItem('amazingpixel::user'));
+
     var starsRef = firebase.storage().ref();
 
-    // Get the download URL
-    starsRef.child('images/'+fileName).getDownloadURL().then(function(url) {
-        // Insert url into an <img> tag to "download"
-        SaveToDisk(url,"test")
-        console.log('downloading',url)
-    }).catch(function(error) {
-        switch (error.code) {
-            case 'storage/object_not_found':
-                // File doesn't exist
-                break;
+    if(data.user==null){
+        // Get the download URL
+        starsRef.child('images/'+fileName).getDownloadURL().then(function(url) {
+            // Insert url into an <img> tag to "download"
+            SaveToDisk(url,fileName)
+            console.log('downloading',url)
+        }).catch(function(error) {
+            switch (error.code) {
+                case 'storage/object_not_found':
+                    // File doesn't exist
+                    break;
 
-            case 'storage/unauthorized':
-                // User doesn't have permission to access the object
-                break;
+                case 'storage/unauthorized':
+                    // User doesn't have permission to access the object
+                    break;
 
-            case 'storage/canceled':
-                // User canceled the upload
-                break;
+                case 'storage/canceled':
+                    // User canceled the upload
+                    break;
 
-            case 'storage/unknown':
-                // Unknown error occurred, inspect the server response
-                break;
-        }
-    });
+                case 'storage/unknown':
+                    // Unknown error occurred, inspect the server response
+                    break;
+            }
+        });
+    }else{
+        // Get the download URL
+        starsRef.child(data.user.uid+'/images/'+fileName).getDownloadURL().then(function(url) {
+            // Insert url into an <img> tag to "download"
+            SaveToDisk(url,fileName)
+            console.log('downloading',fileName)
+        }).catch(function(error) {
+            switch (error.code) {
+                case 'storage/object_not_found':
+                    // File doesn't exist
+                    break;
+
+                case 'storage/unauthorized':
+                    // User doesn't have permission to access the object
+                    break;
+
+                case 'storage/canceled':
+                    // User canceled the upload
+                    break;
+
+                case 'storage/unknown':
+                    // Unknown error occurred, inspect the server response
+                    break;
+            }
+        });
+    }
+
 
     function SaveToDisk(fileURL, fileName) {
         // for non-IE
@@ -237,16 +267,26 @@ actions.download = function(fileName){
 
 actions.getImageURL = function(fileName){
     Imgurl=[]
+    data.user = JSON.parse(localStorage.getItem('amazingpixel::user'));
 
     var starsRef = firebase.storage().ref();
     // Get the download URL
-    starsRef.child('images/'+fileName).getDownloadURL().then(function(url) {
-        console.log('fileName',fileName,'url',url)
-        Imgurl=url
-        render_canvas();
-        render_storage();
-        render_dropdown();
-    });
+    if(data.user==null){
+        starsRef.child('images/'+fileName).getDownloadURL().then(function(url) {
+            Imgurl=url
+            render_canvas();
+            render_storage();
+            render_dropdown();
+        });
+    }else{
+        starsRef.child(data.user.uid+'/images/'+fileName).getDownloadURL().then(function(url) {
+            Imgurl=url
+            render_canvas();
+            render_storage();
+            render_dropdown();
+        });
+    }
+
 
 }
 
@@ -293,7 +333,7 @@ actions.login = function(){
             // userImgSvgRef = firebaseRef.child('userImages').child(data.user.uid).child('svg').push()
             imgKey = '-KO1YIEkBU1H0ort7I17'
             svgImgSvgRef = firebaseRef.child('userImages').child(data.user.uid).child('svg').child(imgKey)
-            console.log(imgKey)
+            console.log('line 336',imgKey)
             // userImgSvgRef.set(paths)
             svgImgSvgRef.on('value', function (snapshot) {
                 var val = snapshot.val()

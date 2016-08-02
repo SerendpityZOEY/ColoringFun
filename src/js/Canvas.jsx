@@ -58,7 +58,6 @@ class Canvas extends React.Component {
 
     handleDelete(item,e){
 
-        console.log(item)
         var firebaseRef = new Firebase('https://reactresume.firebaseio.com/userImages');
         var userRef = firebaseRef.child(this.state.user.uid);
         userRef.on('value', function(snapshot){
@@ -86,7 +85,7 @@ class Canvas extends React.Component {
                 </div>
             );
         }else{
-            if(this.props.data.userlist[this.state.user.uid]==undefined){
+            if(this.state.user==undefined){
                 backgroundList=(
                     <div id="content">
                          You don't have any files in our database. :)
@@ -94,9 +93,12 @@ class Canvas extends React.Component {
                 )
             }else{
                 var personalFiles = [];
-                var objs= this.props.data.userlist[this.state.user.uid];
-                for (var key in objs) {
-                    personalFiles.push(objs[key])
+                if (this.props.data.userlist){
+                    var Objects= this.props.data.userlist[this.state.user.uid];
+                }
+
+                for (var key in Objects) {
+                    personalFiles.push(Objects[key])
                 }
                 backgroundList = (
                     <div id="content">
