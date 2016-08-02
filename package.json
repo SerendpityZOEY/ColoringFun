@@ -1,5 +1,5 @@
 {
-  "name": "book",
+  "name": "amazingpixel",
   "version": "1.0.0",
   "description": "Everything I've learned from UCDD II - 2016.",
   "main": "index.js",
@@ -29,8 +29,8 @@
     "metalsmith-watch": "^1.0.1",
     "node-random-name": "^1.0.1",
     "nunjucks": "^2.3.0",
-    "react": "^0.14.7",
-    "react-dom": "^0.14.7"
+    "react": "^0.15.3",
+    "react-dom": "^0.15.3"
   },
   "keywords": [
     "example"

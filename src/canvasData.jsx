@@ -284,6 +284,7 @@ actions.login = function(){
         data.user = {}
         data.user.displayName = user.displayName
         data.user.uid = user.uid
+        localStorage.setItem('amazingpixel::user', JSON.stringify(data.user))
         console.log(data.user)
         var userRef = firebaseRef.child('users')
 
