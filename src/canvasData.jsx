@@ -96,6 +96,7 @@ firebaseRef.child('userImages').on('value', function(snapshot){
 });
 
 firebaseRef.child('pubImages').on('value', function(snapshot){
+    options = []
     var objs = snapshot.val();
     for (var key in objs) {
         options.push(objs[key])
@@ -243,17 +244,18 @@ actions.download = function(fileName){
 
 
 actions.getImageURL = function(fileName){
+    Imgurl=[]
+
     var starsRef = firebase.storage().ref();
     // Get the download URL
     starsRef.child('images/'+fileName).getDownloadURL().then(function(url) {
+        console.log('fileName',fileName,'url',url)
         Imgurl=url
-        render_nav();
         render_canvas();
         render_storage();
         render_dropdown();
     });
 
-    console.log(Imgurl)
 }
 
 var provider = new firebase.auth.GoogleAuthProvider();

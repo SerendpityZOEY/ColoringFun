@@ -145,7 +145,7 @@ class Canvas extends React.Component {
                             <a className="waves-effect waves-light btn orange darken-1 col s3 push-s4" onClick={this.props.actions.resetCanvas}>Reset</a>
                             <br></br><br></br>
                             <a className="waves-effect waves-light btn orange darken-1 col s3 push-s4" id="saveFile">Save</a>
-                            <a className="waves-effect waves-light btn orange darken-1 col s3 push-s4" onClick={this.showModal.bind(this)}>Background</a>
+                            <a className="waves-effect waves-light btn orange darken-1 col s3 push-s4" onClick={this.showModal.bind(this)} style={{ fontSize :9}}>Set Background</a>
 
                             <div id="modal" style={this.state} onClick={(e) => this.closeOnBackground(e)}>
                                 <span className="modal-close" onClick={(e) => this.hideModal(e)}>x</span>
