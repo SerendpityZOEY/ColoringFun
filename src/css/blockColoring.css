@@ -1,4 +1,3 @@
-@import url("http://codepen.io/MacEvelly/pen/iJGCw.css");
 
 .holder{
     width:700px;
@@ -12,7 +11,7 @@
     padding:10px;
 }
 
-#ActivityDIV .swatchHolder{
+ .swatchHolder{
     position:absolute;
     bottom:0px;
     margin:auto;
@@ -26,7 +25,7 @@
     border-radius: 20px 20px 0px 0px;
     color: black;
 }
-#ActivityDIV .swatchHolder .colorHolder{
+ .swatchHolder .colorHolder{
     width:100%;
     line-height: 100%;
     content:'Chosen Color';
@@ -38,7 +37,7 @@
     -moz-box-shadow: 0 1px 5px rgba(0,0,0,0.5);
     box-shadow: 0 1px 5px rgba(0,0,0,0.5);
 }
-#ActivityDIV .swatchHolder li:not(.colorHolder){
+ .swatchHolder li:not(.colorHolder){
     height:25px;
     width:25px;
     margin:2px;
@@ -50,10 +49,10 @@
     box-shadow: 0 1px 5px rgba(0,0,0,0.5);
 }
 
-#ActivityDIV svg{
+ svg{
     width:100%;
     display:inline-block;
 }
-#ActivityDIV svg path{
+ svg path{
     cursor:pointer;
 }
