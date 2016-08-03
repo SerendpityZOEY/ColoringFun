@@ -13,14 +13,18 @@ class Auth extends React.Component {
     {
         var react = this
         var provider = new firebase.auth.GoogleAuthProvider();
+        provider.addScope('email');
         firebase.auth().signInWithPopup(provider).then(function(result) {
-            var user = result.user
+            var user = result.user.providerData[0]
+            console.log(result)
             console.log(user)
             react.setState(
                 {
                     user: {
                         uid: user.uid,
-                        displayName: user.displayName
+                        email: user.email,
+                        displayName: user.displayName,
+                        avatar: user.photoURL
                     }
                 }
             )
@@ -28,7 +32,7 @@ class Auth extends React.Component {
             localStorage.setItem('amazingpixel::user', JSON.stringify(react.state.user))
             
             var firebaseRef = new Firebase('https://reactresume.firebaseio.com/')
-            var userRef = firebaseRef.child(react.state.user.uid)
+            var userRef = firebaseRef.child('users').child(react.state.user.uid)
             userRef.set(react.state.user)
         }).catch(function(error) {
             console.log(error)
