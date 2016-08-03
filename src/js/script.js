@@ -64,7 +64,7 @@
     var mouse = {x: 0, y: 0};
     var last_mouse = {x: 0, y: 0};
 
-    var Ref = new Firebase('https://reactresume.firebaseio.com/drawing');
+    var Ref = new Firebase('https://coloringfun.firebaseio.com/drawing');
 
     /* Mouse Capturing Work */
     canvas.addEventListener('mousemove', function(e) {

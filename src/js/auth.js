@@ -31,7 +31,7 @@ class Auth extends React.Component {
 
             localStorage.setItem('amazingpixel::user', JSON.stringify(react.state.user))
             
-            var firebaseRef = new Firebase('https://reactresume.firebaseio.com/')
+            var firebaseRef = new Firebase('https://coloringfun.firebaseio.com/')
             var userRef = firebaseRef.child('users').child(react.state.user.uid)
             userRef.set(react.state.user)
         }).catch(function(error) {

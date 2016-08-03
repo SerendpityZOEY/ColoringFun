@@ -4,6 +4,6 @@ For independent study, summer, 2016
 
 A live demo will be available here:
 
-https://reactresume.firebaseapp.com
+https://coloringfun.firebaseapp.com
 
 *Still in developed version

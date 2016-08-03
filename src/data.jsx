@@ -15,7 +15,7 @@ function render_nav(){
   )
 }
 
-var myinfo = new Firebase('https://reactresume.firebaseio.com/');
+var myinfo = new Firebase('https://coloringfun.firebaseio.com/');
 
 
 myinfo.child('skill').on('value', function(snapshot){
@@ -24,7 +24,7 @@ myinfo.child('skill').on('value', function(snapshot){
 })
 
 /*
- var firebaseRef = new Firebase('https://reactresume.firebaseio.com/')
+ var firebaseRef = new Firebase('https://coloringfun.firebaseio.com/')
  actions.login = function(){
  firebaseRef.authWithOAuthPopup("github", function(error, authData){
  // handle the result of the authentication
@@ -68,7 +68,7 @@ myinfo.child('skill').on('value', function(snapshot){
  */
 
 
-var firebaseRef = new Firebase('https://reactresume.firebaseio.com/')
+var firebaseRef = new Firebase('https://coloringfun.firebaseio.com/')
 var provider = new firebase.auth.GoogleAuthProvider();
 
 actions.login = function(){

@@ -62,9 +62,9 @@ function render_dropdown(){
     )
 }
 
-var firebaseRef = new Firebase('https://reactresume.firebaseio.com/');
+var firebaseRef = new Firebase('https://coloringfun.firebaseio.com/');
 
-var draw = new Firebase('https://reactresume.firebaseio.com/drawing');
+var draw = new Firebase('https://coloringfun.firebaseio.com/drawing');
 
 var userImgSvgRef
 

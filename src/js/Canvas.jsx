@@ -58,7 +58,7 @@ class Canvas extends React.Component {
 
     handleDelete(item,e){
 
-        var firebaseRef = new Firebase('https://reactresume.firebaseio.com/userImages');
+        var firebaseRef = new Firebase('https://coloringfun.firebaseio.com/userImages');
         var userRef = firebaseRef.child(this.state.user.uid);
         userRef.on('value', function(snapshot){
             snapshot.forEach(function(childSnapshot) {
@@ -262,7 +262,7 @@ class Canvas extends React.Component {
         var mouse = {x: 0, y: 0};
         var last_mouse = {x: 0, y: 0};
 
-        var Ref = new Firebase('https://reactresume.firebaseio.com/drawing');
+        var Ref = new Firebase('https://coloringfun.firebaseio.com/drawing');
 
         /* Mouse Capturing Work */
         canvas.addEventListener('mousemove', function(e) {

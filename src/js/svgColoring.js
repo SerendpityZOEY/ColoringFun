@@ -105,7 +105,7 @@
     }
     var $drawing = $('#svgCanvas')
     console.log($drawing)
-    var firebaseRef = new Firebase('https://reactresume.firebaseio.com/');
+    var firebaseRef = new Firebase('https://coloringfun.firebaseio.com/');
     var imgKey = '-KO1YIEkBU1H0ort7I17'
     var svgImgSvgRef = firebaseRef.child('userImages').child("hnGL9hCfauNfOn7LBRNlqyG7Yli2").child('svg').child(imgKey)
     $drawing.click(function(event) {
