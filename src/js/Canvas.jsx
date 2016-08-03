@@ -88,7 +88,8 @@ class Canvas extends React.Component {
                 </div>
             );
         }else{
-            if(this.state.user==undefined){
+            console.log(this.props.data.userlist)
+            if(this.props.data.userlist==null){
                 backgroundList=(
                     <div id="content">
                          You don't have any files in our database. :)
