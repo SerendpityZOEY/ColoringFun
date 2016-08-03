@@ -2,25 +2,22 @@
 <html>
 <head>
     <meta charset="UTF-8" />
-    <title>AmazingPixel</title>
+    <title>Coloring Fun</title>
 
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://cdn.firebase.com/js/client/2.3.2/firebase.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.0.0/lodash.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
     <script src="lib/react.js"></script>
     <script src="lib/react-dom.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 
 
-    <!--Import Google Icon Font-->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
 
     <link rel="stylesheet" href="css/styles.css"/>
     <script src="https://www.gstatic.com/firebasejs/3.2.1/firebase.js"></script>
-
     <script>
         // Initialize Firebase
         var config = {
@@ -31,8 +28,6 @@
         };
         firebase.initializeApp(config);
     </script>
-
-
 </head>
 
 <body>
@@ -40,17 +35,14 @@
 
 
 <script>
-    // MyComponents is a global object where each property is a reference to a component class
     MyComponents = {}
 </script>
 
-<!-- import each component class in components/ -->
-<!-- The order is important. Dependencies must be loaded first -->
 <script type="text/babel" src="js/Auth.jsx"></script>
-
 <script type="text/babel" src="js/Navbar.jsx"></script>
-<script type="text/babel" src="canvasData.jsx"></script>
-
+<div id="background">
+    <img src="img/index_background.jpg" class="stretch" alt="" />
+</div>
 <div id="navbar"></div>
 <div class="container">
 
@@ -61,7 +53,6 @@
 
 
 </div>
-
 
 </body>
 </html>

@@ -4,7 +4,7 @@ class NavBar extends React.Component {
        return (
            <nav className="deep-purple">
                <div className="nav-wrapper">
-                   <a href="index.html" className="brand-logo center">Amazing Pixel</a>
+                   <a href="index.html" className="brand-logo center">Coloring Fun</a>
                    <MyComponents.Auth></MyComponents.Auth>
                </div>
            </nav>
@@ -12,3 +12,7 @@ class NavBar extends React.Component {
     }
 }
 MyComponents.NavBar = NavBar
+ReactDOM.render(
+    <MyComponents.NavBar/>,
+    document.getElementById('navbar')
+);
