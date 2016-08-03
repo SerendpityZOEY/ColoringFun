@@ -88,7 +88,7 @@ class Canvas extends React.Component {
                 </div>
             );
         }else{
-            console.log(this.props.data.userlist)
+            //console.log(this.props.data.userlist)
             if(this.props.data.userlist==null){
                 backgroundList=(
                     <div id="content">
@@ -403,6 +403,7 @@ class Canvas extends React.Component {
         });
 
         saveFile.onclick = function(){
+            console.log('saving')
             this.props.actions.saveCanvas(paint,'myPicture.png');
         }.bind(this);
     }

@@ -320,3 +320,34 @@ input[type=range]::-webkit-slider-thumb {
 .btnContainer{
     margin-left:-0.1em;
 }
+
+.fileInput {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.fileInput + label {
+    display: inline-block;
+    vertical-align: top;
+    background-color: #fb8c00;
+    color: #fff;
+    text-decoration: none;
+    text-align: center;
+    font-size: 1vw;
+    line-height: 1.1em;
+    height:36px;
+    width:113.19px;
+    padding: .88em .72em .48em .72em;
+    margin: 0 0 0 0.2em;
+    border: none;
+    cursor: pointer;
+    border-radius: 2px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+}

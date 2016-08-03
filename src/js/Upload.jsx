@@ -75,7 +75,8 @@ class ImageUpload extends React.Component {
                     <div className="previewComponent">
                         <form onSubmit={(e)=>this._handleSubmit(e)}>
                             <button className="waves-effect waves-light btn orange darken-1" id="submitButton" type="submit" onClick={(e)=>this._handleSubmit(e)}>Upload</button>
-                            <input className="fileInput btn1 waves-effect waves-light" type="file" onChange={(e)=>this._handleImageChange(e)} />
+                            <input className="fileInput btn1 waves-effect waves-light" type="file" id="file" onChange={(e)=>this._handleImageChange(e)} />
+                            <label htmlFor="file">Choose a file</label>
                         </form>
                         {
                             this.state.childVisible?
