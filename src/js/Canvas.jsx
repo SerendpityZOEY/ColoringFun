@@ -147,7 +147,7 @@ class Canvas extends React.Component {
                         </form>
                     </div>
 
-                    <div className="col m2 l3 push-m2" id="color-picker" style={{margin:'2em 2em 2em 0.2em'}}>
+                    <div className="col m2 l4 push-m2" id="color-picker" style={{margin:'2em 0em 2em 0.2em'}}>
                         <button id="#fff" style={{background:"#fff"}}> </button>
                         <button id = '#eee' style={{background:"#eee"}}> </button>
                         <button id = '#000' style={{background:"#000"}}> </button>

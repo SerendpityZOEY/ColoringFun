@@ -25,11 +25,21 @@
     width:660px;
 }
 
+#color-picker{
+    padding-left:0;
+}
 #color-picker button {
     width:20px;
     height:20px;
     border: 3px solid gray;
-    margin: 0 1px 0 1px;
+    margin: 0 1.5px 0 1.5px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+}
+
+#color-picker button:hover {
+    width:25px;
+    height:25px;
 }
 
 /*Customize slider*/
