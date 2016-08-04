@@ -1,4 +1,4 @@
-# HTML 5 Canvas App
+# HTML5 Collaborative Canvas App
 
 For independent study, summer, 2016
 
