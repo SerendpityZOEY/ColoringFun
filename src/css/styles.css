@@ -5,6 +5,7 @@
     left: 0px;
     top: 0px;
     z-index: 0;
+    cursor:url('http://www.picgifs.com/cursors/cursors/pencil-and-pen/animaatjes_pencil_icon2.gif'), auto;
 }
 
 .stretch {
@@ -55,4 +56,8 @@ h1{
     -ms-user-select: none;
     user-select: none;
     white-space: normal;
+}
+
+.StreamsHero-buttonContainer .Button :hover{
+    cursor:url('http://www.picgifs.com/cursors/cursors/pencil-and-pen/animaatjes_pencil_icon2.gif'), auto;
 }
