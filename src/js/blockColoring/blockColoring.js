@@ -39,25 +39,37 @@
         })
     }
 
-    function svgDownloadSVG() {
-        var svgInfo = $("<div/>").append(mainHolder.clone()).html();
-        $(this).attr({
-            href: "data:image/svg+xml;utf8," + svgInfo,
-            download: 'coloringBook.svg',
-            target: "_blank"
-        });
-    }
-
-    function svgDownloadPNG() {
-        // Future expantion:
-        // Look at http://bl.ocks.org/biovisualize/8187844
+    function btnUploadSVG() {
+        // var svgInfo = $("<div/>").append(mainHolder.clone()).html();
+        // $(this).attr({
+        //     href: "data:image/svg+xml;utf8," + svgInfo,
+        //     download: 'coloringBook.svg',
+        //     target: "_blank"
+        // });
         var svgString = new XMLSerializer().serializeToString(document.querySelector('#svgCanvas').querySelector('svg'));
         var svg = new Blob([svgString], {type: "image/svg+xml;charset=utf-8"});
         var storageRef = firebase.storage().ref();
         var metadata = {
             contentType: 'image/svg',
         };
-        var uploadtask = storageRef.child('public').child('c.svg').put(svg, metadata)
+        var uploadtask = storageRef.child('public').child(svgId + '.svg').put(svg, metadata)
+    }
+
+    function btnDownloadPNG() {
+        // Future expantion:
+        // Look at http://bl.ocks.org/biovisualize/8187844
+        
+        // var svgString = new XMLSerializer().serializeToString(document.querySelector('#svgCanvas').querySelector('svg'));
+        // var svg = new Blob([svgString], {type: "image/svg+xml;charset=utf-8"});
+        // var storageRef = firebase.storage().ref();
+        // var metadata = {
+        //     contentType: 'image/svg',
+        // };
+        // var uploadtask = storageRef.child('public').child('c.svg').put(svg, metadata)
+        saveSvgAsPng($('svg')[0], "cat.png");
+
+
+
         // uploadtask.on(firebase.storage.TaskEvent.STATE_CHANGED, {
         //     'complete': function() {
         //         // console.log('upload complete!');
@@ -114,14 +126,24 @@
         btnClear = this
         $(btnClear).on('click', svgClear)
     }
-    $.fn.btnDownload = function (type) {
+    $.fn.btnDownload = function () {
         // $(this).on('click', svgDownloadPNG)
         // if(type == 'PNG'){
         //     btnDownloadPNG = this
         //     $(this).on('mouseenter', svgDownloadPNG)
         // } else {
         //     btnDownloadSVG = this
-            $(this).on('mouseenter', svgDownloadSVG)
+            $(this).on('click', btnDownloadPNG)
+        // }
+    }
+    $.fn.btnUpload = function () {
+        // $(this).on('click', svgDownloadPNG)
+        // if(type == 'PNG'){
+        //     btnDownloadPNG = this
+        //     $(this).on('mouseenter', svgDownloadPNG)
+        // } else {
+        //     btnDownloadSVG = this
+        $(this).on('click', btnUploadSVG)
         // }
     }
     svgCanvasSelector.click(function (event) {
@@ -139,7 +161,8 @@
 $('#svgCanvas').makeSVGcolor()
 $('#btnRandom').btnRandom()
 $('#btnClear').btnClear()
-$('#btnDownloadSVG').btnDownload()
+$('#btnDownloadPNG').btnDownload()
+$('#btnUploadSVG').btnUpload()
 /**
  * Created by pepe on 8/3/16.
  */
