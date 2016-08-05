@@ -3,7 +3,7 @@
  */
 var svgId = window.location.hash.substr(1)
 var paths = {}
-console.log('svgId' + svgId)
+// console.log('svgId' + svgId)
 function render_svgCanvas() {
     ReactDOM.render(
         <MyComponents.SvgCanvas
