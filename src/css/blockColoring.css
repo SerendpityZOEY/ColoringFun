@@ -1,6 +1,6 @@
 
 .holder{
-    width:700px;
+    width:100%;
 }
 .held{
     position:relative;
@@ -11,23 +11,23 @@
     padding:10px;
 }
 
- .swatchHolder{
-    position:absolute;
-    bottom:0px;
-    margin:auto;
-    left:0px;
-    right:0px;
-    list-style-type:none;
-    text-align:center;
-    display:inline-block;
-    padding: 15px;
-    width:260px;
-    border-radius: 20px 20px 0px 0px;
-    color: black;
-}
+ /*.swatchHolder{*/
+    /*position:absolute;*/
+    /*bottom:0px;*/
+    /*margin:auto;*/
+    /*left:0px;*/
+    /*right:0px;*/
+    /*list-style-type:none;*/
+    /*text-align:center;*/
+    /*display:inline-block;*/
+    /*padding: 15px;*/
+    /*width:260px;*/
+    /*border-radius: 20px 20px 0px 0px;*/
+    /*color: black;*/
+/*}*/
  .swatchHolder .colorHolder{
-    width:100%;
-    line-height: 100%;
+    /*width:100%;*/
+    /*line-height: 100%;*/
     content:'Chosen Color';
     padding: 10px 0px;
     margin: 0px auto 15px auto;
@@ -50,7 +50,7 @@
 }
 
  svg{
-    width:100%;
+    /*width:100%;*/
     display:inline-block;
 }
  svg path{
