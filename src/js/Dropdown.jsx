@@ -35,7 +35,7 @@ class Dropdown extends React.Component {
                 dropdown = (
                     <div className="content">
                         {
-                            this.props.options.map(item => {
+                            this.props.data.options.map(item => {
                                 return <div onClick={(e) => { this.handleItemClick(e); }} className="item">{item}</div>;
                             })
                         }
