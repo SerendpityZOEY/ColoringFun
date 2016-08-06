@@ -111,6 +111,21 @@ actions.drawingAction = function (last_mouseX, last_mouseY, mouseX, mouseY, colo
     });
 }
 
+actions.eraserAction = function(last_mouseX, last_mouseY, mouseX, mouseY, color, tool, lineSize, opacity){
+    console.log(last_mouseX,last_mouseY)
+    draw.child(last_mouseX + ":" + last_mouseY).remove();
+    firebaseRef.child('erase').child(last_mouseX + ":" + last_mouseY).set({
+        lx: last_mouseX,
+        ly: last_mouseY,
+        nx: mouseX,
+        ny: mouseY,
+        color: color,
+        tool: tool,
+        size: lineSize,
+        opacity: opacity
+    });
+}
+
 actions.saveCanvas = function (canvas, filename) {
 
     var lnk = document.createElement('a'), e;

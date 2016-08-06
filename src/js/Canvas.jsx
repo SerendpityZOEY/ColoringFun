@@ -52,15 +52,17 @@ class Canvas extends React.Component {
         //img.src = 'http://www.almuslim.or.id/images/background-fix.png';
         this.props.actions.getImageURL(e.target.innerText);
 
-        var Ref = new Firebase('https://coloringfun.firebaseio.com/bg');
+        var Ref = new Firebase('https://coloringfun.firebaseio.com');
 
-        Ref.set(this.props.Imgurl);
+        Ref.child('bg').set(this.props.Imgurl);
+        Ref.child('drawing').remove();
 
         img.src = this.props.Imgurl;
         img.onload = function () {
             ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
         };
     }
+
 
     handleDelete(item, e) {
 
@@ -88,7 +90,7 @@ class Canvas extends React.Component {
         var sketch_style = getComputedStyle(sketch);
         canvas.width = parseInt(sketch_style.getPropertyValue('width'));
         canvas.height = parseInt(sketch_style.getPropertyValue('height'));
-        
+
         firebaseRef.child('bg').remove();
         firebaseRef.child('drawing').remove();
     }
@@ -167,6 +169,12 @@ class Canvas extends React.Component {
                             </p>
                         </form>
                     </div>
+                    <form action="#">
+                        <p>
+                            <input id="eraser" type="radio" name="tool" value="eraser"/>
+                                <label htmlFor="eraser">Eraser</label>
+                        </p>
+                    </form>
 
                     <div className="col m2 l4 push-m2" id="color-picker" style={{margin:'2em 0em 2em 0.2em'}}>
                         <button id="#fff" style={{background:"#fff"}}></button>
@@ -228,7 +236,6 @@ class Canvas extends React.Component {
                             <a className="waves-effect waves-light btn orange darken-1 col s3" id="saveFile">Save</a>
                             <a className="waves-effect waves-light btn orange darken-1 col s3"
                                onClick={this.showModal.bind(this)} style={{ fontSize :9}}>Set Background</a>
-
                             <div id="modal" style={this.state} onClick={(e) => this.closeOnBackground(e)}>
                                 <span className="modal-close" onClick={(e) => this.hideModal(e)}>x</span>
                                 {backgroundList}
@@ -260,6 +267,7 @@ class Canvas extends React.Component {
         bgRef.on('value',function(snapshot) {
             bgURL = snapshot.val();
             console.log(bgURL)
+            ctx.globalCompositeOperation="destination-over";
             if(bgURL!=null){
                 img.src = bgURL;
                 img.onload = function () {
@@ -279,6 +287,10 @@ class Canvas extends React.Component {
         spray.onclick = function () {
             tool = 'spray';
         }
+        eraser.onclick = function(){
+            tool = 'eraser';
+            console.log(tool)
+        }
         var sprayIntervalID;
 
         /*Canvas Attribute*/
@@ -291,7 +303,6 @@ class Canvas extends React.Component {
         console.log('tmp_canvas', tmp_canvas.width, tmp_canvas.height)
 
         $('#color-picker button').on('click', function () {
-            console.log('hit')
             tmp_ctx.strokeStyle = $(this).attr('id');
             tmp_ctx.fillStyle = tmp_ctx.strokeStyle;
             console.log(tmp_ctx.strokeStyle);
@@ -353,10 +364,17 @@ class Canvas extends React.Component {
             //tmp_ctx.beginPath();
             //tmp_ctx.moveTo(last_mouse.x, last_mouse.y);
 
-            this.props.actions.drawingAction(last_mouse.x, last_mouse.y, mouse.x, mouse.y, tmp_ctx.strokeStyle, tool, tmp_ctx.lineWidth, tmp_ctx.globalAlpha);
+            if(tool!='eraser'){
+                this.props.actions.drawingAction(last_mouse.x, last_mouse.y, mouse.x, mouse.y, tmp_ctx.strokeStyle, tool, tmp_ctx.lineWidth, tmp_ctx.globalAlpha);
+            }
 
             if (tool == 'spray') {
                 generateSprayParticles(mouse.x, mouse.y), tmp_ctx.lineWidth;
+            }
+
+            if(tool=='eraser'){
+                console.log('test')
+                this.props.actions.eraserAction(last_mouse.x, last_mouse.y, mouse.x, mouse.y, tmp_ctx.strokeStyle, tool, tmp_ctx.lineWidth, tmp_ctx.globalAlpha);
             }
             /*
              tmp_ctx.lineTo(mouse.x, mouse.y);
@@ -423,8 +441,31 @@ class Canvas extends React.Component {
 
         /*Functions handle reset and erase with firebase*/
         var clearPixel = function (snapshot) {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            console.log(snapshot.val())
+            var coords = snapshot.key().split(":");
+            //console.log("last",coords[0],coords[1]);
+            var newdot = snapshot.val();
+            //console.log("cur",newdot.nx,newdot.ny);
+            ctx.globalCompositeOperation = 'destination-out';
+            ctx.fillStyle = 'rgba(0,0,0,1)';
+            ctx.strokeStyle = 'rgba(0,0,0,1)';
+            ctx.lineWidth = 30;
+
+            if(tool=='eraser'){
+                console.log('child removing')
+                ctx.beginPath();
+                ctx.moveTo(parseInt(coords[0]), parseInt(coords[1]));
+                ctx.lineTo(parseInt(newdot.nx), parseInt(newdot.ny));
+                ctx.closePath();
+                ctx.stroke();
+            }
         };
+        var newRef = new Firebase('https://coloringfun.firebaseio.com/erase');
+
+        newRef.on('child_added', clearPixel);
+        newRef.on('child_changed', clearPixel);
+        newRef.on('child_removed', clearPixel);
+
 
         Ref.on('child_added', drawPixel);
         Ref.on('child_changed', drawPixel);
