@@ -1,5 +1,5 @@
 var data = {
-    drawing:[],
+    drawing: [],
     user: null
 }
 
@@ -7,7 +7,7 @@ var Imgurl = []
 var options = []
 
 var paths = {}
-var actions={}
+var actions = {}
 
 function render_svgCanvas() {
     // ReactDOM.render(
@@ -17,47 +17,47 @@ function render_svgCanvas() {
     // )
     ReactDOM.render(
         <MyComponents.SvgCanvas
-            paths = {paths}/>,
+            paths={paths}/>,
         $('#svgCanvas').get(0)
     )
 }
 
-function render_nav(){
+function render_nav() {
     ReactDOM.render(
         <MyComponents.NavBar
             actions={actions}
-            user = {data.user}/>,
+            user={data.user}/>,
         $('#navbar').get(0)
     )
 }
 
-function render_canvas(){
+function render_canvas() {
     ReactDOM.render(
         <MyComponents.Canvas
-        actions={actions}
-        data={data}
-        openbtn={true} opentext="open demo modal" content={<div id='content'>some demo content for modal</div>}
-        options={options}
-        Imgurl={Imgurl}/>,
+            actions={actions}
+            data={data}
+            openbtn={true} opentext="open demo modal" content={<div id='content'>some demo content for modal</div>}
+            options={options}
+            Imgurl={Imgurl}/>,
         $('#canvas').get(0)
     )
 }
 
-function render_storage(){
+function render_storage() {
     ReactDOM.render(
         <MyComponents.ImageUpload
-        actions={actions}
-        data={data}/>,
+            actions={actions}
+            data={data}/>,
         $('#storage').get(0)
     )
 }
 
-function render_dropdown(){
+function render_dropdown() {
     ReactDOM.render(
         <MyComponents.Dropdown
-        actions={actions}
-        data={data}
-        options={options}/>,
+            actions={actions}
+            data={data}
+            options={options}/>,
         $('#app').get(0)
     )
 }
@@ -68,7 +68,7 @@ var draw = new Firebase('https://coloringfun.firebaseio.com/drawing');
 
 var userImgSvgRef
 
-draw.on('value', function(snapshot){
+draw.on('value', function (snapshot) {
     data.drawing = snapshot.val()
     render_nav()
     render_canvas()
@@ -76,7 +76,7 @@ draw.on('value', function(snapshot){
     render_dropdown()
 })
 
-firebaseRef.child('userImages').on('value', function(snapshot){
+firebaseRef.child('userImages').on('value', function (snapshot) {
     data.userlist = snapshot.val();
     render_nav();
     render_canvas();
@@ -84,7 +84,7 @@ firebaseRef.child('userImages').on('value', function(snapshot){
     render_dropdown();
 });
 
-firebaseRef.child('pubImages').on('value', function(snapshot){
+firebaseRef.child('pubImages').on('value', function (snapshot) {
     options = []
     var objs = snapshot.val();
     for (var key in objs) {
@@ -96,8 +96,8 @@ firebaseRef.child('pubImages').on('value', function(snapshot){
     render_dropdown();
 });
 
-actions.drawingAction = function(last_mouseX,last_mouseY,mouseX,mouseY,color,tool,lineSize,opacity) {
-    draw.child(last_mouseX+":"+last_mouseY).set({
+actions.drawingAction = function (last_mouseX, last_mouseY, mouseX, mouseY, color, tool, lineSize, opacity) {
+    draw.child(last_mouseX + ":" + last_mouseY).set({
         lx: last_mouseX,
         ly: last_mouseY,
         nx: mouseX,
@@ -109,11 +109,11 @@ actions.drawingAction = function(last_mouseX,last_mouseY,mouseX,mouseY,color,too
     });
 }
 
-actions.resetCanvas = function(){
+actions.resetCanvas = function () {
     draw.remove();
 }
 
-actions.saveCanvas = function(canvas,filename){
+actions.saveCanvas = function (canvas, filename) {
 
     var lnk = document.createElement('a'),
         e;
@@ -137,7 +137,7 @@ actions.saveCanvas = function(canvas,filename){
     }
 }
 
-actions.upload = function(file){
+actions.upload = function (file) {
     // Get a reference to the storage service, which is used to create references in your storage bucket
     var storageRef = firebase.storage().ref();
 
@@ -149,23 +149,23 @@ actions.upload = function(file){
     data.user = JSON.parse(localStorage.getItem('amazingpixel::user'));
 
     //Upload images to pub or user
-    if(data.user==null){
-        var uploadTask = storageRef.child('images/' + file.name).put(file,metadata);
-    }else{
-        console.log('user id',data.user.uid)
-        uploadTask = storageRef.child(data.user.uid + '/images/' + file.name).put(file,metadata);
+    if (data.user == null) {
+        var uploadTask = storageRef.child('images/' + file.name).put(file, metadata);
+    } else {
+        console.log('user id', data.user.uid)
+        uploadTask = storageRef.child(data.user.uid + '/images/' + file.name).put(file, metadata);
 
     }
 
     //Upload file names to pub or user
-    if(data.user==null){
+    if (data.user == null) {
         firebaseRef.child('pubImages').push(file.name);
-    }else{
+    } else {
         firebaseRef.child('userImages').child(data.user.uid).push(file.name);
     }
 
 
-    uploadTask.on('state_changed', function(snapshot){
+    uploadTask.on('state_changed', function (snapshot) {
         // Observe state change events such as progress, pause, and resume
         // See below for more detail
         // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
@@ -179,29 +179,29 @@ actions.upload = function(file){
                 console.log('Upload is running');
                 break;
         }
-    }, function(error) {
+    }, function (error) {
         // Handle unsuccessful uploads
-    }, function() {
+    }, function () {
         // Handle successful uploads on complete
         // For instance, get the download URL: https://firebasestorage.googleapis.com/...
         var downloadURL = uploadTask.snapshot.downloadURL;
-        console.log('download url',downloadURL);
+        console.log('download url', downloadURL);
     });
 
 }
 
-actions.download = function(fileName){
+actions.download = function (fileName) {
     data.user = JSON.parse(localStorage.getItem('amazingpixel::user'));
 
     var starsRef = firebase.storage().ref();
 
-    if(data.user==null){
+    if (data.user == null) {
         // Get the download URL
-        starsRef.child('images/'+fileName).getDownloadURL().then(function(url) {
+        starsRef.child('images/' + fileName).getDownloadURL().then(function (url) {
             // Insert url into an <img> tag to "download"
-            SaveToDisk(url,fileName)
-            console.log('downloading',url)
-        }).catch(function(error) {
+            SaveToDisk(url, fileName)
+            console.log('downloading', url)
+        }).catch(function (error) {
             switch (error.code) {
                 case 'storage/object_not_found':
                     // File doesn't exist
@@ -220,13 +220,13 @@ actions.download = function(fileName){
                     break;
             }
         });
-    }else{
+    } else {
         // Get the download URL
-        starsRef.child(data.user.uid+'/images/'+fileName).getDownloadURL().then(function(url) {
+        starsRef.child(data.user.uid + '/images/' + fileName).getDownloadURL().then(function (url) {
             // Insert url into an <img> tag to "download"
-            SaveToDisk(url,fileName)
-            console.log('downloading',fileName)
-        }).catch(function(error) {
+            SaveToDisk(url, fileName)
+            console.log('downloading', fileName)
+        }).catch(function (error) {
             switch (error.code) {
                 case 'storage/object_not_found':
                     // File doesn't exist
@@ -265,22 +265,22 @@ actions.download = function(fileName){
 }
 
 
-actions.getImageURL = function(fileName){
-    Imgurl=[]
+actions.getImageURL = function (fileName) {
+    Imgurl = []
     data.user = JSON.parse(localStorage.getItem('amazingpixel::user'));
 
     var starsRef = firebase.storage().ref();
     // Get the download URL
-    if(data.user==null){
-        starsRef.child('images/'+fileName).getDownloadURL().then(function(url) {
-            Imgurl=url
+    if (data.user == null) {
+        starsRef.child('images/' + fileName).getDownloadURL().then(function (url) {
+            Imgurl = url
             render_canvas();
             render_storage();
             render_dropdown();
         });
-    }else{
-        starsRef.child(data.user.uid+'/images/'+fileName).getDownloadURL().then(function(url) {
-            Imgurl=url
+    } else {
+        starsRef.child(data.user.uid + '/images/' + fileName).getDownloadURL().then(function (url) {
+            Imgurl = url
             render_canvas();
             render_storage();
             render_dropdown();
@@ -307,8 +307,8 @@ var provider = new firebase.auth.GoogleAuthProvider();
 var imgKey
 
 var svgImgSvgRef
-actions.login = function(){
-    firebase.auth().signInWithPopup(provider).then(function(result) {
+actions.login = function () {
+    firebase.auth().signInWithPopup(provider).then(function (result) {
         // This gives you a GitHub Access Token. You can use it to access the GitHub API.
         var token = result.credential.accessToken;
         // The signed-in user info.
@@ -317,29 +317,28 @@ actions.login = function(){
         data.user.displayName = user.displayName
         data.user.uid = user.uid
         localStorage.setItem('amazingpixel::user', JSON.stringify(data.user))
-        console.log('>>>>',data.user)
+        console.log('>>>>', data.user)
         var userRef = firebaseRef.child('users')
 
         var uRef = userRef.child(data.user.uid)
         uRef.set(data.user)
-                uRef.on('value', function(snapshot){
-                    data.user = snapshot.val()
-                    render_nav()
-                    render_canvas()
-                    render_storage()
-                })
-        if (data.user != null)
-        {
+        uRef.on('value', function (snapshot) {
+            data.user = snapshot.val()
+            render_nav()
+            render_canvas()
+            render_storage()
+        })
+        if (data.user != null) {
             // userImgSvgRef = firebaseRef.child('userImages').child(data.user.uid).child('svg').push()
             imgKey = '-KO1YIEkBU1H0ort7I17'
             svgImgSvgRef = firebaseRef.child('userImages').child(data.user.uid).child('svg').child(imgKey)
-            console.log('line 336',imgKey)
+            console.log('line 336', imgKey)
             // userImgSvgRef.set(paths)
             svgImgSvgRef.on('value', function (snapshot) {
                 var val = snapshot.val()
                 _.map(val, function (v, k) {
                     paths[k] = {}
-                    paths[k].d= v.d
+                    paths[k].d = v.d
                     paths[k].stroke = v.stroke
                     paths[k].stroke_miterlimit = v.stroke_miterlimit
                     paths[k].style = v.style
@@ -348,7 +347,7 @@ actions.login = function(){
 
             })
         }
-    }).catch(function(error) {
+    }).catch(function (error) {
 
     });
 
@@ -356,11 +355,11 @@ actions.login = function(){
 
 }
 
-actions.logout = function(){
+actions.logout = function () {
 
-    if (data.user){
+    if (data.user) {
 
-        firebase.auth().signOut().then(function() {
+        firebase.auth().signOut().then(function () {
             // Sign-out successful.
             var userRef = firebaseRef
                 .child('users')
@@ -374,7 +373,7 @@ actions.logout = function(){
 
             data.user = {}
             render_nav()
-        }, function(error) {
+        }, function (error) {
             // An error happened.
         });
 

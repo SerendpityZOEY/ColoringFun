@@ -24,7 +24,7 @@
 
     function svgRandom() {
         // console.log(svgCanvasSelector)
-        $('.block').each(function(){
+        $('.block').each(function () {
             var randomNum = Math.floor((Math.random() * colors.length));
             // console.log(randomNum)
             // console.log(colors[randomNum])
@@ -58,7 +58,7 @@
     function btnDownloadPNG() {
         // Future expantion:
         // Look at http://bl.ocks.org/biovisualize/8187844
-        
+
         // var svgString = new XMLSerializer().serializeToString(document.querySelector('#svgCanvas').querySelector('svg'));
         // var svg = new Blob([svgString], {type: "image/svg+xml;charset=utf-8"});
         // var storageRef = firebase.storage().ref();
@@ -67,7 +67,6 @@
         // };
         // var uploadtask = storageRef.child('public').child('c.svg').put(svg, metadata)
         saveSvgAsPng($('svg')[0], "cat.png");
-
 
 
         // uploadtask.on(firebase.storage.TaskEvent.STATE_CHANGED, {
@@ -133,7 +132,7 @@
         //     $(this).on('mouseenter', svgDownloadPNG)
         // } else {
         //     btnDownloadSVG = this
-            $(this).on('click', btnDownloadPNG)
+        $(this).on('click', btnDownloadPNG)
         // }
     }
     $.fn.btnUpload = function () {
@@ -150,7 +149,7 @@
         // event.target.style.fill = color;
         // console.log( $('#' + event.target.id)[0])
         // console.log($('#' + event.target.id)[0].classList)
-        if ($('#' + event.target.id)[0].classList.contains("block") ) {
+        if ($('#' + event.target.id)[0].classList.contains("block")) {
             TweenMax.to(event.target, 0.05, {fill: chosenColor});
             svgImgSvgRef.child(event.target.id).update({"style": {"fill": chosenColor.valueOf()}})
         }

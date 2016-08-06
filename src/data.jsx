@@ -1,26 +1,26 @@
-var data={
-  education:[],
-  skills:[],
-  user: null
+var data = {
+    education: [],
+    skills: [],
+    user: null
 }
 
-var actions={}
+var actions = {}
 
-function render_nav(){
-  ReactDOM.render(
-      <MyComponents.NavBar
-          actions={actions}
-          user = {data.user}/>,
-      $('#navbar').get(0)
-  )
+function render_nav() {
+    ReactDOM.render(
+        <MyComponents.NavBar
+            actions={actions}
+            user={data.user}/>,
+        $('#navbar').get(0)
+    )
 }
 
 var myinfo = new Firebase('https://coloringfun.firebaseio.com/');
 
 
-myinfo.child('skill').on('value', function(snapshot){
-  data.skills = snapshot.val()
-  render_nav()
+myinfo.child('skill').on('value', function (snapshot) {
+    data.skills = snapshot.val()
+    render_nav()
 })
 
 /*
@@ -71,60 +71,60 @@ myinfo.child('skill').on('value', function(snapshot){
 var firebaseRef = new Firebase('https://coloringfun.firebaseio.com/')
 var provider = new firebase.auth.GoogleAuthProvider();
 
-actions.login = function(){
-  firebase.auth().signInWithPopup(provider).then(function(result) {
-    // This gives you a GitHub Access Token. You can use it to access the GitHub API.
-    var token = result.credential.accessToken;
-    // The signed-in user info.
-    var user = result.user;
-    data.user = {}
-    data.user.displayName = user.displayName
-    data.user.uid = user.uid
-    console.log(data.user)
-    var userRef = firebaseRef.child('users')
+actions.login = function () {
+    firebase.auth().signInWithPopup(provider).then(function (result) {
+        // This gives you a GitHub Access Token. You can use it to access the GitHub API.
+        var token = result.credential.accessToken;
+        // The signed-in user info.
+        var user = result.user;
+        data.user = {}
+        data.user.displayName = user.displayName
+        data.user.uid = user.uid
+        console.log(data.user)
+        var userRef = firebaseRef.child('users')
 
-    //         // subscribe to the user data
-    var uRef = userRef.child(data.user.uid)
-    uRef.set(data.user)
-    uRef.on('value', function(snapshot){
-      data.user = snapshot.val()
-      render_nav()
-    })
+        //         // subscribe to the user data
+        var uRef = userRef.child(data.user.uid)
+        uRef.set(data.user)
+        uRef.on('value', function (snapshot) {
+            data.user = snapshot.val()
+            render_nav()
+        })
 
-  }).catch(function(error) {
-    // Handle Errors here.
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    // The email of the user's account used.
-    var email = error.email;
-    // The firebase.auth.AuthCredential type that was used.
-    var credential = error.credential;
-    // ...
-  });
+    }).catch(function (error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // The email of the user's account used.
+        var email = error.email;
+        // The firebase.auth.AuthCredential type that was used.
+        var credential = error.credential;
+        // ...
+    });
 
-  render_nav()
+    render_nav()
 
 }
-actions.logout = function(){
+actions.logout = function () {
 
-  if (data.user){
+    if (data.user) {
 
-    firebaseRef.unauth()
+        firebaseRef.unauth()
 
-    var userRef = firebaseRef
-        .child('users')
-        .child(data.user.username)
+        var userRef = firebaseRef
+            .child('users')
+            .child(data.user.username)
 
-    // unsubscribe to the user data
-    userRef.off()
+        // unsubscribe to the user data
+        userRef.off()
 
-    // set the user's status to offline
-    userRef.child('status').set('offline')
+        // set the user's status to offline
+        userRef.child('status').set('offline')
 
-    data.user = {}
+        data.user = {}
 
-    render()
+        render()
 
-  }
+    }
 
 }

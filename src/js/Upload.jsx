@@ -1,19 +1,19 @@
 MyComponents.Child = React.createClass({
-        render: function(){
-            return(
-                <div>
-                    <div className="fileContainer" id="fileContainer">
-                        <div dangerouslySetInnerHTML={{__html: this.props.size}} />
-                    </div>
+    render: function () {
+        return (
+            <div>
+                <div className="fileContainer" id="fileContainer">
+                    <div dangerouslySetInnerHTML={{__html: this.props.size}}/>
                 </div>
-                )
-            }
+            </div>
+        )
+    }
 });
 
 class ImageUpload extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {file: '',imagePreviewUrl: '',childVisible: false,sizeCal:0};
+        this.state = {file: '', imagePreviewUrl: '', childVisible: false, sizeCal: 0};
     }
 
     _handleSubmit(e) {
@@ -34,25 +34,25 @@ class ImageUpload extends React.Component {
 
 
         fSize += file.size;
-        fOutput += '<div className="selectedFile" id="selectedFile"><span className="fileTitle" id="fileTitle">'+file.name+'</span> - <span className="fileSize" id="fileSize">' + this.updateSize(fSize) + "</span></div>";
+        fOutput += '<div className="selectedFile" id="selectedFile"><span className="fileTitle" id="fileTitle">' + file.name + '</span> - <span className="fileSize" id="fileSize">' + this.updateSize(fSize) + "</span></div>";
 
         reader.onloadend = () => {
             this.setState({
                 file: file,
                 imagePreviewUrl: reader.result,
                 childVisible: !this.state.childVisible,
-                sizeCal:fOutput
+                sizeCal: fOutput
             });
         }
 
         reader.readAsDataURL(file)
 
-        $(this).parent().find('.fileContainer').html( fOutput );
+        $(this).parent().find('.fileContainer').html(fOutput);
 
     }
 
     // coverts byte size to the closest full size - ie kb's
-    updateSize(fSize){
+    updateSize(fSize) {
         for (var aMultiples = ["KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"], nMultiple = 0, nApprox = fSize / 1024; nApprox > 1; nApprox /= 1024, nMultiple++) {
             //console.log(nApprox.toFixed(2) + " " + aMultiples[nMultiple])
             return nApprox.toFixed(2) + " " + aMultiples[nMultiple];
@@ -63,7 +63,7 @@ class ImageUpload extends React.Component {
         let {imagePreviewUrl} = this.state;
         let $imagePreview = null;
         if (imagePreviewUrl) {
-            $imagePreview = (<img src={imagePreviewUrl} />);
+            $imagePreview = (<img src={imagePreviewUrl}/>);
         } else {
             $imagePreview = (<div className="previewText">Please select an Image for Preview</div>);
         }
@@ -74,13 +74,16 @@ class ImageUpload extends React.Component {
                 <div className="col l5 m5 s5 right" id="uploadContainer">
                     <div className="previewComponent">
                         <form onSubmit={(e)=>this._handleSubmit(e)}>
-                            <button className="waves-effect waves-light btn orange darken-1" id="submitButton" type="submit" onClick={(e)=>this._handleSubmit(e)}>Upload</button>
-                            <input className="fileInput btn1 waves-effect waves-light" type="file" id="file" onChange={(e)=>this._handleImageChange(e)} />
+                            <button className="waves-effect waves-light btn orange darken-1" id="submitButton"
+                                    type="submit" onClick={(e)=>this._handleSubmit(e)}>Upload
+                            </button>
+                            <input className="fileInput btn1 waves-effect waves-light" type="file" id="file"
+                                   onChange={(e)=>this._handleImageChange(e)}/>
                             <label htmlFor="file">Choose a file</label>
                         </form>
                         {
-                            this.state.childVisible?
-                            <MyComponents.Child size={fileSize}/>:null
+                            this.state.childVisible ?
+                                <MyComponents.Child size={fileSize}/> : null
                         }
                         <div className="imgPreview">
                             {$imagePreview}

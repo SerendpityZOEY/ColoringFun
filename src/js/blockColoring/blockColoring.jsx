@@ -7,7 +7,7 @@ var paths = {}
 function render_svgCanvas() {
     ReactDOM.render(
         <MyComponents.SvgCanvas
-            paths = {paths}/>,
+            paths={paths}/>,
         $('#svgCanvas').get(0)
     )
 }
@@ -20,7 +20,7 @@ svgImgSvgRef.on('value', function (snapshot) {
         // console.log(k)
         paths[k] = {}
         paths[k].id = k
-        paths[k].d= v.d
+        paths[k].d = v.d
         paths[k].style = v.style
         paths[k].class = v.class
     })

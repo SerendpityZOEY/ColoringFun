@@ -11,27 +11,30 @@ class Modal extends React.Component {
     }
 
     showModal() {
-        this.setState({ display: 'block' });
+        this.setState({display: 'block'});
     }
 
     hideModal() {
-        this.setState({ display: 'none' });
+        this.setState({display: 'none'});
     }
 
     closeOnBackground(e) {
-        if( e.target.id == 'modal') {
+        if (e.target.id == 'modal') {
             this.hideModal();
         }
     }
 
     render() {
-        console.log('this.props.openbtn',this.props.openbtn)
-        console.log('this.props.opentext',this.props.opentext)
-        console.log('this.props.content',this.props.content)
+        console.log('this.props.openbtn', this.props.openbtn)
+        console.log('this.props.opentext', this.props.opentext)
+        console.log('this.props.content', this.props.content)
 
         var button;
-        if (this.props.openbtn) { var button = <button id='modal-open-btn' onClick={(e) => this.showModal(e)}>{this.props.opentext || 'Open modal'}</button>; }
-        console.log('button',button)
+        if (this.props.openbtn) {
+            var button = <button id='modal-open-btn'
+                                 onClick={(e) => this.showModal(e)}>{this.props.opentext || 'Open modal'}</button>;
+        }
+        console.log('button', button)
         return (
             <span>
 		    {button}

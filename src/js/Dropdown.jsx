@@ -9,11 +9,11 @@ class Dropdown extends React.Component {
     }
 
     expand() {
-        this.setState({ expanded: true });
+        this.setState({expanded: true});
     }
 
     collapse() {
-        this.setState({ expanded: false });
+        this.setState({expanded: false});
     }
 
     handleItemClick(e) {
@@ -25,13 +25,13 @@ class Dropdown extends React.Component {
     }
 
     handleTriggerClick() {
-        this.setState({ expanded: !this.state.expanded });
+        this.setState({expanded: !this.state.expanded});
     }
 
     render() {
         let dropdown = undefined;
         if (this.state.expanded) {
-            if(this.state.user==null){
+            if (this.state.user == null) {
                 dropdown = (
                     <div className="content">
                         {
@@ -41,9 +41,9 @@ class Dropdown extends React.Component {
                         }
                     </div>
                 );
-            }else{
+            } else {
                 var personalFiles = [];
-                var objs= this.props.data.userlist[this.state.user.uid];
+                var objs = this.props.data.userlist[this.state.user.uid];
                 for (var key in objs) {
                     personalFiles.push(objs[key])
                 }
@@ -63,14 +63,14 @@ class Dropdown extends React.Component {
         return (
             <div className="row" id="dl">
                 <div className="right col l1 pull-l3">
-            <div className={`dropdown ${this.state.expanded ? 'active' : ''}`}
-                 tabIndex="0"
-                 onBlur={() => { this.collapse(); }}>
-                <div className="trigger" onClick={() => { this.handleTriggerClick(); }}>
-                    {this.state.value}
-                </div>
-                {dropdown}
-            </div>
+                    <div className={`dropdown ${this.state.expanded ? 'active' : ''}`}
+                         tabIndex="0"
+                         onBlur={() => { this.collapse(); }}>
+                        <div className="trigger" onClick={() => { this.handleTriggerClick(); }}>
+                            {this.state.value}
+                        </div>
+                        {dropdown}
+                    </div>
                 </div>
             </div>
         );
