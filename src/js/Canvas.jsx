@@ -78,6 +78,21 @@ class Canvas extends React.Component {
 
     }
 
+    resetCanvas() {
+        var firebaseRef = new Firebase('https://coloringfun.firebaseio.com');
+
+        var canvas = document.querySelector('#paint');
+        var ctx = canvas.getContext('2d');
+
+        var sketch = document.querySelector('#sketch');
+        var sketch_style = getComputedStyle(sketch);
+        canvas.width = parseInt(sketch_style.getPropertyValue('width'));
+        canvas.height = parseInt(sketch_style.getPropertyValue('height'));
+        
+        firebaseRef.child('bg').remove();
+        firebaseRef.child('drawing').remove();
+    }
+
     render() {
 
         if (this.state.user == null) {
@@ -209,7 +224,7 @@ class Canvas extends React.Component {
                             <a className="waves-effect waves-light btn orange darken-1 col s3" id="pencil">Pencil</a>
                             <a className="waves-effect waves-light btn orange darken-1 col s3" id="spray">Spray</a>
                             <a className="waves-effect waves-light btn orange darken-1 col s3"
-                               onClick={this.props.actions.resetCanvas}>Reset</a>
+                               onClick={this.resetCanvas.bind(this)}>Reset</a>
                             <a className="waves-effect waves-light btn orange darken-1 col s3" id="saveFile">Save</a>
                             <a className="waves-effect waves-light btn orange darken-1 col s3"
                                onClick={this.showModal.bind(this)} style={{ fontSize :9}}>Set Background</a>
@@ -244,10 +259,13 @@ class Canvas extends React.Component {
 
         bgRef.on('value',function(snapshot) {
             bgURL = snapshot.val();
-            img.src = bgURL;
-            img.onload = function () {
-                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-            };
+            console.log(bgURL)
+            if(bgURL!=null){
+                img.src = bgURL;
+                img.onload = function () {
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                };
+            }
         });
 
         var tool = 'brush';

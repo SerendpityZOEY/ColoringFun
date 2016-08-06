@@ -111,10 +111,6 @@ actions.drawingAction = function (last_mouseX, last_mouseY, mouseX, mouseY, colo
     });
 }
 
-actions.resetCanvas = function () {
-    draw.remove();
-}
-
 actions.saveCanvas = function (canvas, filename) {
 
     var lnk = document.createElement('a'), e;
