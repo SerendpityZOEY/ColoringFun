@@ -1,9 +1,11 @@
 var data = {
     drawing: [],
     user: null,
-    Imgurl: [],
-    options: []
+    userlist:[]
 }
+
+var Imgurl=[]
+var options=[]
 
 var paths = {}
 var actions = {}
@@ -36,6 +38,8 @@ function render_canvas() {
             actions={actions}
             data={data}
             openbtn={true} opentext="open demo modal" content={<div id='content'>some demo content for modal</div>}
+            Imgurl={Imgurl}
+            options={options}
             />,
         $('#canvas').get(0)
     )
@@ -75,7 +79,6 @@ draw.on('value', function (snapshot) {
 })
 
 firebaseRef.child('userImages').on('value', function (snapshot) {
-    console.log(snapshot.val())
     data.userlist = snapshot.val();
     render_nav();
     render_canvas();
@@ -84,10 +87,10 @@ firebaseRef.child('userImages').on('value', function (snapshot) {
 });
 
 firebaseRef.child('pubImages').on('value', function (snapshot) {
-    data.options = []
+    options = []
     var objs = snapshot.val();
     for (var key in objs) {
-        data.options.push(objs[key])
+        options.push(objs[key])
     }
     render_nav();
     render_canvas();
@@ -267,21 +270,21 @@ actions.download = function (fileName) {
 
 
 actions.getImageURL = function (fileName) {
-    data.Imgurl = []
+    Imgurl = []
     data.user = JSON.parse(localStorage.getItem('amazingpixel::user'));
 
     var starsRef = firebase.storage().ref();
     // Get the download URL
     if (data.user == null) {
         starsRef.child('images/' + fileName).getDownloadURL().then(function (url) {
-            data.Imgurl = url
+            Imgurl = url
             render_canvas();
             render_storage();
             render_dropdown();
         });
     } else {
         starsRef.child(data.user.uid + '/images/' + fileName).getDownloadURL().then(function (url) {
-            data.Imgurl = url
+            Imgurl = url
             render_canvas();
             render_storage();
             render_dropdown();

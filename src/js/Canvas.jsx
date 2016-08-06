@@ -50,7 +50,9 @@ class Canvas extends React.Component {
         var img = new Image();
         //img.src = 'http://www.almuslim.or.id/images/background-fix.png';
         this.props.actions.getImageURL(e.target.innerText);
-        img.src = this.props.data.Imgurl;
+        console.log(this.props.Imgurl)
+        img.src = this.props.Imgurl;
+
         img.onload = function () {
             ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
         };
@@ -78,7 +80,7 @@ class Canvas extends React.Component {
             var backgroundList = (
                 <div id="content">
                     {
-                        this.props.data.options.map(item => {
+                        this.props.options.map(item => {
                             return <div onClick={this.handleItemClick.bind(this)} className="item">
                                 {item}
                                 <i className="material-icons right"
