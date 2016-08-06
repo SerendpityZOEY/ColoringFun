@@ -64,7 +64,7 @@ class Canvas extends React.Component {
             snapshot.forEach(function (childSnapshot) {
                 var key = childSnapshot.key();
                 var childData = childSnapshot.val();
-                if (childData == item) {
+                if (childData.fileName == item) {
                     userRef.child(key).remove();
                 }
             });
@@ -89,8 +89,8 @@ class Canvas extends React.Component {
                 </div>
             );
         } else {
-            //console.log(this.props.data.userlist)
-            if (this.props.data.userlist == null) {
+            console.log(this.props.data.userlist[this.state.user.uid])
+            if (this.props.data.userlist[this.state.user.uid] == undefined) {
                 backgroundList = (
                     <div id="content">
                         You don't have any files in our database. :)
@@ -103,7 +103,7 @@ class Canvas extends React.Component {
                 }
 
                 for (var key in Objects) {
-                    personalFiles.push(Objects[key])
+                    personalFiles.push(Objects[key].fileName)
                 }
                 backgroundList = (
                     <div id="content">

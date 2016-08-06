@@ -77,6 +77,7 @@ draw.on('value', function (snapshot) {
 })
 
 firebaseRef.child('userImages').on('value', function (snapshot) {
+    console.log(snapshot.val())
     data.userlist = snapshot.val();
     render_nav();
     render_canvas();
@@ -115,8 +116,7 @@ actions.resetCanvas = function () {
 
 actions.saveCanvas = function (canvas, filename) {
 
-    var lnk = document.createElement('a'),
-        e;
+    var lnk = document.createElement('a'), e;
 
     lnk.download = filename;
 
@@ -157,11 +157,14 @@ actions.upload = function (file) {
 
     }
 
+    var lastIndex = file.name.lastIndexOf(".");
+    var fileNameDir = file.name.substring(0, lastIndex);
+
     //Upload file names to pub or user
     if (data.user == null) {
-        firebaseRef.child('pubImages').push(file.name);
+        firebaseRef.child('pubImages').child(fileNameDir).set({fileName:file.name});
     } else {
-        firebaseRef.child('userImages').child(data.user.uid).push(file.name);
+        firebaseRef.child('userImages').child(data.user.uid).child(fileNameDir).set({fileName:file.name});
     }
 
 
