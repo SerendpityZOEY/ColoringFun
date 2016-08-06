@@ -5,7 +5,8 @@ class Canvas extends React.Component {
         this.state = {
             display: 'none',
             value: 'DOWNLOAD',
-            user: JSON.parse(localStorage.getItem('amazingpixel::user'))
+            user: JSON.parse(localStorage.getItem('amazingpixel::user')),
+            ImgUrl:[]
         }
     }
 
@@ -50,9 +51,12 @@ class Canvas extends React.Component {
         var img = new Image();
         //img.src = 'http://www.almuslim.or.id/images/background-fix.png';
         this.props.actions.getImageURL(e.target.innerText);
-        console.log(this.props.Imgurl)
-        img.src = this.props.Imgurl;
 
+        var Ref = new Firebase('https://coloringfun.firebaseio.com/bg');
+
+        Ref.set(this.props.Imgurl);
+
+        img.src = this.props.Imgurl;
         img.onload = function () {
             ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
         };
@@ -223,6 +227,7 @@ class Canvas extends React.Component {
     }
 
     componentDidMount() {
+
         var canvas = document.querySelector('#paint');
         var ctx = canvas.getContext('2d');
 
@@ -232,6 +237,18 @@ class Canvas extends React.Component {
         canvas.height = parseInt(sketch_style.getPropertyValue('height'));
         console.log('canvas', canvas.width, canvas.height)
 
+        // draw image
+        var img = new Image();
+        var bgURL='none';
+        var bgRef = new Firebase('https://coloringfun.firebaseio.com/bg');
+
+        bgRef.on('value',function(snapshot) {
+            bgURL = snapshot.val();
+            img.src = bgURL;
+            img.onload = function () {
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            };
+        });
 
         var tool = 'brush';
 

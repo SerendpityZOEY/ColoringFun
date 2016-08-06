@@ -279,15 +279,11 @@ actions.getImageURL = function (fileName) {
         starsRef.child('images/' + fileName).getDownloadURL().then(function (url) {
             Imgurl = url
             render_canvas();
-            render_storage();
-            render_dropdown();
         });
     } else {
         starsRef.child(data.user.uid + '/images/' + fileName).getDownloadURL().then(function (url) {
             Imgurl = url
             render_canvas();
-            render_storage();
-            render_dropdown();
         });
     }
 
