@@ -1,5 +1,3 @@
-
-
 var chosenColor = '#FFFFFF';
 var bg = $(".color");
 (function ($) {
@@ -7,12 +5,13 @@ var bg = $(".color");
     function colorpalette() {
         this.chosenColor = "#FFFFFF"
     }
+
     var mainHolder, colorHolder
     var btnRandom, btnClear, btnDownloadSVG, btnDownloadPNG
     var svgColor
-    var fillSpeed = 0.15
+    // var fillSpeed = 0.15
     // var chosenColor = '#FFFFFF'
-    var colors = ['#FFFFFF', '#8E53A1', '#6ABD46', '#71CCDC', '#F7ED45', '#F7DAAF', '#EC2527', '#F16824', '#CECCCC', '#5A499E', '#06753D', '#024259', '#FDD209', '#7D4829', '#931B1E', '#B44426', '#979797', '#C296C5', '#54B948', '#3C75BB', '#F7ED45', '#E89D5E', '#F26F68', '#F37123', '#676868', '#9060A8', '#169E49', '#3CBEB7', '#FFCD37', '#E5B07D', '#EF3C46', '#FDBE17', '#4E4D4E', '#6B449B', '#BACD3F', '#1890CA', '#FCD55A', '#D8C077', '#A62E32', '#F16A2D', '#343433', '#583E98', '#BA539F', '#9D2482', '#DD64A5', '#DB778D', '#EC4394', '#E0398C', '#68AF46', '#4455A4', '#FBEE34', '#AD732A', '#D91E36', '#F99B2A']
+    // var colors = ['#FFFFFF', '#8E53A1', '#6ABD46', '#71CCDC', '#F7ED45', '#F7DAAF', '#EC2527', '#F16824', '#CECCCC', '#5A499E', '#06753D', '#024259', '#FDD209', '#7D4829', '#931B1E', '#B44426', '#979797', '#C296C5', '#54B948', '#3C75BB', '#F7ED45', '#E89D5E', '#F26F68', '#F37123', '#676868', '#9060A8', '#169E49', '#3CBEB7', '#FFCD37', '#E5B07D', '#EF3C46', '#FDBE17', '#4E4D4E', '#6B449B', '#BACD3F', '#1890CA', '#FCD55A', '#D8C077', '#A62E32', '#F16A2D', '#343433', '#583E98', '#BA539F', '#9D2482', '#DD64A5', '#DB778D', '#EC4394', '#E0398C', '#68AF46', '#4455A4', '#FBEE34', '#AD732A', '#D91E36', '#F99B2A']
     var colors = {
         AntiqueWhite: "faebd7",
         Aqua: "0ff",
@@ -136,6 +135,7 @@ var bg = $(".color");
         Yellow: "ff0",
         YellowGreen: "9acd32"
     };
+
     function flip(o) {
         var flipped = {};
         for (var i in o) {
@@ -145,6 +145,7 @@ var bg = $(".color");
         }
         return flipped;
     }
+
     var hexNames = flip(colors);
     // console.log(colors.length)
     var closeOffset
@@ -163,13 +164,13 @@ var bg = $(".color");
         var color = tinycolor(chosenColor);
         // console.log(color.toName().replace(/([a-z])([A-Z])/g, '$1 $2')
         console.log(color.toName())
-    
+
         this.chosenColor = chosenColor;
 
         $('#red').val(rgb.r);
         $('#green').val(rgb.g);
         $('#blue').val(rgb.b);
-        
+
     }
 
     function colorMe() {
@@ -206,7 +207,8 @@ var bg = $(".color");
         var metadata = {
             contentType: 'image/svg',
         };
-        var uploadtask = storageRef.child('public').child(svgId + '.ccf').put(svg, metadata)
+        var uploadtask = storageRef.child('public').child(svgId + '.svg').put(svg, metadata)
+        console.log('up')
     }
 
     function btnDownloadPNG() {
@@ -220,7 +222,7 @@ var bg = $(".color");
         //     contentType: 'image/svg',
         // };
         // var uploadtask = storageRef.child('public').child('c.svg').put(svg, metadata)
-        saveSvgAsPng($('svg')[0], "cat.png");
+        saveSvgAsPng($('svg')[0], svgId + ".png");
 
 
         // uploadtask.on(firebase.storage.TaskEvent.STATE_CHANGED, {
@@ -233,7 +235,7 @@ var bg = $(".color");
     }
 
     $.fn.makeSwatches = function () {
-        
+
         var swatchHolder = $('<ol/>', {'class': 'swatchHolder'}).appendTo(this)
         // colorHolder = $('<li/>', {
         //     // 'class': 'colorHolder',
@@ -242,10 +244,9 @@ var bg = $(".color");
         colorHolder = $('#rbg')
 
         $.each(colors, function () {
-            console.log(this)
             var swatch = $('<li/>').appendTo(swatchHolder)
             $(swatch).css('background-color', "#" + this)
-            $(swatch).data('color', "#" +  this)
+            $(swatch).data('color', "#" + this)
             $(swatch).on('click', swatchClick)
             // $(swatch).on('mouseenter mouseleave', colorRollover)
         })
@@ -314,11 +315,28 @@ var bg = $(".color");
     });
 }(jQuery));
 
+(function ($) {
+    function colorpalette(c) {
+        this.text = "hello";
+        if (c instanceof colorpalette) {
+            return c;
+        }
+        if (!(this instanceof colorpalette)) {
+            return new colorpalette(c);
+        }
+    }
+
+    colorpalette.prototype = {
+        fillcontainer: function (container) {
+            container.text(this.text);
+        }
+    }
+    window.colorpalette = colorpalette;
+}(jQuery));
+
 $('#swatch').makeSwatches()
 $('#btnRandom').btnRandom()
 $('#btnClear').btnClear()
-$('#btnDownloadPNG').btnDownload()
-$('#btnUploadSVG').btnUpload()
 /**
  * Created by pepe on 8/3/16.
  */
@@ -339,7 +357,7 @@ $('#btnUploadSVG').btnUpload()
 // });
 //
 $(".bGround").on("change", function () {
-    
+
     var redVal = $('#red').val()
     console.log(redVal)
     var greenVal = $("#green").val();
@@ -351,11 +369,37 @@ $(".bGround").on("change", function () {
 
     bg.css('background-color', whatIs);
     $('.show-color').text(whatIs);
-    chosenColor = whatIs;   
-    });
+    chosenColor = whatIs;
+});
 
 
+$(document).ready(function () {
+    $('#downloadBtn').btnDownload()
+    $('#saveBtn').btnUpload()
+    var showShare = false
+    $('#shareBtn').on('click', function () {
+        $('#location').val(window.location.toString());
+        $('#shareText').css('visibility', 'visible');
+        // $('#location').focus();
+        // $('#location').click();
+        window.setTimeout(function () {
+            // save_this.select();
+            $('#location').select();
+        }, 100);
 
+    })
+    $('#menu').on('mouseleave', function () {
+            $('#shareTextHolder').css('visibility', 'hidden');
+            $('#shareText').css('visibility', 'hidden');
+    })
+
+    var testp = colorpalette();
+    testp.fillcontainer($('#test'));
+    // $('#redbutton').hover(function () {
+    //     console.log('hovered')
+    //     $('.tooltiptext').css('visibility', 'visible')
+    // })
+})
 
 
 

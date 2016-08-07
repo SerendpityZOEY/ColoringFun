@@ -242,10 +242,35 @@ input[type=range].blue + .thumb {
 
 
 
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltiptext {
+    visibility: hidden;
+    width: 100px;
+    color: #000;
+    text-align: center;
+    border-radius: 6px;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -50px;
+    margin-bottom: 5px;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
 
 
-
-
+#shareText {
+    visibility: hidden;
+}
 
 
 
