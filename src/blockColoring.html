@@ -11,6 +11,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
     <script src="lib/react.js"></script>
     <script src="lib/react-dom.js"></script>
+    <script src="js/blockColoring/tinycolor.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
     <!--<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>-->
     <!--<script src='http://cdnjs.cloudflare.com/ajax/libs/gsap/1.16.1/TweenMax.min.js'></script>-->
@@ -34,11 +35,11 @@
 </head>
 <body>
 
+<div id="navbar"></div>
 
 <div class='holder'>
     <div class="row">
         <div class="col s6 m6 l6">
-            <div class='myTitle'>Block Coloring Book</div>
             <div class='held' id='svgCanvas'>
 
             </div>
@@ -49,30 +50,66 @@
                 <a id="btnUploadSVG" class="button gray">Save to Server</a>
             </div>
         </div>
-        <div class="col s6 m6 l6">
-            <div id="swatch"></div>
+        <div class="col s6 m6 l3">
         </div>
+        <div class="col s6 m6 l4" id="t">
+            <!--<div class="card-title grey-text text-darken-4">-->
+            <div id="wrapper">
+                <div class="color">
+                    <div class="show-color" id="rgb"></div>
+                </div>
+                <div id="swatch" class="centerindiv">
+                    <!--<img class="activator" src="images/office.jpg">-->
+                </div>
+                <div id="ranges" class="centerindiv">
+                    <!--<form action="#">-->
+                    <div class="range-field">
+                        <input type="range" class="bGround red" id="red" min="0" max="255" value="127">
+                    </div>
+                    <!--</form>-->
+                    <!--<form action="#">-->
+                    <div class="range-field">
+                        <input type="range" class="bGround green" id="green" min="0" max="255"
+                               value="127">
+                    </div>
+                    <!--</form>-->
+                    <!--<form action="#">-->
+                    <div class="range-field">
+                        <input type="range" class="bGround blue" id="blue" min="0" max="255"
+                               value="127">
+                    </div>
+                    <!--</form>-->
+                </div>
+            </div>
+            <!--</div>-->
+        </div>
+        <!--<div class="col s6 m6 l6">-->
+        <!--<div id="swatch"></div>-->
+        <!--</div>-->
+
     </div>
+    <script>
+        // MyComponents is a global object where each property is a reference to a component class
+        MyComponents = {}
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/3.2.1/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyAU_cY0FMBbH8U9p5l_pM4pA87p78q40QA",
+            authDomain: "coloringfun.firebaseapp.com",
+            databaseURL: "https://coloringfun.firebaseio.com",
+            storageBucket: "firebase-coloringfun.appspot.com",
+        };
+        firebase.initializeApp(config);
+    </script>
+    <script src="lib/saveSvgAsPng.js"></script>
+    <script src="js/blockColoring/blockColoring.js"></script>
+    <script type="text/babel" src="js/blockColoring/blockColoring.jsx"></script>
+    <script type="text/babel" src="js/blockColoring/SvgCanvas.jsx"></script>
+    <script type="text/babel" src="js/Auth.jsx"></script>
+    <script type="text/babel" src="js/Navbar.jsx"></script>
 </div>
-<script>
-    // MyComponents is a global object where each property is a reference to a component class
-    MyComponents = {}
-</script>
-<script src="https://www.gstatic.com/firebasejs/3.2.1/firebase.js"></script>
-<script>
-    // Initialize Firebase
-    var config = {
-        apiKey: "AIzaSyAU_cY0FMBbH8U9p5l_pM4pA87p78q40QA",
-        authDomain: "coloringfun.firebaseapp.com",
-        databaseURL: "https://coloringfun.firebaseio.com",
-        storageBucket: "firebase-coloringfun.appspot.com",
-    };
-    firebase.initializeApp(config);
-</script>
-<script src="lib/saveSvgAsPng.js"></script>
-<script src="js/blockColoring/blockColoring.js"></script>
-<script type="text/babel" src="js/blockColoring/blockColoring.jsx"></script>
-<script type="text/babel" src="js/blockColoring/SvgCanvas.jsx"></script>
 
 </body>
 </html>
