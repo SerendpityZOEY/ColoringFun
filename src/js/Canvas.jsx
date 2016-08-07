@@ -152,7 +152,7 @@ class Canvas extends React.Component {
                 <div className="row">
                     <div className="col l7 s7 m7">
                         <div id="sketch">
-                            <canvas id="paint"></canvas>
+                            <canvas id="paint"> </canvas>
                         </div>
                     </div>
 
@@ -178,53 +178,53 @@ class Canvas extends React.Component {
                     </form>
 
                     <div className="col m2 l4 push-m2" id="color-picker" style={{margin:'2em 0em 2em 0.2em'}}>
-                        <button id="#fff" style={{background:"#fff"}}></button>
-                        <button id='#eee' style={{background:"#eee"}}></button>
-                        <button id='#000' style={{background:"#000"}}></button>
-                        <button id='#f00' style={{background:"#f00"}}></button>
-                        <button id='#f44336' style={{background:"#f44336"}}></button>
-                        <button id='#e91e63' style={{background:"#e91e63"}}></button>
-                        <button id="#f88" style={{background:"#f88"}}></button>
-                        <button id='#ff4081' style={{background:"#ff4081"}}></button>
-                        <button id='#f8d' style={{background:"#f8d"}}></button>
-                        <button id='#b39ddb' style={{background:"#b39ddb"}}></button>
-                        <button id='#90caf9' style={{background:"#90caf9"}}></button>
+                        <button id="#fff" style={{background:"#fff"}}> </button>
+                        <button id='#eee' style={{background:"#eee"}}> </button>
+                        <button id='#000' style={{background:"#000"}}> </button>
+                        <button id='#f00' style={{background:"#f00"}}> </button>
+                        <button id='#f44336' style={{background:"#f44336"}}> </button>
+                        <button id='#e91e63' style={{background:"#e91e63"}}> </button>
+                        <button id="#f88" style={{background:"#f88"}}> </button>
+                        <button id='#ff4081' style={{background:"#ff4081"}}> </button>
+                        <button id='#f8d' style={{background:"#f8d"}}> </button>
+                        <button id='#b39ddb' style={{background:"#b39ddb"}}> </button>
+                        <button id='#90caf9' style={{background:"#90caf9"}}> </button>
 
-                        <button id='#88f' style={{background:"#88f"}}></button>
+                        <button id='#88f' style={{background:"#88f"}}> </button>
 
-                        <button id='#9c27b0' style={{background:"#9c27b0"}}></button>
-                        <button id='#673ab7' style={{background:"#673ab7"}}></button>
-                        <button id='#408' style={{background:"#408"}}></button>
-                        <button id='#00f' style={{background:"#00f"}}></button>
+                        <button id='#9c27b0' style={{background:"#9c27b0"}}> </button>
+                        <button id='#673ab7' style={{background:"#673ab7"}}> </button>
+                        <button id='#408' style={{background:"#408"}}> </button>
+                        <button id='#00f' style={{background:"#00f"}}> </button>
 
-                        <button id='#3f51b5' style={{background:"#3f51b5"}}></button>
-                        <button id='#08f' style={{background:"#08f"}}></button>
-                        <button id='#448aff' style={{background:"#448aff"}}></button>
-                        <button id='#8ff' style={{background:"#8ff"}}></button>
-                        <button id='#00bcd4' style={{background:"#00bcd4"}}></button>
+                        <button id='#3f51b5' style={{background:"#3f51b5"}}> </button>
+                        <button id='#08f' style={{background:"#08f"}}> </button>
+                        <button id='#448aff' style={{background:"#448aff"}}> </button>
+                        <button id='#8ff' style={{background:"#8ff"}}> </button>
+                        <button id='#00bcd4' style={{background:"#00bcd4"}}> </button>
 
-                        <button id='#009688' style={{background:"#009688"}}></button>
-                        <button id='#4caf50' style={{background:"#4caf50"}}></button>
-                        <button id='#8bc34a' style={{background:"#8bc34a"}}></button>
-                        <button id='#aed081' style={{background: "#aed081"}}></button>
+                        <button id='#009688' style={{background:"#009688"}}> </button>
+                        <button id='#4caf50' style={{background:"#4caf50"}}> </button>
+                        <button id='#8bc34a' style={{background:"#8bc34a"}}> </button>
+                        <button id='#aed081' style={{background: "#aed081"}}> </button>
 
-                        <button id='#cddc39' style={{background:"#cddc39"}}></button>
-                        <button id='#ffff00' style={{background:"#ffff00"}}></button>
-                        <button id='#ffeb3b' style={{background:"#ffeb34"}}></button>
-                        <button id='#ffc107' style={{background:"#ffc107"}}></button>
-                        <button id='#ff9800' style={{background:"#ff9800"}}></button>
-                        <button id='#f80' style={{background:"#f80"}}></button>
+                        <button id='#cddc39' style={{background:"#cddc39"}}> </button>
+                        <button id='#ffff00' style={{background:"#ffff00"}}> </button>
+                        <button id='#ffeb3b' style={{background:"#ffeb34"}}> </button>
+                        <button id='#ffc107' style={{background:"#ffc107"}}> </button>
+                        <button id='#ff9800' style={{background:"#ff9800"}}> </button>
+                        <button id='#f80' style={{background:"#f80"}}> </button>
 
-                        <button id='#ff5722' style={{background:"#ff5722"}}></button>
-                        <button id='#795548' style={{background:"#795548"}}></button>
-                        <button id='#9e9e9e' style={{background:"#9e9e9e"}}></button>
-                        <button id='#607d8b' style={{background:"#607d8b"}}></button>
+                        <button id='#ff5722' style={{background:"#ff5722"}}> </button>
+                        <button id='#795548' style={{background:"#795548"}}> </button>
+                        <button id='#9e9e9e' style={{background:"#9e9e9e"}}> </button>
+                        <button id='#607d8b' style={{background:"#607d8b"}}> </button>
 
-                        <button id='#0f0' style={{background:"#0f0"}}></button>
+                        <button id='#0f0' style={{background:"#0f0"}}> </button>
 
-                        <button id='#0f8' style={{background:"#0f8"}}></button>
-                        <button id='#cf0' style={{background:"#cf0"}}></button>
-                        <button id="#ff8" style={{background:"#ff8"}}></button>
+                        <button id='#0f8' style={{background:"#0f8"}}> </button>
+                        <button id='#cf0' style={{background:"#cf0"}}> </button>
+                        <button id="#ff8" style={{background:"#ff8"}}> </button>
                     </div>
 
                     <div className="col s5 m5 l5">
@@ -243,7 +243,6 @@ class Canvas extends React.Component {
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         );
@@ -258,7 +257,7 @@ class Canvas extends React.Component {
         var sketch_style = getComputedStyle(sketch);
         canvas.width = parseInt(sketch_style.getPropertyValue('width'));
         canvas.height = parseInt(sketch_style.getPropertyValue('height'));
-        console.log('canvas', canvas.width, canvas.height)
+        console.log('canvas', canvas.width, canvas.height);
 
         // draw image
         var img = new Image();
@@ -267,7 +266,7 @@ class Canvas extends React.Component {
 
         bgRef.on('value',function(snapshot) {
             bgURL = snapshot.val();
-            console.log(bgURL)
+            console.log(bgURL);
             ctx.globalCompositeOperation="destination-over";
             if(bgURL!=null){
                 img.src = bgURL;
@@ -281,17 +280,17 @@ class Canvas extends React.Component {
 
         brush.onclick = function () {
             tool = 'brush';
-        }
+        };
         pencil.onclick = function () {
             tool = 'pencil';
-        }
+        };
         spray.onclick = function () {
             tool = 'spray';
-        }
+        };
         eraser.onclick = function(){
             tool = 'eraser';
             console.log(tool)
-        }
+        };
         var sprayIntervalID;
 
         /*Canvas Attribute*/
@@ -301,13 +300,13 @@ class Canvas extends React.Component {
         /*Customize for specific size*/
         tmp_canvas.width = canvas.width;
         tmp_canvas.height = canvas.height;
-        console.log('tmp_canvas', tmp_canvas.width, tmp_canvas.height)
+        console.log('tmp_canvas', tmp_canvas.width, tmp_canvas.height);
 
         $('#color-picker button').on('click', function () {
             tmp_ctx.strokeStyle = $(this).attr('id');
             tmp_ctx.fillStyle = tmp_ctx.strokeStyle;
             console.log(tmp_ctx.strokeStyle);
-        })
+        });
 
         sketch.appendChild(tmp_canvas);
 
@@ -370,11 +369,11 @@ class Canvas extends React.Component {
             }
 
             if (tool == 'spray') {
-                generateSprayParticles(mouse.x, mouse.y), tmp_ctx.lineWidth;
+                generateSprayParticles(mouse.x, mouse.y, tmp_ctx.lineWidth);
             }
 
             if(tool=='eraser'){
-                console.log('test')
+                console.log('test');
                 this.props.actions.eraserAction(last_mouse.x, last_mouse.y, mouse.x, mouse.y, tmp_ctx.strokeStyle, tool, tmp_ctx.lineWidth, tmp_ctx.globalAlpha);
             }
 
@@ -438,7 +437,7 @@ class Canvas extends React.Component {
                 ctx.closePath();
                 ctx.stroke();
             } else {
-                console.log('reading as spray')
+                console.log('reading as spray');
                 generateSprayParticles(parseInt(coords[0]), parseInt(coords[1]), newdot.size);
             }
         };
@@ -484,7 +483,7 @@ class Canvas extends React.Component {
         });
 
         saveFile.onclick = function () {
-            console.log('saving')
+            console.log('saving');
             this.props.actions.saveCanvas(paint, 'myPicture.png');
         }.bind(this);
     }

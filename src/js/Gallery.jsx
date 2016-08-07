@@ -15,12 +15,19 @@ class Gallery extends React.Component {
 
         firebaseRef.child('userImages').on('value', function (snapshot) {
             var userlist = snapshot.val()
+            this.setState(
+                {
+                    userlist: userlist
+                }
+            )
             var list = userlist[curUser]
             for(var key in list){
                 console.log('key',key)
                 console.log('next',list[key].fileName)
                 console.log('next',list[key].url)
             }
+
+            console.log('test',this.state.userlist)
         });
     }
 
