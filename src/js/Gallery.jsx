@@ -15,16 +15,24 @@ class Gallery extends React.Component {
 
     loading() {
         console.log('heyheyhey')
+        var curUser=this.state.user.uid
+        console.log(curUser)
+        var firebaseRef = new Firebase('https://coloringfun.firebaseio.com/');
+
+        firebaseRef.child('userImages').on('value', function (snapshot) {
+            var userlist = snapshot.val()
+            var list = userlist[curUser]
+            for(var key in list){
+                console.log('key',key)
+                console.log('next',list[key].fileName)
+                console.log('next',list[key].url)
+            }
+        });
     }
 
 
     render() {
 
-        var firebaseRef = new Firebase('https://coloringfun.firebaseio.com/');
-
-        firebaseRef.child('userImages').on('value', function (snapshot) {
-            console.log(snapshot.val())
-        });
 
         return (
             <a className="waves-effect waves-light btn orange darken-1 col s3" onClick={this.loading.bind(this)}>Click</a>
