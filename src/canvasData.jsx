@@ -158,25 +158,18 @@ actions.upload = function (file) {
         contentType: 'image/jpeg',
     };
 
+    var lastIndex = file.name.lastIndexOf(".");
+    var fileNameDir = file.name.substring(0, lastIndex);
+
     data.user = JSON.parse(localStorage.getItem('amazingpixel::user'));
 
     //Upload images to pub or user
     if (data.user == null) {
         var uploadTask = storageRef.child('images/' + file.name).put(file, metadata);
+        firebaseRef.child('pubImages').child(fileNameDir).set({fileName:file.name});
     } else {
         console.log('user id', data.user.uid)
         uploadTask = storageRef.child(data.user.uid + '/images/' + file.name).put(file, metadata);
-
-    }
-
-    var lastIndex = file.name.lastIndexOf(".");
-    var fileNameDir = file.name.substring(0, lastIndex);
-
-    //Upload file names to pub or user
-    if (data.user == null) {
-        firebaseRef.child('pubImages').child(fileNameDir).set({fileName:file.name});
-    } else {
-        firebaseRef.child('userImages').child(data.user.uid).child(fileNameDir).set({fileName:file.name});
     }
 
 
@@ -199,8 +192,13 @@ actions.upload = function (file) {
     }, function () {
         // Handle successful uploads on complete
         // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+        alert("Upload succeed!");
         var downloadURL = uploadTask.snapshot.downloadURL;
         console.log('download url', downloadURL);
+        firebaseRef.child('userImages').child(data.user.uid).child(fileNameDir).set({
+            fileName:file.name,
+            url:downloadURL
+        });
     });
 
 }
