@@ -364,7 +364,7 @@ class Canvas extends React.Component {
             //tmp_ctx.beginPath();
             //tmp_ctx.moveTo(last_mouse.x, last_mouse.y);
 
-            if(tool=='brush' || tool=='pencil'){
+            if(tool!='eraser'){
                 this.props.actions.drawingAction(last_mouse.x, last_mouse.y, mouse.x, mouse.y, tmp_ctx.strokeStyle, tool, tmp_ctx.lineWidth, tmp_ctx.globalAlpha);
             }
 
