@@ -93,6 +93,7 @@ class Canvas extends React.Component {
 
         firebaseRef.child('bg').remove();
         firebaseRef.child('drawing').remove();
+        firebaseRef.child('erase').remove();
     }
 
     render() {
@@ -444,7 +445,6 @@ class Canvas extends React.Component {
 
         /*Functions handle reset and erase with firebase*/
         var clearPixel = function (snapshot) {
-            console.log(snapshot.val())
             ctx.clearRect(0, 0, canvas.width, canvas.height);
         };
         var newRef = new Firebase('https://coloringfun.firebaseio.com/erase');
