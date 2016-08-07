@@ -364,7 +364,7 @@ class Canvas extends React.Component {
             //tmp_ctx.beginPath();
             //tmp_ctx.moveTo(last_mouse.x, last_mouse.y);
 
-            if(tool!='eraser'){
+            if(tool=='brush' || tool=='pencil'){
                 this.props.actions.drawingAction(last_mouse.x, last_mouse.y, mouse.x, mouse.y, tmp_ctx.strokeStyle, tool, tmp_ctx.lineWidth, tmp_ctx.globalAlpha);
             }
 
@@ -376,6 +376,7 @@ class Canvas extends React.Component {
                 console.log('test')
                 this.props.actions.eraserAction(last_mouse.x, last_mouse.y, mouse.x, mouse.y, tmp_ctx.strokeStyle, tool, tmp_ctx.lineWidth, tmp_ctx.globalAlpha);
             }
+
             /*
              tmp_ctx.lineTo(mouse.x, mouse.y);
              tmp_ctx.closePath();
@@ -421,6 +422,8 @@ class Canvas extends React.Component {
             ctx.lineWidth = 5;
             ctx.fillStyle = newdot.color;
             ctx.strokeStyle = newdot.color;
+
+
             if (newdot.tool == 'pencil') {
                 ctx.lineWidth = 1;
             } else if (newdot.tool == 'brush' || newdot.tool == 'spray') {
@@ -442,6 +445,11 @@ class Canvas extends React.Component {
         /*Functions handle reset and erase with firebase*/
         var clearPixel = function (snapshot) {
             console.log(snapshot.val())
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        };
+        var newRef = new Firebase('https://coloringfun.firebaseio.com/erase');
+
+        var erasePixel = function (snapshot) {
             var coords = snapshot.key().split(":");
             //console.log("last",coords[0],coords[1]);
             var newdot = snapshot.val();
@@ -449,28 +457,21 @@ class Canvas extends React.Component {
             ctx.globalCompositeOperation = 'destination-out';
             ctx.fillStyle = 'rgba(0,0,0,1)';
             ctx.strokeStyle = 'rgba(0,0,0,1)';
-            ctx.lineWidth = 30;
 
-            if(tool=='eraser'){
-                console.log('child removing')
+            //ctx.globalAlpha = newdot.opacity;
                 ctx.beginPath();
                 ctx.moveTo(parseInt(coords[0]), parseInt(coords[1]));
                 ctx.lineTo(parseInt(newdot.nx), parseInt(newdot.ny));
                 ctx.closePath();
                 ctx.stroke();
-            }
         };
-        var newRef = new Firebase('https://coloringfun.firebaseio.com/erase');
-
-        newRef.on('child_added', clearPixel);
-        newRef.on('child_changed', clearPixel);
-        newRef.on('child_removed', clearPixel);
-
 
         Ref.on('child_added', drawPixel);
         Ref.on('child_changed', drawPixel);
         Ref.on('child_removed', clearPixel);
 
+        newRef.on('child_added', erasePixel);
+        newRef.on('child_changed', erasePixel);
         /*Size Tool*/
         document.getElementById("size").addEventListener("change", function () {
             tmp_ctx.lineWidth = document.getElementById("size").value;
