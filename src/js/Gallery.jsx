@@ -1,9 +1,3 @@
-var CheckLink = React.createClass({
-    render: function() {
-        return <a>Test</a>;
-    }
-});
-
 class Gallery extends React.Component {
     constructor(props) {
         super(props)
