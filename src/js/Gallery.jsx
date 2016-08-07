@@ -26,8 +26,6 @@ class Gallery extends React.Component {
 
 
     render() {
-
-
         return (
             <a className="waves-effect waves-light btn orange darken-1 col s3" onClick={this.loading.bind(this)}>Click</a>
         );
