@@ -10,12 +10,13 @@ class Gallery extends React.Component {
     loading() {
         console.log('heyheyhey')
         var curUser=this.state.user.uid
+        var component = this
         console.log(curUser)
         var firebaseRef = new Firebase('https://coloringfun.firebaseio.com/');
 
         firebaseRef.child('userImages').on('value', function (snapshot) {
             var userlist = snapshot.val()
-            this.setState(
+            component.setState(
                 {
                     userlist: userlist
                 }
@@ -27,7 +28,7 @@ class Gallery extends React.Component {
                 console.log('next',list[key].url)
             }
 
-            console.log('test',this.state.userlist)
+            console.log('test',component.state.userlist)
         });
     }
 
