@@ -380,6 +380,7 @@ $(document).ready(function () {
     $('#shareBtn').on('click', function () {
         $('#location').val(window.location.toString());
         $('#shareText').css('visibility', 'visible');
+        showShare = true
         // $('#location').focus();
         // $('#location').click();
         window.setTimeout(function () {
@@ -388,9 +389,22 @@ $(document).ready(function () {
         }, 100);
 
     })
-    $('#menu').on('mouseleave', function () {
+    $('#menu').on('mousemove', function () {
+        if ( !$('#menu').hasClass('active') ) {
             $('#shareTextHolder').css('visibility', 'hidden');
             $('#shareText').css('visibility', 'hidden');
+        }
+            // $('#shareTextHolder').css('visibility', 'hidden');
+            // $('#shareText').css('visibility', 'hidden');
+    })
+    $('#menuBtn').on('click', function () {
+        // if ( !$('#menu').hasClass('active') ) {
+            $('#shareTextHolder').css('visibility', 'hidden');
+            $('#shareText').css('visibility', 'hidden');
+            // showShare = false
+        // }
+        // $('#shareTextHolder').css('visibility', 'hidden');
+        // $('#shareText').css('visibility', 'hidden');
     })
 
     var testp = colorpalette();
