@@ -1,10 +1,11 @@
 var data = {
     drawing: [],
-    user: null
+    user: null,
+    userlist:[]
 }
 
-var Imgurl = []
-var options = []
+var Imgurl=[]
+var options=[]
 
 var paths = {}
 var actions = {}
@@ -37,8 +38,9 @@ function render_canvas() {
             actions={actions}
             data={data}
             openbtn={true} opentext="open demo modal" content={<div id='content'>some demo content for modal</div>}
+            Imgurl={Imgurl}
             options={options}
-            Imgurl={Imgurl}/>,
+            />,
         $('#canvas').get(0)
     )
 }
@@ -57,7 +59,7 @@ function render_dropdown() {
         <MyComponents.Dropdown
             actions={actions}
             data={data}
-            options={options}/>,
+            />,
         $('#app').get(0)
     )
 }
@@ -109,14 +111,24 @@ actions.drawingAction = function (last_mouseX, last_mouseY, mouseX, mouseY, colo
     });
 }
 
-actions.resetCanvas = function () {
-    draw.remove();
+actions.eraserAction = function(last_mouseX, last_mouseY, mouseX, mouseY, color, tool, lineSize, opacity){
+    console.log(last_mouseX,last_mouseY)
+    draw.child(last_mouseX + ":" + last_mouseY).remove();
+    firebaseRef.child('erase').child(last_mouseX + ":" + last_mouseY).set({
+        lx: last_mouseX,
+        ly: last_mouseY,
+        nx: mouseX,
+        ny: mouseY,
+        color: color,
+        tool: tool,
+        size: lineSize,
+        opacity: opacity
+    });
 }
 
 actions.saveCanvas = function (canvas, filename) {
 
-    var lnk = document.createElement('a'),
-        e;
+    var lnk = document.createElement('a'), e;
 
     lnk.download = filename;
 
@@ -146,22 +158,18 @@ actions.upload = function (file) {
         contentType: 'image/jpeg',
     };
 
+    var lastIndex = file.name.lastIndexOf(".");
+    var fileNameDir = file.name.substring(0, lastIndex);
+
     data.user = JSON.parse(localStorage.getItem('amazingpixel::user'));
 
     //Upload images to pub or user
     if (data.user == null) {
         var uploadTask = storageRef.child('images/' + file.name).put(file, metadata);
+        firebaseRef.child('pubImages').child(fileNameDir).set({fileName:file.name});
     } else {
         console.log('user id', data.user.uid)
         uploadTask = storageRef.child(data.user.uid + '/images/' + file.name).put(file, metadata);
-
-    }
-
-    //Upload file names to pub or user
-    if (data.user == null) {
-        firebaseRef.child('pubImages').push(file.name);
-    } else {
-        firebaseRef.child('userImages').child(data.user.uid).push(file.name);
     }
 
 
@@ -184,8 +192,13 @@ actions.upload = function (file) {
     }, function () {
         // Handle successful uploads on complete
         // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+        alert("Upload succeed!");
         var downloadURL = uploadTask.snapshot.downloadURL;
         console.log('download url', downloadURL);
+        firebaseRef.child('userImages').child(data.user.uid).child(fileNameDir).set({
+            fileName:file.name,
+            url:downloadURL
+        });
     });
 
 }
@@ -275,15 +288,11 @@ actions.getImageURL = function (fileName) {
         starsRef.child('images/' + fileName).getDownloadURL().then(function (url) {
             Imgurl = url
             render_canvas();
-            render_storage();
-            render_dropdown();
         });
     } else {
         starsRef.child(data.user.uid + '/images/' + fileName).getDownloadURL().then(function (url) {
             Imgurl = url
             render_canvas();
-            render_storage();
-            render_dropdown();
         });
     }
 

@@ -5,7 +5,8 @@ class Canvas extends React.Component {
         this.state = {
             display: 'none',
             value: 'DOWNLOAD',
-            user: JSON.parse(localStorage.getItem('amazingpixel::user'))
+            user: JSON.parse(localStorage.getItem('amazingpixel::user')),
+            ImgUrl:[]
         }
     }
 
@@ -50,11 +51,18 @@ class Canvas extends React.Component {
         var img = new Image();
         //img.src = 'http://www.almuslim.or.id/images/background-fix.png';
         this.props.actions.getImageURL(e.target.innerText);
+
+        var Ref = new Firebase('https://coloringfun.firebaseio.com');
+
+        Ref.child('bg').set(this.props.Imgurl);
+        Ref.child('drawing').remove();
+
         img.src = this.props.Imgurl;
         img.onload = function () {
             ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
         };
     }
+
 
     handleDelete(item, e) {
 
@@ -64,12 +72,28 @@ class Canvas extends React.Component {
             snapshot.forEach(function (childSnapshot) {
                 var key = childSnapshot.key();
                 var childData = childSnapshot.val();
-                if (childData == item) {
+                if (childData.fileName == item) {
                     userRef.child(key).remove();
                 }
             });
         });
 
+    }
+
+    resetCanvas() {
+        var firebaseRef = new Firebase('https://coloringfun.firebaseio.com');
+
+        var canvas = document.querySelector('#paint');
+        var ctx = canvas.getContext('2d');
+
+        var sketch = document.querySelector('#sketch');
+        var sketch_style = getComputedStyle(sketch);
+        canvas.width = parseInt(sketch_style.getPropertyValue('width'));
+        canvas.height = parseInt(sketch_style.getPropertyValue('height'));
+
+        firebaseRef.child('bg').remove();
+        firebaseRef.child('drawing').remove();
+        firebaseRef.child('erase').remove();
     }
 
     render() {
@@ -89,8 +113,7 @@ class Canvas extends React.Component {
                 </div>
             );
         } else {
-            //console.log(this.props.data.userlist)
-            if (this.props.data.userlist == null) {
+            if (this.props.data.userlist[this.state.user.uid] == undefined) {
                 backgroundList = (
                     <div id="content">
                         You don't have any files in our database. :)
@@ -103,7 +126,7 @@ class Canvas extends React.Component {
                 }
 
                 for (var key in Objects) {
-                    personalFiles.push(Objects[key])
+                    personalFiles.push(Objects[key].fileName)
                 }
                 backgroundList = (
                     <div id="content">
@@ -129,7 +152,7 @@ class Canvas extends React.Component {
                 <div className="row">
                     <div className="col l7 s7 m7">
                         <div id="sketch">
-                            <canvas id="paint"></canvas>
+                            <canvas id="paint"> </canvas>
                         </div>
                     </div>
 
@@ -147,55 +170,61 @@ class Canvas extends React.Component {
                             </p>
                         </form>
                     </div>
+                    <form action="#">
+                        <p>
+                            <input id="eraser" type="radio" name="tool" value="eraser"/>
+                                <label htmlFor="eraser">Eraser</label>
+                        </p>
+                    </form>
 
                     <div className="col m2 l4 push-m2" id="color-picker" style={{margin:'2em 0em 2em 0.2em'}}>
-                        <button id="#fff" style={{background:"#fff"}}></button>
-                        <button id='#eee' style={{background:"#eee"}}></button>
-                        <button id='#000' style={{background:"#000"}}></button>
-                        <button id='#f00' style={{background:"#f00"}}></button>
-                        <button id='#f44336' style={{background:"#f44336"}}></button>
-                        <button id='#e91e63' style={{background:"#e91e63"}}></button>
-                        <button id="#f88" style={{background:"#f88"}}></button>
-                        <button id='#ff4081' style={{background:"#ff4081"}}></button>
-                        <button id='#f8d' style={{background:"#f8d"}}></button>
-                        <button id='#b39ddb' style={{background:"#b39ddb"}}></button>
-                        <button id='#90caf9' style={{background:"#90caf9"}}></button>
+                        <button id="#fff" style={{background:"#fff"}}> </button>
+                        <button id='#eee' style={{background:"#eee"}}> </button>
+                        <button id='#000' style={{background:"#000"}}> </button>
+                        <button id='#f00' style={{background:"#f00"}}> </button>
+                        <button id='#f44336' style={{background:"#f44336"}}> </button>
+                        <button id='#e91e63' style={{background:"#e91e63"}}> </button>
+                        <button id="#f88" style={{background:"#f88"}}> </button>
+                        <button id='#ff4081' style={{background:"#ff4081"}}> </button>
+                        <button id='#f8d' style={{background:"#f8d"}}> </button>
+                        <button id='#b39ddb' style={{background:"#b39ddb"}}> </button>
+                        <button id='#90caf9' style={{background:"#90caf9"}}> </button>
 
-                        <button id='#88f' style={{background:"#88f"}}></button>
+                        <button id='#88f' style={{background:"#88f"}}> </button>
 
-                        <button id='#9c27b0' style={{background:"#9c27b0"}}></button>
-                        <button id='#673ab7' style={{background:"#673ab7"}}></button>
-                        <button id='#408' style={{background:"#408"}}></button>
-                        <button id='#00f' style={{background:"#00f"}}></button>
+                        <button id='#9c27b0' style={{background:"#9c27b0"}}> </button>
+                        <button id='#673ab7' style={{background:"#673ab7"}}> </button>
+                        <button id='#408' style={{background:"#408"}}> </button>
+                        <button id='#00f' style={{background:"#00f"}}> </button>
 
-                        <button id='#3f51b5' style={{background:"#3f51b5"}}></button>
-                        <button id='#08f' style={{background:"#08f"}}></button>
-                        <button id='#448aff' style={{background:"#448aff"}}></button>
-                        <button id='#8ff' style={{background:"#8ff"}}></button>
-                        <button id='#00bcd4' style={{background:"#00bcd4"}}></button>
+                        <button id='#3f51b5' style={{background:"#3f51b5"}}> </button>
+                        <button id='#08f' style={{background:"#08f"}}> </button>
+                        <button id='#448aff' style={{background:"#448aff"}}> </button>
+                        <button id='#8ff' style={{background:"#8ff"}}> </button>
+                        <button id='#00bcd4' style={{background:"#00bcd4"}}> </button>
 
-                        <button id='#009688' style={{background:"#009688"}}></button>
-                        <button id='#4caf50' style={{background:"#4caf50"}}></button>
-                        <button id='#8bc34a' style={{background:"#8bc34a"}}></button>
-                        <button id='#aed081' style={{background: "#aed081"}}></button>
+                        <button id='#009688' style={{background:"#009688"}}> </button>
+                        <button id='#4caf50' style={{background:"#4caf50"}}> </button>
+                        <button id='#8bc34a' style={{background:"#8bc34a"}}> </button>
+                        <button id='#aed081' style={{background: "#aed081"}}> </button>
 
-                        <button id='#cddc39' style={{background:"#cddc39"}}></button>
-                        <button id='#ffff00' style={{background:"#ffff00"}}></button>
-                        <button id='#ffeb3b' style={{background:"#ffeb34"}}></button>
-                        <button id='#ffc107' style={{background:"#ffc107"}}></button>
-                        <button id='#ff9800' style={{background:"#ff9800"}}></button>
-                        <button id='#f80' style={{background:"#f80"}}></button>
+                        <button id='#cddc39' style={{background:"#cddc39"}}> </button>
+                        <button id='#ffff00' style={{background:"#ffff00"}}> </button>
+                        <button id='#ffeb3b' style={{background:"#ffeb34"}}> </button>
+                        <button id='#ffc107' style={{background:"#ffc107"}}> </button>
+                        <button id='#ff9800' style={{background:"#ff9800"}}> </button>
+                        <button id='#f80' style={{background:"#f80"}}> </button>
 
-                        <button id='#ff5722' style={{background:"#ff5722"}}></button>
-                        <button id='#795548' style={{background:"#795548"}}></button>
-                        <button id='#9e9e9e' style={{background:"#9e9e9e"}}></button>
-                        <button id='#607d8b' style={{background:"#607d8b"}}></button>
+                        <button id='#ff5722' style={{background:"#ff5722"}}> </button>
+                        <button id='#795548' style={{background:"#795548"}}> </button>
+                        <button id='#9e9e9e' style={{background:"#9e9e9e"}}> </button>
+                        <button id='#607d8b' style={{background:"#607d8b"}}> </button>
 
-                        <button id='#0f0' style={{background:"#0f0"}}></button>
+                        <button id='#0f0' style={{background:"#0f0"}}> </button>
 
-                        <button id='#0f8' style={{background:"#0f8"}}></button>
-                        <button id='#cf0' style={{background:"#cf0"}}></button>
-                        <button id="#ff8" style={{background:"#ff8"}}></button>
+                        <button id='#0f8' style={{background:"#0f8"}}> </button>
+                        <button id='#cf0' style={{background:"#cf0"}}> </button>
+                        <button id="#ff8" style={{background:"#ff8"}}> </button>
                     </div>
 
                     <div className="col s5 m5 l5">
@@ -204,24 +233,23 @@ class Canvas extends React.Component {
                             <a className="waves-effect waves-light btn orange darken-1 col s3" id="pencil">Pencil</a>
                             <a className="waves-effect waves-light btn orange darken-1 col s3" id="spray">Spray</a>
                             <a className="waves-effect waves-light btn orange darken-1 col s3"
-                               onClick={this.props.actions.resetCanvas}>Reset</a>
+                               onClick={this.resetCanvas.bind(this)}>Reset</a>
                             <a className="waves-effect waves-light btn orange darken-1 col s3" id="saveFile">Save</a>
                             <a className="waves-effect waves-light btn orange darken-1 col s3"
                                onClick={this.showModal.bind(this)} style={{ fontSize :9}}>Set Background</a>
-
                             <div id="modal" style={this.state} onClick={(e) => this.closeOnBackground(e)}>
                                 <span className="modal-close" onClick={(e) => this.hideModal(e)}>x</span>
                                 {backgroundList}
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         );
     }
 
     componentDidMount() {
+
         var canvas = document.querySelector('#paint');
         var ctx = canvas.getContext('2d');
 
@@ -229,20 +257,40 @@ class Canvas extends React.Component {
         var sketch_style = getComputedStyle(sketch);
         canvas.width = parseInt(sketch_style.getPropertyValue('width'));
         canvas.height = parseInt(sketch_style.getPropertyValue('height'));
-        console.log('canvas', canvas.width, canvas.height)
+        console.log('canvas', canvas.width, canvas.height);
 
+        // draw image
+        var img = new Image();
+        var bgURL='none';
+        var bgRef = new Firebase('https://coloringfun.firebaseio.com/bg');
+
+        bgRef.on('value',function(snapshot) {
+            bgURL = snapshot.val();
+            console.log(bgURL);
+            ctx.globalCompositeOperation="destination-over";
+            if(bgURL!=null){
+                img.src = bgURL;
+                img.onload = function () {
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                };
+            }
+        });
 
         var tool = 'brush';
 
         brush.onclick = function () {
             tool = 'brush';
-        }
+        };
         pencil.onclick = function () {
             tool = 'pencil';
-        }
+        };
         spray.onclick = function () {
             tool = 'spray';
-        }
+        };
+        eraser.onclick = function(){
+            tool = 'eraser';
+            console.log(tool)
+        };
         var sprayIntervalID;
 
         /*Canvas Attribute*/
@@ -252,14 +300,13 @@ class Canvas extends React.Component {
         /*Customize for specific size*/
         tmp_canvas.width = canvas.width;
         tmp_canvas.height = canvas.height;
-        console.log('tmp_canvas', tmp_canvas.width, tmp_canvas.height)
+        console.log('tmp_canvas', tmp_canvas.width, tmp_canvas.height);
 
         $('#color-picker button').on('click', function () {
-            console.log('hit')
             tmp_ctx.strokeStyle = $(this).attr('id');
             tmp_ctx.fillStyle = tmp_ctx.strokeStyle;
             console.log(tmp_ctx.strokeStyle);
-        })
+        });
 
         sketch.appendChild(tmp_canvas);
 
@@ -317,11 +364,19 @@ class Canvas extends React.Component {
             //tmp_ctx.beginPath();
             //tmp_ctx.moveTo(last_mouse.x, last_mouse.y);
 
-            this.props.actions.drawingAction(last_mouse.x, last_mouse.y, mouse.x, mouse.y, tmp_ctx.strokeStyle, tool, tmp_ctx.lineWidth, tmp_ctx.globalAlpha);
+            if(tool!='eraser'){
+                this.props.actions.drawingAction(last_mouse.x, last_mouse.y, mouse.x, mouse.y, tmp_ctx.strokeStyle, tool, tmp_ctx.lineWidth, tmp_ctx.globalAlpha);
+            }
 
             if (tool == 'spray') {
-                generateSprayParticles(mouse.x, mouse.y), tmp_ctx.lineWidth;
+                generateSprayParticles(mouse.x, mouse.y, tmp_ctx.lineWidth);
             }
+
+            if(tool=='eraser'){
+                console.log('test');
+                this.props.actions.eraserAction(last_mouse.x, last_mouse.y, mouse.x, mouse.y, tmp_ctx.strokeStyle, tool, tmp_ctx.lineWidth, tmp_ctx.globalAlpha);
+            }
+
             /*
              tmp_ctx.lineTo(mouse.x, mouse.y);
              tmp_ctx.closePath();
@@ -367,6 +422,8 @@ class Canvas extends React.Component {
             ctx.lineWidth = 5;
             ctx.fillStyle = newdot.color;
             ctx.strokeStyle = newdot.color;
+
+
             if (newdot.tool == 'pencil') {
                 ctx.lineWidth = 1;
             } else if (newdot.tool == 'brush' || newdot.tool == 'spray') {
@@ -380,7 +437,7 @@ class Canvas extends React.Component {
                 ctx.closePath();
                 ctx.stroke();
             } else {
-                console.log('reading as spray')
+                console.log('reading as spray');
                 generateSprayParticles(parseInt(coords[0]), parseInt(coords[1]), newdot.size);
             }
         };
@@ -389,11 +446,31 @@ class Canvas extends React.Component {
         var clearPixel = function (snapshot) {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
         };
+        var newRef = new Firebase('https://coloringfun.firebaseio.com/erase');
+
+        var erasePixel = function (snapshot) {
+            var coords = snapshot.key().split(":");
+            //console.log("last",coords[0],coords[1]);
+            var newdot = snapshot.val();
+            //console.log("cur",newdot.nx,newdot.ny);
+            ctx.globalCompositeOperation = 'destination-out';
+            ctx.fillStyle = 'rgba(0,0,0,1)';
+            ctx.strokeStyle = 'rgba(0,0,0,1)';
+
+            //ctx.globalAlpha = newdot.opacity;
+                ctx.beginPath();
+                ctx.moveTo(parseInt(coords[0]), parseInt(coords[1]));
+                ctx.lineTo(parseInt(newdot.nx), parseInt(newdot.ny));
+                ctx.closePath();
+                ctx.stroke();
+        };
 
         Ref.on('child_added', drawPixel);
         Ref.on('child_changed', drawPixel);
         Ref.on('child_removed', clearPixel);
 
+        newRef.on('child_added', erasePixel);
+        newRef.on('child_changed', erasePixel);
         /*Size Tool*/
         document.getElementById("size").addEventListener("change", function () {
             tmp_ctx.lineWidth = document.getElementById("size").value;
@@ -406,7 +483,7 @@ class Canvas extends React.Component {
         });
 
         saveFile.onclick = function () {
-            console.log('saving')
+            console.log('saving');
             this.props.actions.saveCanvas(paint, 'myPicture.png');
         }.bind(this);
     }
