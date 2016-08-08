@@ -39,48 +39,47 @@
 
 <div class='holder'>
     <div class="row">
-        <div class="col s6 m6 l6">
-            <div class='held' id='svgCanvas'>
+        <div class="col s6 m6 l6" style="margin-left: 20px; height:800px">
+            <div class='held' id='svgCanvas' style="max-width:100%; max-height:100%;object-fit: contain">
 
             </div>
-            <div class='held'>
-                <a id="btnRandom" class="button gray">Random Color</a>
-                <a id="btnClear" class="button gray">Clear Color</a>
-                <a id="btnDownloadPNG" class="button gray">Download PNG</a>
-                <a id="btnUploadSVG" class="button gray">Save to Server</a>
-            </div>
         </div>
-        <div class="col s6 m6 l3">
-        </div>
-        <div class="col s6 m6 l4" id="t">
+        <div class="col s6 m6 l4" id="t" style="margin-top: 60px">
             <!--<div class="card-title grey-text text-darken-4">-->
             <div id="wrapper">
-                <div class="color">
-                    <div class="show-color" id="rgb"></div>
+                <div class="centerindiv">
+                    <div class="color">
+                        <div class="show-color" id="rgb"></div>
+                    </div>
+                    <div id="swatch" class="centerindiv">
+                        <!--<img class="activator" src="images/office.jpg">-->
+                    </div>
+                    <div id="ranges" class="centerindiv">
+                        <!--<form action="#">-->
+                        <div class="range-field">
+                            <input type="range" class="bGround red" id="red" min="0" max="255" value="127">
+                        </div>
+                        <!--</form>-->
+                        <!--<form action="#">-->
+                        <div class="range-field">
+                            <input type="range" class="bGround green" id="green" min="0" max="255"
+                                   value="127">
+                        </div>
+                        <!--</form>-->
+                        <!--<form action="#">-->
+                        <div class="range-field">
+                            <input type="range" class="bGround blue" id="blue" min="0" max="255"
+                                   value="127">
+                        </div>
+                        <!--</form>-->
+                    </div>
                 </div>
-                <div id="swatch" class="centerindiv">
-                    <!--<img class="activator" src="images/office.jpg">-->
-                </div>
-                <div id="ranges" class="centerindiv">
-                    <!--<form action="#">-->
-                    <div class="range-field">
-                        <input type="range" class="bGround red" id="red" min="0" max="255" value="127">
-                    </div>
-                    <!--</form>-->
-                    <!--<form action="#">-->
-                    <div class="range-field">
-                        <input type="range" class="bGround green" id="green" min="0" max="255"
-                               value="127">
-                    </div>
-                    <!--</form>-->
-                    <!--<form action="#">-->
-                    <div class="range-field">
-                        <input type="range" class="bGround blue" id="blue" min="0" max="255"
-                               value="127">
-                    </div>
-                    <!--</form>-->
+                <div class="centerindiv">
+                    <a class="waves-effect waves-light green btn" style="width:150px; margin-right: 5px" id="randomBtn">Random</a>
+                    <a class="waves-effect waves-light blue btn" style="width:150px; margin-left: 5px" id="clearBtn">Clear</a>
                 </div>
             </div>
+
             <!--</div>-->
         </div>
         <!--<div class="col s6 m6 l6">-->
@@ -119,7 +118,7 @@
         <li style="margin-top: -20px;" id="shareTextHolder">
             <div class="input-field" id="shareText" style="width: 300px">
                 <input placeholder="URL Address" id="location" type="text" class="validate">
-                <label for="location">Copy to share</label>
+                <label for="location" style="background-color: white">Copy to share</label>
             </div>
         </li>
         <li class="tooltip"><a class="btn-floating red " id="shareBtn"

@@ -315,54 +315,54 @@ var provider = new firebase.auth.GoogleAuthProvider();
 
 var imgKey
 
-var svgImgSvgRef
-actions.login = function () {
-    firebase.auth().signInWithPopup(provider).then(function (result) {
-        // This gives you a GitHub Access Token. You can use it to access the GitHub API.
-        var token = result.credential.accessToken;
-        // The signed-in user info.
-        var user = result.user;
-        data.user = {}
-        data.user.displayName = user.displayName
-        data.user.uid = user.uid
-        localStorage.setItem('amazingpixel::user', JSON.stringify(data.user))
-        console.log('>>>>', data.user)
-        var userRef = firebaseRef.child('users')
-
-        var uRef = userRef.child(data.user.uid)
-        uRef.set(data.user)
-        uRef.on('value', function (snapshot) {
-            data.user = snapshot.val()
-            render_nav()
-            render_canvas()
-            render_storage()
-        })
-        if (data.user != null) {
-            // userImgSvgRef = firebaseRef.child('userImages').child(data.user.uid).child('svg').push()
-            imgKey = '-KO1YIEkBU1H0ort7I17'
-            svgImgSvgRef = firebaseRef.child('userImages').child(data.user.uid).child('svg').child(imgKey)
-            console.log('line 336', imgKey)
-            // userImgSvgRef.set(paths)
-            svgImgSvgRef.on('value', function (snapshot) {
-                var val = snapshot.val()
-                _.map(val, function (v, k) {
-                    paths[k] = {}
-                    paths[k].d = v.d
-                    paths[k].stroke = v.stroke
-                    paths[k].stroke_miterlimit = v.stroke_miterlimit
-                    paths[k].style = v.style
-                })
-                render_svgCanvas()
-
-            })
-        }
-    }).catch(function (error) {
-
-    });
-
-    render_nav()
-
-}
+// var svgImgSvgRef
+// actions.login = function () {
+//     firebase.auth().signInWithPopup(provider).then(function (result) {
+//         // This gives you a GitHub Access Token. You can use it to access the GitHub API.
+//         var token = result.credential.accessToken;
+//         // The signed-in user info.
+//         var user = result.user;
+//         data.user = {}
+//         data.user.displayName = user.displayName
+//         data.user.uid = user.uid
+//         localStorage.setItem('amazingpixel::user', JSON.stringify(data.user))
+//         console.log('>>>>', data.user)
+//         var userRef = firebaseRef.child('users')
+//
+//         var uRef = userRef.child(data.user.uid)
+//         uRef.set(data.user)
+//         uRef.on('value', function (snapshot) {
+//             data.user = snapshot.val()
+//             render_nav()
+//             render_canvas()
+//             render_storage()
+//         })
+//         if (data.user != null) {
+//             // userImgSvgRef = firebaseRef.child('userImages').child(data.user.uid).child('svg').push()
+//             imgKey = '-KO1YIEkBU1H0ort7I17'
+//             svgImgSvgRef = firebaseRef.child('userImages').child(data.user.uid).child('svg').child(imgKey)
+//             console.log('line 336', imgKey)
+//             // userImgSvgRef.set(paths)
+//             svgImgSvgRef.on('value', function (snapshot) {
+//                 var val = snapshot.val()
+//                 _.map(val, function (v, k) {
+//                     paths[k] = {}
+//                     paths[k].d = v.d
+//                     paths[k].stroke = v.stroke
+//                     paths[k].stroke_miterlimit = v.stroke_miterlimit
+//                     paths[k].style = v.style
+//                 })
+//                 render_svgCanvas()
+//
+//             })
+//         }
+//     }).catch(function (error) {
+//
+//     });
+//
+//     render_nav()
+//
+// }
 
 actions.logout = function () {
 

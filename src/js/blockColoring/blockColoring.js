@@ -1,3 +1,27 @@
+var svgCanvasSelector = $('#svgCanvas')
+var svgId = window.location.hash.substr(1)
+var firebaseRef = new Firebase('https://coloringfun.firebaseio.com/');
+var svgImgSvgRef = firebaseRef.child('svgTemplate').child(svgId)
+var user = JSON.parse(localStorage.getItem('amazingpixel::user'))
+
+
+
+var paths = {}
+// console.log('svgId' + svgId)
+var firebaseRef = new Firebase('https://coloringfun.firebaseio.com/');
+var svgImgSvgRef = firebaseRef.child('svgTemplate').child(svgId)
+svgImgSvgRef.on('value', function (snapshot) {
+    var val = snapshot.val()
+    _.map(val, function (v, k) {
+        // console.log(k)
+        paths[k] = {}
+        paths[k].id = k
+        paths[k].d = v.d
+        paths[k].style = v.style
+        paths[k].class = v.class
+    })
+})
+
 var currentColor = '#FFFFFF';
 var bg = $(".color");
 var colors = {
@@ -169,7 +193,7 @@ function rgbToHex(r, g, b) {
     return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
 }
 
-function getBrightness (hex) {
+function getBrightness(hex) {
     var rgb = hexToRgb(hex)
     return (rgb.r * 299 + rgb.g * 587 + rgb.b * 114) / 1000;
 }
@@ -181,9 +205,7 @@ function isDark(hex) {
 
 (function ($) {
 
-  
 
-    
     function swatchClick() {
         currentColor = $(this).data('color')
         bg.css('background-color', currentColor);
@@ -197,7 +219,7 @@ function isDark(hex) {
         console.log(currentColor)
 
         console.log(toNmae(currentColor))
-        
+
         var rgb = hexToRgb(currentColor)
 
         $('#red').val(rgb.r);
@@ -207,72 +229,53 @@ function isDark(hex) {
     }
 
 
-    // console.log(colors.length)
-    var svgCanvasSelector = $('#svgCanvas')
-    var svgId = window.location.hash.substr(1)
-    var firebaseRef = new Firebase('https://coloringfun.firebaseio.com/');
-    var svgImgSvgRef = firebaseRef.child('svgTemplate').child(svgId)
-
-
-    function colorMe() {
-        TweenMax.to(this, fillSpeed, {fill: currentColor});
-    }
+    // function colorMe() {
+    //     TweenMax.to(this, fillSpeed, {fill: currentColor});
+    // }
 
     function svgRandom() {
         // console.log(svgCanvasSelector)
+        hexcolors = Object.keys(hexNames)
         $('.block').each(function () {
-            var randomNum = Math.floor((Math.random() * colors.length));
-            console.log(randomNum)
+            var randomNum = Math.floor((Math.random() * Object.keys(colors).length));
+            var color = hexcolors[randomNum]
+            // console.log(randomNum)
             // console.log(colors[randomNum])
-            svgImgSvgRef.child(this.id).update({"style": {"fill": tinycolor.random().toRgbString()}})
+            // TweenMax.to(this, 0.5, {fill: color});
+            svgImgSvgRef.child(this.id).update({"style": {"fill": color}})
         })
     }
 
     function svgClear() {
         $(".block").each(function () {
-            TweenMax.to(this, fillSpeed, {fill: "#FFF"});
-            svgImgSvgRef.child(this.id).update({"style": {"fill": "#FFFFFF".valueOf()}})
+            // TweenMax.to(this, fillSpeed, {fill: "#FFF"});
+            svgImgSvgRef.child(this.id).update({"style": {"fill": "#FFFFFF"}})
         })
     }
 
     function btnUploadSVG() {
-        // var svgInfo = $("<div/>").append(mainHolder.clone()).html();
-        // $(this).attr({
-        //     href: "data:image/svg+xml;utf8," + svgInfo,
-        //     download: 'coloringBook.svg',
-        //     target: "_blank"
-        // });
         var svgString = new XMLSerializer().serializeToString(document.querySelector('#svgCanvas').querySelector('svg'));
         var svg = new Blob([svgString], {type: "image/svg+xml;charset=utf-8"});
         var storageRef = firebase.storage().ref();
         var metadata = {
             contentType: 'image/svg',
         };
-        var uploadtask = storageRef.child('public').child(svgId + '.svg').put(svg, metadata)
-        console.log('up')
+
+        firebaseRef.child('svgColored').child(user.uid).set({'a':'b'})
+        var coloredSvgRef = firebaseRef.child('svgColored').child(user.uid).push()
+        
+        console.log(coloredSvgRef.key)
+        firebaseRef.child('svgColored').child(user.uid).child(coloredSvgRef).set(path)
+        firebaseRef.child('svgColored').child(user.uid).child(svgId).set(paths)
+        
+        var uploadtask = storageRef.child('colored').child(user.uid).child(coloredSvgRef.key + '.svg').put(svg, metadata)
+        
+        console.log(db.key)
+
     }
 
     function btnDownloadPNG() {
-        // Future expantion:
-        // Look at http://bl.ocks.org/biovisualize/8187844
-
-        // var svgString = new XMLSerializer().serializeToString(document.querySelector('#svgCanvas').querySelector('svg'));
-        // var svg = new Blob([svgString], {type: "image/svg+xml;charset=utf-8"});
-        // var storageRef = firebase.storage().ref();
-        // var metadata = {
-        //     contentType: 'image/svg',
-        // };
-        // var uploadtask = storageRef.child('public').child('c.svg').put(svg, metadata)
         saveSvgAsPng($('svg')[0], svgId + ".png");
-
-
-        // uploadtask.on(firebase.storage.TaskEvent.STATE_CHANGED, {
-        //     'complete': function() {
-        //         // console.log('upload complete!');
-        //     }
-        // });
-        // svgAsPngUri(document.querySelector('#svgCanvas').querySelector('svg'), {}, function(uri) {
-        // });
     }
 
     $.fn.makeSwatches = function () {
@@ -325,14 +328,7 @@ function isDark(hex) {
         $(btnClear).on('click', svgClear)
     }
     $.fn.btnDownload = function () {
-        // $(this).on('click', svgDownloadPNG)
-        // if(type == 'PNG'){
-        //     btnDownloadPNG = this
-        //     $(this).on('mouseenter', svgDownloadPNG)
-        // } else {
-        //     btnDownloadSVG = this
         $(this).on('click', btnDownloadPNG)
-        // }
     }
     $.fn.btnUpload = function () {
         // $(this).on('click', svgDownloadPNG)
@@ -358,27 +354,9 @@ function isDark(hex) {
 
 
 $('#swatch').makeSwatches()
-$('#btnRandom').btnRandom()
-$('#btnClear').btnClear()
-/**
- * Created by pepe on 8/3/16.
- */
-//
-// $('.bGround').bind('touchmove',function(e){
-//     //e.preventDefault();
-//     var bg = $(".color");
-//
-//     var redVal = $(".red").val();
-//     var greenVal = $(".green").val();
-//     var blueVal = $(".blue").val();
-//
-//     var whatIs = 'rgb(' + redVal + ',' + greenVal + ',' + blueVal + ')';
-//
-//     bg.css('background-color', whatIs);
-//     $('.show-color').text(whatIs);
-//     //console.log(whatIs);
-// });
-//
+$('#randomBtn').btnRandom()
+$('#clearBtn').btnClear()
+
 $(".bGround").on("change", function () {
     var redVal = $('#red').val()
     var greenVal = $("#green").val();
@@ -390,6 +368,12 @@ $(".bGround").on("change", function () {
     bg.css('background-color', customColor);
     $('.show-color').text(toNmae(customColor));
     currentColor = customColor;
+
+    if (isDark(currentColor)) {
+        $('.show-color').css('color', 'white')
+    } else {
+        $('.show-color').css('color', 'black')
+    }
 });
 
 
@@ -418,22 +402,7 @@ $(document).ready(function () {
         // $('#shareText').css('visibility', 'hidden');
     })
     $('#menuBtn').on('click', function () {
-        // if ( !$('#menu').hasClass('active') ) {
         $('#shareTextHolder').css('visibility', 'hidden');
         $('#shareText').css('visibility', 'hidden');
-        // showShare = false
-        // }
-        // $('#shareTextHolder').css('visibility', 'hidden');
-        // $('#shareText').css('visibility', 'hidden');
     })
-
-    var testp = colorpalette($('#test'));
-    testp.fillcontainer();
-    // $('#redbutton').hover(function () {
-    //     console.log('hovered')
-    //     $('.tooltiptext').css('visibility', 'visible')
-    // })
 })
-
-
-
