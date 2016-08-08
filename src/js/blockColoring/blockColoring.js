@@ -261,16 +261,17 @@ function isDark(hex) {
             contentType: 'image/svg',
         };
 
-        firebaseRef.child('svgColored').child(user.uid).set({'a':'b'})
+        // firebaseRef.child('svgColored').child(user.uid).set({'a':'b'})
         var coloredSvgRef = firebaseRef.child('svgColored').child(user.uid).push()
         
-        console.log(coloredSvgRef.key)
-        firebaseRef.child('svgColored').child(user.uid).child(coloredSvgRef).set(path)
+        console.log(coloredSvgRef.key())
+        svgId =  coloredSvgRef.key()
+        // firebaseRef.child('svgColored').child(user.uid).child(coloredSvgRef.key()).set(paths)
         firebaseRef.child('svgColored').child(user.uid).child(svgId).set(paths)
         
-        var uploadtask = storageRef.child('colored').child(user.uid).child(coloredSvgRef.key + '.svg').put(svg, metadata)
+        var uploadtask = storageRef.child('colored').child(user.uid).child(svgId + '.svg').put(svg, metadata)
         
-        console.log(db.key)
+        // console.log(db.key)
 
     }
 

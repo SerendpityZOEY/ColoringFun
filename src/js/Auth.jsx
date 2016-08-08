@@ -19,7 +19,7 @@ class Auth extends React.Component {
             react.setState(
                 {
                     user: {
-                        uid: user.uid,
+                        uid: result.user.uid,
                         email: user.email,
                         displayName: user.displayName,
                         avatar: user.photoURL
