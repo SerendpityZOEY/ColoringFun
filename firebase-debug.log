@@ -3,7 +3,7 @@
 [debug] CLI Version:  3.0.4
 [debug] Platform:     darwin
 [debug] Node Version: v6.3.1
-[debug] Time:         Sat Aug 06 2016 13:38:38 GMT-0600 (MDT)
+[debug] Time:         Sun Aug 07 2016 22:19:03 GMT-0600 (MDT)
 [debug] ----------------------------------------------------------------------
 [debug] 
 [warn] ⚠  "firebase" key in firebase.json is deprecated. Run firebase use --add instead
