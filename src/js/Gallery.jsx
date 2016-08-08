@@ -5,12 +5,11 @@ MyComponents.List = React.createClass({
             <div className="col l3">
             <div className="card">
             <div className="card-image">
-            <img src={this.props.imgs} style={{height:300,width:300}}/>
-            <span className="card-title">Card Title</span>
+            <img src={this.props.imgs.url} style={{height:300,width:300}}/>
+            <span className="card-title">{this.props.imgs.fileName}</span>
         </div>
         <div className="card-content">
-            <p>I am a very simple card. I am good at containing small bits of information.
-            I am convenient because I require little markup to use effectively.</p>
+            <p>{this.props.imgs.fileName}</p>
         </div>
         <div className="card-action">
             <a href="#">This is a link</a>
@@ -50,20 +49,14 @@ class Gallery extends React.Component {
 
     render() {
 
-        console.log(this.state.userlist[this.state.user.uid])
         var imglist = this.state.userlist[this.state.user.uid]
-        var fileNames=[]
-        var urls=[]
+        var res=[]
         for(var key in imglist){
-            console.log('key',key)
-            console.log('next',imglist[key].fileName)
-            console.log('next',imglist[key].url)
-            fileNames.push(imglist[key].fileName)
-            urls.push(imglist[key].url)
+            res.push({fileName:imglist[key].fileName,url:imglist[key].url})
         }
 
-        console.log('line 51 ',fileNames)
-        var imgs = urls.map(function(s,i){
+        console.log('line 51 ',res)
+        var imgs = res.map(function(s,i){
             return <MyComponents.List imgs={s} key={i}/>
         });
 
