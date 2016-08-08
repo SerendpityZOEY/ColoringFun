@@ -66,17 +66,36 @@ class Canvas extends React.Component {
 
     handleDelete(item, e) {
 
-        var firebaseRef = new Firebase('https://coloringfun.firebaseio.com/userImages');
-        var userRef = firebaseRef.child(this.state.user.uid);
-        userRef.on('value', function (snapshot) {
-            snapshot.forEach(function (childSnapshot) {
-                var key = childSnapshot.key();
-                var childData = childSnapshot.val();
-                if (childData.fileName == item) {
-                    userRef.child(key).remove();
-                }
+        if(this.state.user==null){
+
+            var firebaseRef = new Firebase('https://coloringfun.firebaseio.com/pubImages');
+            firebaseRef.on('value', function (snapshot) {
+                snapshot.forEach(function (childSnapshot) {
+                    console.log('seeee',childSnapshot.val())
+                    var key = childSnapshot.key();
+                    var childData = childSnapshot.val();
+                    console.log('key',key)
+                    console.log('childData',childData.fileName)
+                    if (childData.fileName == item) {
+                        firebaseRef.child(key).remove();
+                    }
+                });
             });
-        });
+        }else{
+
+            var firebaseRef = new Firebase('https://coloringfun.firebaseio.com/userImages');
+            var userRef = firebaseRef.child(this.state.user.uid);
+            userRef.on('value', function (snapshot) {
+                snapshot.forEach(function (childSnapshot) {
+                    var key = childSnapshot.key();
+                    var childData = childSnapshot.val();
+                    if (childData.fileName == item) {
+                        userRef.child(key).remove();
+                    }
+                });
+            });
+        }
+
 
     }
 
@@ -99,19 +118,35 @@ class Canvas extends React.Component {
     render() {
 
         if (this.state.user == null) {
-            var backgroundList = (
-                <div id="content">
-                    {
-                        this.props.options.map(item => {
-                            return <div onClick={this.handleItemClick.bind(this)} className="item">
-                                {item}
-                                <i className="material-icons right"
-                                   onClick={this.handleDelete.bind(this,item)}>delete</i>
-                            </div>;
-                        })
-                    }
-                </div>
-            );
+            if (this.props.options.length==0) {
+                var backgroundList = (
+                    <div id="content">
+                        You don't have any files in our database. :)
+                    </div>
+                )
+            } else {
+                var pubFiles = [];
+                var Objects = this.props.options;
+
+                for (var key in Objects) {
+                    pubFiles.push(Objects[key].fileName)
+                }
+                backgroundList = (
+                    <div id="content">
+                        {
+                            pubFiles.map(item => {
+                                return <div>
+                                    <div onClick={this.handleItemClick.bind(this)} className="item">
+                                        {item}
+                                        <i className="material-icons right" onClick={this.handleDelete.bind(this,item)}>delete</i>
+                                    </div>
+                                </div>;
+                            })
+                        }
+                    </div>
+                );
+            }
+
         } else {
             if (this.props.data.userlist[this.state.user.uid] == undefined) {
                 backgroundList = (

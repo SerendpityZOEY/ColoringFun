@@ -32,10 +32,16 @@ class Dropdown extends React.Component {
         let dropdown = undefined;
         if (this.state.expanded) {
             if (this.state.user == null) {
+                var pubFiles = [];
+                var objs = this.props.options;
+                console.log(objs)
+                for (var key in objs) {
+                    pubFiles.push(objs[key].fileName)
+                }
                 dropdown = (
                     <div className="content">
                         {
-                            this.props.data.options.map(item => {
+                            pubFiles.map(item => {
                                 return <div onClick={(e) => { this.handleItemClick(e); }} className="item">{item}</div>;
                             })
                         }

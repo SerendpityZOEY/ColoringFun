@@ -59,6 +59,7 @@ function render_dropdown() {
         <MyComponents.Dropdown
             actions={actions}
             data={data}
+            options={options}
             />,
         $('#app').get(0)
     )
@@ -165,8 +166,7 @@ actions.upload = function (file) {
 
     //Upload images to pub or user
     if (data.user == null) {
-        var uploadTask = storageRef.child('images/' + file.name).put(file, metadata);
-        firebaseRef.child('pubImages').child(fileNameDir).set({fileName:file.name});
+        var uploadTask = storageRef.child('public/' + file.name).put(file, metadata);
     } else {
         console.log('user id', data.user.uid)
         uploadTask = storageRef.child(data.user.uid + '/images/' + file.name).put(file, metadata);
@@ -195,6 +195,12 @@ actions.upload = function (file) {
         alert("Upload succeed!");
         var downloadURL = uploadTask.snapshot.downloadURL;
         console.log('download url', downloadURL);
+        if(data.user==null){
+            firebaseRef.child('pubImages').child(fileNameDir).set({
+                fileName:file.name,
+                url:downloadURL
+            });
+        }
         firebaseRef.child('userImages').child(data.user.uid).child(fileNameDir).set({
             fileName:file.name,
             url:downloadURL
@@ -210,7 +216,7 @@ actions.download = function (fileName) {
 
     if (data.user == null) {
         // Get the download URL
-        starsRef.child('images/' + fileName).getDownloadURL().then(function (url) {
+        starsRef.child('public/' + fileName).getDownloadURL().then(function (url) {
             // Insert url into an <img> tag to "download"
             SaveToDisk(url, fileName)
             console.log('downloading', url)
@@ -285,7 +291,7 @@ actions.getImageURL = function (fileName) {
     var starsRef = firebase.storage().ref();
     // Get the download URL
     if (data.user == null) {
-        starsRef.child('images/' + fileName).getDownloadURL().then(function (url) {
+        starsRef.child('public/' + fileName).getDownloadURL().then(function (url) {
             Imgurl = url
             render_canvas();
         });
