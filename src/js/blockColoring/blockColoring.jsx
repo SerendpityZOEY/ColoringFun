@@ -4,16 +4,8 @@
 var svgId = window.location.hash.substr(1)
 var paths = {}
 // console.log('svgId' + svgId)
-function render_svgCanvas() {
-    ReactDOM.render(
-        <MyComponents.SvgCanvas
-            paths={paths}/>,
-        $('#svgCanvas').get(0)
-    )
-}
-
 var firebaseRef = new Firebase('https://coloringfun.firebaseio.com/');
-var svgImgSvgRef = firebaseRef.child('svgTemplate').child(svgId)
+var svgImgSvgRef = firebaseRef.child('svgColored').child(svgId).child('svgInfo')
 svgImgSvgRef.on('value', function (snapshot) {
     var val = snapshot.val()
     _.map(val, function (v, k) {
@@ -25,6 +17,20 @@ svgImgSvgRef.on('value', function (snapshot) {
         paths[k].class = v.class
     })
     render_svgCanvas()
-
 })
+$(document).ready(function () {
+    firebaseRef.child('svgColored').child(svgId).child('fileName').on('value', function (snapshot) {
+        var fileName = snapshot.val()
+        console.log(fileName)
+        $('#fileName').val(fileName)
+    })
+})
+// console.log('svgId' + svgId)
+function render_svgCanvas() {
+    ReactDOM.render(
+        <MyComponents.SvgCanvas
+            paths={paths}/>,
+        $('#svgCanvas').get(0)
+    )
+}
 
