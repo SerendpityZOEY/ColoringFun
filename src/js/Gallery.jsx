@@ -2,17 +2,13 @@ MyComponents.List = React.createClass({
 
     render: function() {
         return (
-            <div className="col l3">
-                <div className="card">
-                    <div className="card-image">
-                        <img src={this.props.imgs.url} style={{height:300,width:300}}/>
+            <div className="col s12 m6 l4">
+                <div className="card"style={{height:330,width:"100%"}}>
+                    <div className="card-image"style={{height:300,width:"100%"}}>
+                        <img src={this.props.imgs.url} style={{height:300,width:"100%"}}/>
                         <span className="card-title">{this.props.imgs.fileName}</span>
                     </div>
-                    <div className="card-content">
-                        <p>{this.props.imgs.fileName}</p>
-                    </div>
-                    <div className="card-action">
-                        <a href="#">This is a link</a>
+                    <div className="card-content"style={{height: "5px"}}>
                     </div>
                 </div>
             </div>

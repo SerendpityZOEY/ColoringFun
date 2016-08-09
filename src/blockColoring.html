@@ -113,14 +113,19 @@
     <script type="text/babel" src="js/Auth.jsx"></script>
     <script type="text/babel" src="js/Navbar.jsx"></script>
 </div>
-<div id="test"></div>
+<div class="tooltip fixed-action-btn horizontal click-to-toggle " id="gallery" style="bottom: 130px; right: 24px; position: fixed;">
+    <a href="blockGallery.html" class="btn-floating btn-large amber" >
+        <i class="mdi-image-collections"></i>
+    </a>
+    <span class="tooltiptext">Gallery</span>
+</div>
 <div class="fixed-action-btn horizontal click-to-toggle" id="menu" style="bottom: 45px; right: 24px;">
     <a class="btn-floating btn-large red" id="menuBtn">
         <i class="mdi-navigation-menu"></i>
     </a>
     <ul>
         <li style="margin-top: -20px;" id="shareTextHolder">
-            <div class="input-field" id="shareText" style="width: 300px">
+            <div class="input-field" id="shareText" style="width: 100px">
                 <input placeholder="URL Address" id="location" type="text" class="validate">
                 <label for="location" style="background-color: white">Copy to share</label>
             </div>
@@ -140,6 +145,11 @@
                                style="transform: scaleY(0.4) scaleX(0.4) translateY(40px); opacity: 0;"><i
                 class="large mdi-file-file-download"></i></a>
             <span class="tooltiptext">Download</span>
+        </li>
+        <li class="tooltip"><a class="btn-floating grey" id="deleteBtn"
+                               style="transform: scaleY(0.4) scaleX(0.4) translateY(40px); opacity: 0;"><i
+                class="large mdi-action-delete"></i></a>
+            <span class="tooltiptext">Delete</span>
         </li>
     </ul>
 
