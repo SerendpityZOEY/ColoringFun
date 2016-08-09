@@ -25,7 +25,7 @@ class Gallery extends React.Component {
         }
     }
 
-    loading() {
+    componentWillMount() {
         console.log('heyheyhey')
         var curUser=this.state.user.uid
         var component = this
@@ -58,7 +58,6 @@ class Gallery extends React.Component {
 
         return (
             <div>
-                <a className="waves-effect waves-light btn orange darken-1 col s3" onClick={this.loading.bind(this)}>Click</a>
                 <div className="row">
                     {imgs}
                 </div>
