@@ -154,13 +154,21 @@ actions.upload = function (file) {
     // Get a reference to the storage service, which is used to create references in your storage bucket
     var storageRef = firebase.storage().ref();
 
-    // Create file metadata including the content type
-    var metadata = {
-        contentType: 'image/jpeg',
-    };
-
     var lastIndex = file.name.lastIndexOf(".");
     var fileNameDir = file.name.substring(0, lastIndex);
+
+    console.log('upload file type',file.name.substring(lastIndex+1));
+
+    if(file.name.substring(lastIndex+1)=='svg'){
+        var metadata = {
+            contentType: 'image/svg+xml',
+        };
+    }else{
+        var metadata = {
+            contentType: 'image/jpeg',
+        };
+    }
+
 
     data.user = JSON.parse(localStorage.getItem('amazingpixel::user'));
 
