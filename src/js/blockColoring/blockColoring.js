@@ -249,14 +249,14 @@ function isDark(hex) {
             // console.log(randomNum)
             // console.log(colors[randomNum])
             // TweenMax.to(this, 0.5, {fill: color});
-            svgImgSvgRef.child(this.id).set({"style": {"fill": color}})
+            svgImgSvgRef.child(this.id).update({"style": {"fill": color}})
         })
     }
 
     function svgClear() {
         $(".block").each(function () {
             // TweenMax.to(this, fillSpeed, {fill: "#FFF"});
-            svgImgSvgRef.child(this.id).set({"style": {"fill": "#FFFFFF"}})
+            svgImgSvgRef.child(this.id).update({"style": {"fill": "#FFFFFF"}})
         })
     }
 

@@ -54,7 +54,7 @@ class Auth extends React.Component {
         if (this.state.user == null) {
             return (
                 <ul id="nav-mobile" className="right">
-                    <li><a href="#" onClick={this.login.bind(this)}>Login Via Google</a></li>
+                    <li><a href="#" id = "loginBtn" onClick={this.login.bind(this)}>Login Via Google</a></li>
                 </ul>
             );
         } else {
