@@ -30,3 +30,19 @@
 [info] Public Directory: build
 [info] 
 [info] Server listening at: http://localhost:5000
+[debug] ----------------------------------------------------------------------
+[debug] Command:      /usr/local/Cellar/node/6.3.1/bin/node /usr/local/bin/firebase serve
+[debug] CLI Version:  3.0.4
+[debug] Platform:     darwin
+[debug] Node Version: v6.3.1
+[debug] Time:         Tue Aug 09 2016 22:59:40 GMT-0600 (MDT)
+[debug] ----------------------------------------------------------------------
+[debug] 
+[warn] ⚠  "firebase" key in firebase.json is deprecated. Run firebase use --add instead
+[warn] ⚠  Deprecation Warning: Firebase Hosting configuration should be moved under "hosting" key.
+[info] Starting Firebase development server...
+[info] 
+[info] Project Directory: /Users/yuezhang/Documents/AmazingPixel
+[info] Public Directory: build
+[info] 
+[info] Server listening at: http://localhost:5000

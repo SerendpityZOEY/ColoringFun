@@ -264,13 +264,13 @@ class Canvas extends React.Component {
 
                     <div className="col s5 m5 l5">
                         <div className="btnContainer">
-                            <a className="waves-effect waves-light btn orange darken-1 col s3" id="brush">Brush</a>
-                            <a className="waves-effect waves-light btn orange darken-1 col s3" id="pencil">Pencil</a>
-                            <a className="waves-effect waves-light btn orange darken-1 col s3" id="spray">Spray</a>
-                            <a className="waves-effect waves-light btn orange darken-1 col s3"
+                            <a className="waves-effect waves-orange darken-1 btn-flat col s3" id="brush">Brush</a>
+                            <a className="waves-effect waves-orange darken-1 btn-flat col s3" id="pencil">Pencil</a>
+                            <a className="waves-effect waves-orange darken-1 btn-flat col s3" id="spray">Spray</a>
+                            <a className="waves-effect waves-orange darken-1 btn-flat col s3"
                                onClick={this.resetCanvas.bind(this)}>Reset</a>
-                            <a className="waves-effect waves-light btn orange darken-1 col s3" id="saveFile">Save</a>
-                            <a className="waves-effect waves-light btn orange darken-1 col s3"
+                            <a className="waves-effect waves-orange darken-1 btn-flat col s3" id="saveFile">Save</a>
+                            <a className="waves-effect waves-orange darken-1 btn-flat col s3"
                                onClick={this.showModal.bind(this)} style={{ fontSize :9}}>Set Background</a>
                             <div id="modal" style={this.state} onClick={(e) => this.closeOnBackground(e)}>
                                 <span className="modal-close" onClick={(e) => this.hideModal(e)}>x</span>
