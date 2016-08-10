@@ -249,14 +249,14 @@ function isDark(hex) {
             // console.log(randomNum)
             // console.log(colors[randomNum])
             // TweenMax.to(this, 0.5, {fill: color});
-            svgImgSvgRef.child(this.id).update({"style": {"fill": color}})
+            svgImgSvgRef.child(this.id).set({"style": {"fill": color}})
         })
     }
 
     function svgClear() {
         $(".block").each(function () {
             // TweenMax.to(this, fillSpeed, {fill: "#FFF"});
-            svgImgSvgRef.child(this.id).update({"style": {"fill": "#FFFFFF"}})
+            svgImgSvgRef.child(this.id).set({"style": {"fill": "#FFFFFF"}})
         })
     }
 
@@ -297,7 +297,6 @@ function isDark(hex) {
                 }, function () {
                     // Handle successful uploads on complete
                     // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-                    Materialize.toast('Save Successfully', 3000)
                     var downloadURL = uploadtask.snapshot.downloadURL;
                     firebaseRef.child('svgColored').child(svgId).child('url').set(downloadURL)
                     firebaseRef.child('svgColored').child(svgId).child('fileName').set(fileName)
@@ -313,7 +312,21 @@ function isDark(hex) {
                         }
 
                     })
-                    firebaseRef.child('svgColored').child(svgId).child('svgInfo').update(paths)
+                    firebaseRef.child('svgColored').child(svgId).child('svgInfo').set(paths)
+                    firebaseRef.child('svgColored').child(svgId).child('coList').once('value', function (snapshot) {
+                        var coList = snapshot.val()
+                        console.log(coList)
+                        if (coList == null) {
+                            coList = []
+                            coList.push(user.uid)
+                            firebaseRef.child('svgColored').child(svgId).child('coList').set(coList)
+                        } else if (coList.indexOf(user.uid) == -1) {
+                            coList.push(user.uid)
+                            firebaseRef.child('svgColored').child(svgId).child('coList').set(coList)
+                        }
+
+                    })
+                    Materialize.toast('Save Successfully', 3000)
 
                 });
 
@@ -442,25 +455,41 @@ $(document).ready(function () {
         }, 100);
 
     })
-    
-    $('#deleteBtn').on('click', function () {
-        firebaseRef.child('svgColored').child(svgId).remove()
-        imgList.splice($.inArray(svgId ,imgList),1);
-        firebaseRef.child('users').child(user.uid).child('svgImgList').set(imgList)
-        var desertRef = storageRef.child('colored/' + svgId + '.png');
 
-        desertRef.delete().then(function() {
-            // File deleted successfully
-            Materialize.toast('Delete Successfully', 3000)
-            isDleted = true
-            window.setTimeout(function () {
-                // save_this.select();
-                window.location = 'blockGallery.html'
-            }, 500);
-            
-        }).catch(function(error) {
-            // Uh-oh, an error occurred!
-        });
+    $('#deleteBtn').on('click', function () {
+        imgList.splice($.inArray(svgId, imgList), 1);
+        firebaseRef.child('users').child(user.uid).child('svgImgList').set(imgList)
+        firebaseRef.child('svgColored').child(svgId).child('coList').once('value', function (snapshot) {
+            var coList = snapshot.val()
+            console.log(coList)
+            coList.splice($.inArray(user.uid, coList), 1);
+            console.log(coList)
+            if (coList.length == 0) {
+                firebaseRef.child('svgColored').child(svgId).remove()
+                var desertRef = storageRef.child('colored/' + svgId + '.png');
+
+                desertRef.delete().then(function () {
+                    // File deleted successfully
+                    Materialize.toast('Delete Successfully', 3000)
+                    isDleted = true
+                    window.setTimeout(function () {
+                        // save_this.select();
+                        window.location = 'blockGallery.html'
+                    }, 500);
+
+                }).catch(function (error) {
+                    // Uh-oh, an error occurred!
+                });
+            } else {
+                firebaseRef.child('svgColored').child(svgId).child('coList').set(coList)
+                Materialize.toast('Delete Successfully', 3000)
+                isDleted = true
+                window.setTimeout(function () {
+                    // save_this.select();
+                    window.location = 'blockGallery.html'
+                }, 500);
+            }
+        })
     })
     $('#menu').on('mousemove', function () {
         if (!$('#menu').hasClass('active')) {
