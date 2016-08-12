@@ -2,8 +2,10 @@
 
 For independent study, summer, 2016
 
-A live demo will be available here:
+You can find a live demo to play with at here:
 
 https://coloringfun.firebaseapp.com
 
-*Still in developed version
+OR:
+
+http://coloringfun.cf/
