@@ -1,12 +1,12 @@
 {
   "name": "amazingpixel",
   "version": "1.0.0",
-  "description": "Everything I've learned from UCDD II - 2016.",
+  "description": "Label project demo for NatureNet",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Zoey Yue ZHANG",
+  "author": "Peizhe Cao",
   "license": "ISC",
   "dependencies": {
     "babel-preset-react": "^6.3.13",

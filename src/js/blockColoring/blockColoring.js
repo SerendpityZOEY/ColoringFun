@@ -14,13 +14,11 @@ firebaseRef.child('users').child(user.uid).child('svgImgList').on('value', funct
     }
 })
 var paths = {}
-// console.log('svgId' + svgId)
 var firebaseRef = new Firebase('https://coloringfun.firebaseio.com/');
 var svgImgSvgRef = firebaseRef.child('svgColored').child(svgId).child('svgInfo')
 svgImgSvgRef.on('value', function (snapshot) {
     var val = snapshot.val()
     _.map(val, function (v, k) {
-        // console.log(k)
         paths[k] = {}
         paths[k].id = k
         paths[k].d = v.d
@@ -223,10 +221,6 @@ function isDark(hex) {
         }
         $('.show-color').text(toNmae(currentColor));
         // var rgb = hexToRgb(currentColor);
-        console.log(currentColor)
-
-        console.log(toNmae(currentColor))
-
         var rgb = hexToRgb(currentColor)
 
         $('#red').val(rgb.r);
@@ -241,14 +235,10 @@ function isDark(hex) {
     // }
 
     function svgRandom() {
-        // console.log(svgCanvasSelector)
         hexcolors = Object.keys(hexNames)
         $('.block').each(function () {
             var randomNum = Math.floor((Math.random() * Object.keys(colors).length));
             var color = hexcolors[randomNum]
-            // console.log(randomNum)
-            // console.log(colors[randomNum])
-            // TweenMax.to(this, 0.5, {fill: color});
             svgImgSvgRef.child(this.id).update({"style": {"fill": color}})
         })
     }
@@ -279,7 +269,6 @@ function isDark(hex) {
         // firebaseRef.child('svgColored').child(user.uid).set({'a':'b'})
         // var coloredSvgRef = firebaseRef.child('svgColored').child(user.uid).push()
 
-        // console.log(coloredSvgRef.key())
         // svgId =  coloredSvgRef.key()
         // firebaseRef.child('svgColored').child(user.uid).child(coloredSvgRef.key()).set(paths)
         // firebaseRef.child('svgColored').child(user.uid).child(svgId).set(paths)
@@ -315,7 +304,6 @@ function isDark(hex) {
                     firebaseRef.child('svgColored').child(svgId).child('svgInfo').set(paths)
                     firebaseRef.child('svgColored').child(svgId).child('coList').once('value', function (snapshot) {
                         var coList = snapshot.val()
-                        console.log(coList)
                         if (coList == null) {
                             coList = []
                             coList.push(user.uid)
@@ -332,7 +320,6 @@ function isDark(hex) {
 
             });
         }
-        // console.log(db.key)
 
     }
 
@@ -404,8 +391,6 @@ function isDark(hex) {
     }
     svgCanvasSelector.click(function (event) {
         // event.target.style.fill = color;
-        // console.log( $('#' + event.target.id)[0])
-        // console.log($('#' + event.target.id)[0].classList)
         if ($('#' + event.target.id)[0].classList.contains("block")) {
             TweenMax.to(event.target, 0.05, {fill: currentColor});
             svgImgSvgRef.child(event.target.id).update({"style": {"fill": currentColor.valueOf()}})
@@ -425,7 +410,6 @@ $(".bGround").on("change", function () {
     var blueVal = $("#blue").val();
 
     var customColor = rgbToHex(parseInt(redVal), parseInt(greenVal), parseInt(blueVal))
-    console.log(customColor)
 
     bg.css('background-color', customColor);
     $('.show-color').text(toNmae(customColor));
@@ -461,9 +445,7 @@ $(document).ready(function () {
         firebaseRef.child('users').child(user.uid).child('svgImgList').set(imgList)
         firebaseRef.child('svgColored').child(svgId).child('coList').once('value', function (snapshot) {
             var coList = snapshot.val()
-            console.log(coList)
             coList.splice($.inArray(user.uid, coList), 1);
-            console.log(coList)
             if (coList.length == 0) {
                 firebaseRef.child('svgColored').child(svgId).remove()
                 var desertRef = storageRef.child('colored/' + svgId + '.png');

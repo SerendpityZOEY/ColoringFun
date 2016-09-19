@@ -2,9 +2,6 @@ var firebaseRef = new Firebase('https://coloringfun.firebaseio.com/');
 var user = JSON.parse(localStorage.getItem('amazingpixel::user'))
 class Gallery extends React.Component {
     render() {
-        console.log(this.props)
-        console.log(this.props.URLList)
-        console.log(this.props.Names)
         // var i = 1
         var ret = []
         for (var i = 0; i < this.props.URLList.length; ++i) {
@@ -40,7 +37,6 @@ $(document).ready(function () {
     var svgImgNames = []
     firebaseRef.child('users').child(user.uid).child('svgImgList').once('value', function (snapshot) {
         svgImgList = snapshot.val()
-        console.log(svgImgList)
         if (svgImgList != null) {
             svgImgList.forEach(function (imgId) {
                 firebaseRef.child('svgColored').child(imgId).child('url').once('value', function (snapshot) {

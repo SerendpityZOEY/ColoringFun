@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>ReactCanvas</title>
+    <title>PencilDrawing</title>
+    <link rel='shortcut icon' href='https://cdn3.iconfinder.com/data/icons/basic-mobile-part-2/512/painter-512.png' type='image/x-icon'/ >
+
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
@@ -78,6 +80,28 @@
 <div id="app"></div>
 
 <div id="storage"></div>
+
+<div class="fixed-action-btn click-to-toggle" id="menu" style="bottom: 45px; right: 24px;">
+    <a class="btn-floating btn-large red" id="menuBtn">
+        <i class="mdi-navigation-menu"></i>
+    </a>
+    <ul>
+        <li class="tooltip"><a class="btn-floating yellow" href="index.html"
+                               style="transform: scaleY(0.4) scaleX(0.4) translateY(40px); opacity: 0;"><i class="material-icons">home</i> </a>
+            <span class="tooltiptext">Home</span>
+
+        </li>
+        <li class="tooltip"><a class="btn-floating green" href="blockGallery.html"
+                               style="transform: scaleY(0.4) scaleX(0.4) translateY(40px); opacity: 0;"><i class="material-icons">gesture</i></a>
+            <span class="tooltiptext">Block Coloring</span>
+        </li>
+        <li class="tooltip"><a class="btn-floating blue" href="drawingGallery.html"
+                               style="transform: scaleY(0.4) scaleX(0.4) translateY(40px); opacity: 0;"><i class="material-icons">import_contacts</i></a>
+            <span class="tooltiptext">Gallery</span>
+        </li>
+    </ul>
+
+</div>
 
 <script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/DrawSVGPlugin.js?r=11'></script>
 </body>

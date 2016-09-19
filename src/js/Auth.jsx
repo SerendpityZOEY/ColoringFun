@@ -60,7 +60,7 @@ class Auth extends React.Component {
         } else {
             return (
                 <ul id="nav-mobile" className="right">
-                    <li><img src={this.state.user.avatar} style={{width:35,height:35,borderRadius:18,marginTop:15,marginRight:3}}/></li>
+                    <li style={{marginBottom:-15}}><img src={this.state.user.avatar} style={{width:35,height:35,borderRadius:18,marginTop:15,marginRight:3}}/></li>
                     <li>{this.state.user.displayName}</li>
                     <li><a href="#" onClick={this.logout.bind(this)}>Logout</a></li>
                 </ul>
